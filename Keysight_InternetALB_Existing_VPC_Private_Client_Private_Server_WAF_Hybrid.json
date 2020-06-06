@@ -558,15 +558,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }                 
                 ]
             },
@@ -652,15 +652,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ]
             },
@@ -669,7 +669,7 @@
         "TargetGroupWebApplication": {
             "Properties": {
                 "HealthCheckIntervalSeconds": "6",
-                "HealthCheckPath": "/AppSecHTTPHealthCheck",
+                "HealthCheckPath": "/CyPerfHTTPHealthCheck",
                 "HealthCheckPort": {
                     "Ref": "ApplicationLBHTTPHealthChkPort"
                 },
@@ -715,7 +715,7 @@
         "TargetGroupWebApplicationHTTPS": {
             "Properties": {
                 "HealthCheckIntervalSeconds": "6",
-                "HealthCheckPath": "/AppSecHTTPSHealthCheck",
+                "HealthCheckPath": "/CyPerfHTTPSHealthCheck",
                 "HealthCheckPort": {
                     "Ref": "ApplicationLBHTTPSHealthChkPort"
                 },
@@ -787,15 +787,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ]
             },
@@ -830,15 +830,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ]
             },
@@ -891,12 +891,15 @@
                         "PropagateAtLaunch": true,
                         "Value": "ServerFarmBehindALB"
                     },
-                    {
-                        "Key": "Username",
+					{
+						"Key": "Options",
                         "PropagateAtLaunch": true,
-                        "Value": {
-                            "Ref": "Username"
-                        }
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "PropagateAtLaunch": true,
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "TargetGroupARNs": [
@@ -952,7 +955,7 @@
               "ResourceArn": { "Ref": "ApplicationElasticLB" },
               "WebACLId": { "Fn::GetAtt" : [ "CyPerfWAF", "Outputs.wafWebACL" ] }
             }
-        },       
+        },
         "myLifecycleHook":{
             "Type":"AWS::AutoScaling::LifecycleHook",
             "Properties":{
