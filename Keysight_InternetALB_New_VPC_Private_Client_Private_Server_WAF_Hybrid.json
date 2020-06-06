@@ -222,7 +222,7 @@
         },
         "CertificateARN": {
             "Default": "arn:aws:iam::<AccountID>:server-certificate/Secured_RSA_2K",
-            "Description": "Retrieves a certificate specified by ARN & associate it with HTTPSLB",
+            "Description": "Retrieves a certificate specified by ARN & associate it with Load Balancer's HTTPS linstener profile",
             "Type": "String"
         },
         "ApplicationLBHTTPSHealthChkPort": {
@@ -1578,6 +1578,10 @@
                         "Key": "TagName",
                         "PropagateAtLaunch": true,
                         "Value": "AgentBehindALB"
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
                     },
 					{
 						"Key": "Options",
