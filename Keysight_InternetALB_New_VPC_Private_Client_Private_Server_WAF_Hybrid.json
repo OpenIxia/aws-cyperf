@@ -1,6 +1,141 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "\n    Stack creating a VPC and launch EC2 instances within it.\n    **WARNING** This template creates Amazon EC2 instances.\n    You will be billed for the AWS resources used if you create\n    a stack from this template. **WARNING** This template creates\n    role for the launching/deleting instances/subnets/interfaces.\n    This role will invoke AWSLambdaBasicExecutionRole, please see\n    AWS Documentation for details on AWSLambdaBasicExecutionRole.",
+	"Mappings" : {
+		"RegionMap" : {
+			"us-east-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "US East (N. Virginia)",
+				"REGIONxTAG" : "US_EAST_1"
+			},
+			"us-east-2" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.16.146.0/29",
+				"EC2xREGION" : "US East (Ohio)",
+				"REGIONxTAG" : "US_EAST_2"
+			},
+			"us-west-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.52.6.112/29",
+				"EC2xREGION" : "US West (N. California)",
+				"REGIONxTAG" : "US_WEST_1"
+			},
+			"us-west-2" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
+				"EC2xREGION" : "US West (Oregon)",
+				"REGIONxTAG" : "US_WEST_2"
+			},
+			"ap-east-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "Asia Pacific (Hong Kong)",		
+				"REGIONxTAG" : "AP_EAST_1"
+			},
+			"ap-south-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.233.177.0/29",
+				"EC2xREGION" : "Asia Pacific (Mumbai)",
+				"REGIONxTAG" : "AP_SOUTH_1"
+			},
+			"ap-northeast-2" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.209.1.56/29",
+				"EC2xREGION" : "Asia Pacific (Seoul)",
+				"REGIONxTAG" : "AP_NORTHEAST_2"
+			},
+			"ap-southeast-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.0.5.32/29",
+				"EC2xREGION" : "Asia Pacific (Singapore)",
+				"REGIONxTAG" : "AP_SOUTHEAST_1"
+			},
+			"ap-southeast-2" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.239.158.0/29",
+				"EC2xREGION" : "Asia Pacific (Sydney)",
+				"REGIONxTAG" : "AP_SOUTHEAST_2"
+			},
+			"ap-northeast-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.112.23.0/29",
+				"EC2xREGION" : "Asia Pacific (Tokyo)",
+				"REGIONxTAG" : "AP_NORTHEAST_1"
+			},
+			"ca-central-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "35.183.92.176/29",
+				"EC2xREGION" : "Canada (Central)",
+				"REGIONxTAG" : "CA_CENTRAL_1"
+			},
+			"eu-central-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.120.181.40/29",
+				"EC2xREGION" : "EU (Frankfurt)",
+				"REGIONxTAG" : "EU_CENTRAL_1"
+			},
+			"eu-west-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.202.216.48/29",
+				"EC2xREGION" : "EU (Ireland)",
+				"REGIONxTAG" : "EU_WEST_1"
+			},
+			"eu-west-2" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.8.37.24/29",
+				"EC2xREGION" : "EU (London)",
+				"REGIONxTAG" : "EU_WEST_2"
+			},
+			"eu-west-3" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "35.180.112.80/29",
+				"EC2xREGION" : "EU (Paris)",
+				"REGIONxTAG" : "EU_WEST_3"
+			},
+			"eu-north-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
+				"EC2xREGION" : "EU (Stockholm)",
+				"REGIONxTAG" : "EU_NORTH_1"
+			},
+			"me-south-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "Middle East (Bahrain)",		
+				"REGIONxTAG" : "ME_SOUTH_1"
+			},
+			"sa-east-1" : {
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
+				"EC2xREGION" : "South America (Sao Paulo)",
+				"REGIONxTAG" : "SA_EAST_1"
+			}
+		},
+		"VariableMap" : {
+			"global" : {
+				"OPTIONSxTAG" : "DAY"
+			}
+		}
+	},
     "Metadata": {
         "AWS::CloudFormation::Interface": {
             "ParameterGroups": [
@@ -28,8 +163,6 @@
                         "default": "CyPerf Agent Configuration"
                     },
                     "Parameters": [
-                        "AMIIDForCyPerfAgent",
-                        "AmiIdforRemoteMB",
                         "InstanceTypeForCyPerfAgent",
                         "KeyNameForCyPerfAgent",
                         "TagBehindApplicationLB",
@@ -51,12 +184,6 @@
                 }
             ],
             "ParameterLabels": {
-                "AMIIDForCyPerfAgent": {
-                    "default": "AMI-ID for CyPerf Agent"
-                },
-                "AmiIdforRemoteMB": {
-                    "default": "AMI-ID for Remote Message Broker"
-                },
                 "AvailabilityZone1": {
                     "default": "Availability Zone 1"
                 },
@@ -175,11 +302,6 @@
         "AMIIDForCyPerfAgent": {
             "Default": "<Spicify shared AMI ID for CyPerf Agent>",
             "Description": "AMI-ID for the CyPerf Agent instances",
-            "Type": "AWS::EC2::Image::Id"
-        },
-        "AmiIdforRemoteMB": {
-            "Default": "<Specify shared AMI ID for Message Broker>",
-            "Description": "AMI-ID for the Message Broker instance",
             "Type": "AWS::EC2::Image::Id"
         },
         "ApplicationLBHTTPHealthChkPort": {
@@ -471,6 +593,14 @@
             },
             "Type": "AWS::IAM::InstanceProfile"
         },
+		"DefaultEgress1": {
+			"Type" : "AWS::EC2::SecurityGroupEgress",
+			"Properties" : {
+				"GroupId": { "Fn::GetAtt" : ["VPC", "DefaultSecurityGroup"] },
+				"IpProtocol": "-1",
+				"SourceSecurityGroupId": { "Fn::GetAtt" : ["VPC", "DefaultSecurityGroup"] }
+			}
+		},
         "InternetGateway": {
             "Properties": {
                 "Tags": [

@@ -423,9 +423,7 @@
                 "IamInstanceProfile": {
                     "Ref": "EC2InstanceProfile"
                 },
-                "ImageId": {
-                    "Ref": "AMIIDForCyPerfAgent"
-                },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxAGENT"] },
                 "InstanceType": {
                     "Ref": "InstanceTypeForCyPerfAgent"
                 },
@@ -526,9 +524,7 @@
                         }
                     }
                 ],
-                "ImageId": {
-                    "Ref": "AmiIdforRemoteMB"
-                },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxBROKER"] },
                 "InstanceType": "t2.medium",
                 "KeyName": {
                     "Ref": "KeyNameForCyPerfAgent"
