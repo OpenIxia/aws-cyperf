@@ -1,0 +1,3128 @@
+{
+
+    "AWSTemplateFormatVersion": "2010-09-09",
+
+    "Description": "\n    Stack creating a VPC and launch EC2 instances within it.\n    **WARNING** This template creates Amazon EC2 instances.\n    You will be billed for the AWS resources used if you create\n    a stack from this template. **WARNING** This template creates\n    role for the launching/deleting instances/subnets/interfaces.\n    This role will invoke AWSLambdaBasicExecutionRole, please see\n    AWS Documentation for details on AWSLambdaBasicExecutionRole.",
+
+    "Metadata": {
+
+        "AWS::CloudFormation::Interface": {
+
+            "ParameterGroups": [
+
+                {
+
+                    "Label": {
+
+                        "default": "NETWORK CONFIGURATION"
+
+                    }
+
+                },
+
+                {
+
+                    "Label": {
+
+                        "default": "VPC Configuration"
+
+                    },
+
+                    "Parameters": [
+
+                        "Username",
+
+                        "Project",
+
+                        "AvailabilityZone1",
+
+                        "AvailabilityZone2",
+
+                        "VPCCIDR",
+
+                        "ManagementNetworkCIDR1",
+
+                        "ManagementNetworkCIDR2"
+
+                    ]
+
+                },
+
+                {
+
+                    "Label": {
+
+                        "default": "CyPerf Agent Configuration"
+
+                    },
+
+                    "Parameters": [
+
+                        "AMIIDForCyPerfAgent",
+
+                        "AmiIdforRemoteMB",
+
+                        "InstanceTypeForCyPerfAgent",
+
+                        "KeyNameForCyPerfAgent",
+
+                        "TagBehindApplicationLB",
+
+                        "TestInitForCyPerfAgentAZ1",
+
+                        "TestInitForCyPerfAgentAZ2",
+
+                        "MBInitForCyPerfAgentAZ1",
+
+                        "MBInitForCyPerfAgentAZ2"
+
+                    ]
+
+                },
+
+                {
+
+                    "Label": {
+
+                        "default": "Security-Group Configuration"
+
+                    },
+
+                    "Parameters": [
+
+                        "AllowedSubnet1",
+
+                        "AllowedSubnet2",
+
+                        "AllowedSubnet3"
+                    ]
+
+                }
+
+            ],
+
+            "ParameterLabels": {
+
+                "AMIIDForCyPerfAgent": {
+
+                    "default": "AMI-ID for CyPerf Agent"
+
+                },
+
+                "AmiIdforRemoteMB": {
+
+                    "default": "AMI-ID for Remote Message Broker"
+
+                },
+
+                "AvailabilityZone1": {
+
+                    "default": "Availability Zone 1"
+
+                },
+
+                "AvailabilityZone2": {
+
+                    "default": "Availability Zone 2"
+
+                },
+
+                "AllowedSubnet2": {
+
+                    "default": "AllowedSubnet2"
+
+                },
+
+                "AllowedSubnet3": {
+
+                    "default": "AllowedSubnet3"
+
+                },
+
+                "InstanceCount": {
+
+                    "default": "Instance Count"
+
+                },
+
+                "InstanceTypeForCyPerfAgent": {
+
+                    "default": "Instance Type CyPerf Agent"
+
+                },
+
+                "KeyNameForCyPerfAgent": {
+
+                    "default": "SSH Key"
+
+                },
+
+                "MBInitForCyPerfAgentAZ1": {
+
+                    "default": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1"
+
+                },
+
+                "MBInitForCyPerfAgentAZ2": {
+
+                    "default": "Management Subnet (Message Broker subnet D) for CyPerf Agent for AZ2"
+
+                },
+
+                "ManagementNetworkCIDR1": {
+
+                    "default": "Public subnet (Public subnet A) for AZ1"
+
+                },
+
+                "ManagementNetworkCIDR2": {
+
+                    "default": "Public subnet (Public subnet B) for AZ2"
+
+                },
+
+                "AllowedSubnet1": {
+
+                    "default": "AllowedSubnet1"
+
+                },
+
+                "TagBehindApplicationLB": {
+
+                    "default": " Agents Tag running Behind Application LB"
+
+                },
+
+                "TestInitForCyPerfAgentAZ1": {
+
+                    "default": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1"
+
+                },
+
+                "TestInitForCyPerfAgentAZ2": {
+
+                    "default": "Test Subnet (Private subnet B) for CyPerf Agent for AZ2"
+
+                },
+
+                "VPCCIDR": {
+
+                    "default": "VPC"
+
+                }
+
+            }
+
+        }
+
+    },
+
+    "Outputs": {
+
+        "ApplicationLBTargetGroup": {
+
+            "Description": "ARN of HTTP target group behind ALB",
+
+            "Value": {
+
+                "Ref": "TargetGroupWebApplication"
+
+            }
+
+        },
+
+        "ApplicationLBTargetGroupHTTPS": {
+
+            "Description": "ARN of HTTPS target group behind ALB",
+
+            "Value": {
+
+                "Ref": "TargetGroupWebApplicationHTTPS"
+
+            }
+
+        },
+
+        "LaunchConfigurationName": {
+
+            "Description": "Name of LaunchConfiguration",
+
+            "Value": {
+
+                "Ref": "LaunchConfiguration"
+
+            }
+
+        },
+
+        "LoadBalacerALBURI": {
+
+            "Description": "Application Load Balancer DNS name",
+
+            "Value": {
+
+                "Fn::Join": [
+
+                    "",
+
+                    [
+
+                        {
+
+                            "Fn::GetAtt": [
+
+                                "ApplicationElasticLB",
+
+                                "DNSName"
+
+                            ]
+
+                        }
+
+                    ]
+
+                ]
+
+            }
+
+        },
+
+        "LoadBalacerALBArn": {
+
+            "Description": "Application Load Balancer ARN name",
+
+            "Value": {
+
+                "Ref": "ApplicationElasticLB"
+
+            }
+
+        },
+
+        "NatsMBINstanceDNS": {
+
+            "Description": "DNS name of NatsMB instance",
+
+            "Value": {
+
+                "Fn::Join": [
+
+                    "",
+
+                    [
+
+                        {
+
+                            "Fn::GetAtt": [
+
+                                "NatsMessageBroker",
+
+                                "PublicDnsName"
+
+                            ]
+
+                        }
+
+                    ]
+
+                ]
+
+            }
+
+        },
+
+        "StackRef": {"Value": { "Ref" : "CyPerfWAF"}},
+        "WafID" : {
+            "Description": "AWS WAF ID",  
+            "Value" : { "Fn::GetAtt" : [ "CyPerfWAF", "Outputs.wafWebACL" ] }
+        }
+
+    },
+
+    "Parameters": {
+
+        "AMIIDForCyPerfAgent": {
+
+            "Default": "<Spicify shared AMI ID for CyPerf Agent>",
+
+            "Description": "AMI-ID for the CyPerf Agent instances",
+
+            "Type": "AWS::EC2::Image::Id"
+
+        },
+
+        "AmiIdforRemoteMB": {
+
+            "Default": "<Specify shared AMI ID for Message Broker>",
+
+            "Description": "AMI-ID for the Message Broker instance",
+
+            "Type": "AWS::EC2::Image::Id"
+
+        },
+
+        "ApplicationLBHTTPHealthChkPort": {
+
+            "Default": "80",
+
+            "Description": "TCP/IP port of the ApplicationLB HTTP Health Check",
+
+            "Type": "String"
+
+        },
+
+        "ApplicationLBHTTPListenerPort": {
+
+            "Default": "80",
+
+            "Description": "TCP/IP port of the ApplicationLB HTTP Listener",
+
+            "Type": "String"
+
+        },
+
+        "AvailabilityZone1": {
+
+            "Default": "us-east-2a",
+
+            "Description": "Preferred availability zone",
+
+            "Type": "AWS::EC2::AvailabilityZone::Name"
+
+        },
+
+        "AvailabilityZone2": {
+
+            "Default": "us-east-2b",
+
+            "Description": "Preferred availability zone",
+
+            "Type": "AWS::EC2::AvailabilityZone::Name"
+
+        },
+
+        "AllowedSubnet2": {
+
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+
+            "Default": "2.2.2.2/2",
+
+            "Description": "Subnet range allowed to access deployed AWS resources",
+
+            "MaxLength": "18",
+
+            "MinLength": "9",
+
+            "Type": "String"
+
+        },
+
+        "AllowedSubnet3": {
+
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+
+            "Default": "3.3.3.3/3",
+
+            "Description": "Subnet range to allow access deployed AWS resources",
+
+            "MaxLength": "18",
+
+            "MinLength": "9",
+
+            "Type": "String"
+
+        },
+
+        "CertificateARN": {
+
+            "Default": "arn:aws:iam::<AccountID>:server-certificate/Secured_RSA_2K",
+
+            "Description": "Retrieves a certificate specified by ARN & associate it with HTTPSLB",
+
+            "Type": "String"
+
+        },
+
+        "ApplicationLBHTTPSHealthChkPort": {
+
+            "Default": "443",
+
+            "Description": "TCP/IP port of the ApplicationLB HTTPS Health Check",
+
+            "Type": "String"
+
+        },
+
+        "ApplicationLBHTTPSListenerPort": {
+
+            "Default": "443",
+
+            "Description": "TCP/IP port of the ApplicationLB HTTPS Listener",
+
+            "Type": "String"
+
+        },
+
+        "InstanceTypeForCyPerfAgent": {
+
+            "AllowedValues": [
+                "c4.2xlarge",
+                "c5n.9xlarge"
+            ],
+
+            "Default": "c4.2xlarge",
+
+            "Description": "Please select CyPerf instance type",
+
+            "Type": "String"
+
+        },
+
+        "KeyNameForCyPerfAgent": {
+
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair",
+
+            "Default": "CyPerf-keypair",
+
+            "Description": "Existing KeyPair to login to the CyPerf instances",
+
+            "Type": "AWS::EC2::KeyPair::KeyName"
+
+        },
+
+        "MBInitForCyPerfAgentAZ1": {
+
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+
+            "Default": "172.16.5.0/24",
+
+            "Description": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1 (eth1)",
+
+            "MaxLength": "18",
+
+            "MinLength": "9",
+
+            "Type": "String"
+
+        },
+
+        "MBInitForCyPerfAgentAZ2": {
+
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+
+            "Default": "172.16.6.0/24",
+
+            "Description": "Management Subnet (Message Broker subnet D) for CyPerf Agent for AZ2 (eth1)",
+
+            "MaxLength": "18",
+
+            "MinLength": "9",
+
+            "Type": "String"
+
+        },
+
+        "ManagementNetworkCIDR1": {
+
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+
+            "Default": "172.16.1.0/24",
+
+            "Description": "Public subnet (Public subnet A) for AZ1 (eth0)",
+
+            "MaxLength": "18",
+
+            "MinLength": "9",
+
+            "Type": "String"
+
+        },
+
+        "ManagementNetworkCIDR2": {
+
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+
+            "Default": "172.16.2.0/24",
+
+            "Description": "Public subnet (Public subnet B) for AZ2 (eth0)",
+
+            "MaxLength": "18",
+
+            "MinLength": "9",
+
+            "Type": "String"
+
+        },
+
+        "AllowedSubnet1": {
+
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+
+            "Default": "1.1.1.1/1",
+
+            "Description": "Subnet range allowed to access deployed AWS resources",
+
+            "MaxLength": "18",
+
+            "MinLength": "9",
+
+            "Type": "String"
+
+        },
+
+        "Project": {
+
+            "Default": "CyPerf-AWS",
+
+            "Description": "Enter Project Name",
+
+            "Type": "String"
+
+        },
+
+        "TagBehindApplicationLB": {
+
+            "Default": "ServerFarmBehindALB",
+
+            "Description": "DO NOT Change. Agent Tag running behind Application LB",
+
+            "Type": "String"
+
+        },
+
+        "TestInitForCyPerfAgentAZ1": {
+
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+
+            "Default": "172.16.3.0/24",
+
+            "Description": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1 (eth0)",
+
+            "MaxLength": "18",
+
+            "MinLength": "9",
+
+            "Type": "String"
+
+        },
+
+        "TestInitForCyPerfAgentAZ2": {
+
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+
+            "Default": "172.16.4.0/24",
+
+            "Description": "Test Subnet (Private subnet B) for CyPerf Agent for AZ2 (eth0)",
+
+            "MaxLength": "18",
+
+            "MinLength": "9",
+
+            "Type": "String"
+
+        },
+
+        "Username": {
+
+            "Default": "<UserName>@keysight.com",
+
+            "Description": "Enter Team or Individual email id  Responsible for the Stack.",
+
+            "Type": "String"
+
+        },
+      
+
+        "VPCCIDR": {
+
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+
+            "Default": "172.16.0.0/16",
+
+            "Description": "CIDR range for the VPC",
+
+            "MaxLength": "18",
+
+            "MinLength": "9",
+
+            "Type": "String"
+
+        },
+        "ScaleCapacityMax": {
+            "Default": "2",
+            "Description": "Number of maximum CyPerf Agent to run",
+            "Type": "String"
+        },
+        "ScaleCapacityMin": {
+            "Default": "2",
+            "Description": "Number of minimum CyPerf Agent to run",
+            "Type": "String"
+        },
+        "NetworkOutBytesPerMinute": {
+            "Default": "100000",
+            "Description": "Average network out capacity to trigger auto scaling",
+            "Type": "String"
+        }
+
+    },
+
+    "Resources": {
+        "CyPerfWAF" : {
+            "Type" : "AWS::CloudFormation::Stack",
+            "Properties" : {
+              "TemplateURL" : "https://appsec-cft.s3.us-east-2.amazonaws.com/owasp_10_base_custom.yml",
+              "Parameters": {
+                "stackPrefix": { "Ref": "AWS::StackName" }
+            },
+              "TimeoutInMinutes" : 120
+            }
+        },
+        "ApplicationElasticLB": {
+
+            "Properties": {
+
+                "Name": {
+
+                    "Fn::Sub": "${AWS::StackName}-ApplicationLB"
+
+                },
+
+                "Scheme": "internet-facing",
+
+                "SecurityGroups": [
+
+                    {
+
+                        "Ref": "MgmtInstanceSecurityGroup"
+
+                    }
+
+                ],
+
+                "Subnets": [
+
+                    {
+
+                        "Ref": "StackPublicSubnetA"
+
+                    },
+
+                    {
+
+                        "Ref": "StackPublicSubnetB"
+
+                    }
+
+                ]
+
+            },
+
+            "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer"
+
+        },
+
+        "DhcpOptionsAssociation": {
+
+            "Properties": {
+
+                "DhcpOptionsId": {
+
+                    "Ref": "VPCxDhcpOptions"
+
+                },
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::VPCDHCPOptionsAssociation"
+
+        },
+
+        "EC2IfaceRole": {
+
+            "Properties": {
+
+                "AssumeRolePolicyDocument": {
+
+                    "Statement": [
+
+                        {
+
+                            "Action": "sts:AssumeRole",
+
+                            "Effect": "Allow",
+
+                            "Principal": {
+
+                                "Service": "ec2.amazonaws.com"
+
+                            }
+
+                        }
+
+                    ],
+
+                    "Version": "2012-10-17"
+
+                },
+
+                "Path": "/",
+
+                "Policies": [
+
+                    {
+
+                        "PolicyDocument": {
+
+                            "Statement": [
+
+                                {
+
+                                    "Action": [
+
+                                        "ec2:CreateNetworkInterface",
+
+                                        "ec2:DescribeInstances",
+
+                                        "ec2:ModifyNetworkInterfaceAttribute",
+
+                                        "ec2:AttachNetworkInterface",
+
+                                        "ec2:DescribeSubnets",
+
+                                        "ec2:DescribeSecurityGroups",
+
+                                        "ec2:DescribeTags",
+                                        
+                                        "*"
+
+                                    ],
+
+                                    "Effect": "Allow",
+
+                                    "Resource": "*"
+
+                                }
+
+                            ],
+
+                            "Version": "2012-10-17"
+
+                        },
+
+                        "PolicyName": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "EC2IfacePolicy"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    }
+
+                ],
+
+                "RoleName": {
+
+                    "Fn::Join": [
+
+                        "-",
+
+                        [
+
+                            {
+
+                                "Ref": "AWS::StackName"
+
+                            },
+
+                            "EC2IfaceRole"
+
+                        ]
+
+                    ]
+
+                }
+
+            },
+
+            "Type": "AWS::IAM::Role"
+
+        },
+
+        "EC2InstanceProfile": {
+
+            "DependsOn": "EC2IfaceRole",
+
+            "Properties": {
+
+                "Roles": [
+
+                    {
+
+                        "Ref": "EC2IfaceRole"
+
+                    }
+
+                ]
+
+            },
+
+            "Type": "AWS::IAM::InstanceProfile"
+
+        },
+
+        "InternetGateway": {
+
+            "Properties": {
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "-gateway"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ]
+
+            },
+
+            "Type": "AWS::EC2::InternetGateway"
+
+        },
+
+        "InternetGatewayAttachment": {
+
+            "Properties": {
+
+                "InternetGatewayId": {
+
+                    "Ref": "InternetGateway"
+
+                },
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::VPCGatewayAttachment"
+
+        },
+
+        "LaunchConfiguration": {
+
+            "DependsOn": [
+
+                "NatsMessageBroker",
+
+                "EC2InstanceProfile"
+
+            ],
+
+            "Properties": {
+
+                "BlockDeviceMappings": [
+
+                    {
+
+                        "DeviceName": "/dev/sda1",
+
+                        "Ebs": {
+
+                            "VolumeSize": "40",
+                            "DeleteOnTermination" : true
+
+                        }
+
+                    }
+
+                ],
+
+                "IamInstanceProfile": {
+
+                    "Ref": "EC2InstanceProfile"
+
+                },
+
+                "ImageId": {
+
+                    "Ref": "AMIIDForCyPerfAgent"
+
+                },
+
+                "InstanceType": {
+
+                    "Ref": "InstanceTypeForCyPerfAgent"
+
+                },
+
+                "KeyName": {
+
+                    "Ref": "KeyNameForCyPerfAgent"
+
+                },
+
+                "SecurityGroups": [
+
+                    {
+
+                        "Ref": "MgmtInstanceSecurityGroup"
+
+                    }
+
+                ],
+
+                "UserData": {
+
+                    "Fn::Base64": {
+
+                        "Fn::Join": [
+
+                            "",
+
+                            [
+
+                                "#!/bin/bash -xe\n",
+                                "cd /opt/keysight/tiger/active/bin/\n",
+                                "sh /opt/keysight/tiger/active/bin/Appsec_init ",
+
+                                {
+
+                                    "Fn::Join": [
+
+                                        "",
+
+                                        [
+
+                                            {
+
+                                                "Fn::GetAtt": [
+
+                                                    "NatsMessageBroker",
+
+                                                    "PrivateIp"
+
+                                                ]
+
+                                            }
+
+                                        ]
+
+                                    ]
+
+                                },
+                                " 4222",
+                                " >> /root/Appsec_init\n"
+
+                            ]
+
+                        ]
+
+                    }
+
+                }
+
+            },
+
+            "Type": "AWS::AutoScaling::LaunchConfiguration"
+
+        },
+
+        "ListenerApplication": {
+
+            "Properties": {
+
+                "DefaultActions": [
+
+                    {
+
+                        "TargetGroupArn": {
+
+                            "Ref": "TargetGroupWebApplication"
+
+                        },
+
+                        "Type": "forward"
+
+                    }
+
+                ],
+
+                "LoadBalancerArn": {
+
+                    "Ref": "ApplicationElasticLB"
+
+                },
+
+                "Port": {
+
+                    "Ref": "ApplicationLBHTTPListenerPort"
+
+                },
+
+                "Protocol": "HTTP"
+
+            },
+
+            "Type": "AWS::ElasticLoadBalancingV2::Listener"
+
+        },
+
+        "ListenerSSL": {
+
+            "Properties": {
+
+                "Certificates": [
+
+                    {
+
+                        "CertificateArn": {
+
+                            "Ref": "CertificateARN"
+
+                        }
+
+                    }
+
+                ],
+
+                "DefaultActions": [
+
+                    {
+
+                        "TargetGroupArn": {
+
+                            "Ref": "TargetGroupWebApplication"
+
+                        },
+
+                        "Type": "forward"
+
+                    }
+
+                ],
+
+                "LoadBalancerArn": {
+
+                    "Ref": "ApplicationElasticLB"
+
+                },
+
+                "Port": {
+
+                    "Ref": "ApplicationLBHTTPSListenerPort"
+
+                },
+
+                "Protocol": "HTTPS"
+
+            },
+
+            "Type": "AWS::ElasticLoadBalancingV2::Listener"
+
+        },
+
+        "MgmtInstanceSecurityGroup": {
+
+            "Properties": {
+
+                "GroupDescription": "Allow restricted-access to launched Instances",
+
+                "SecurityGroupEgress": [
+
+                    {
+
+                        "CidrIp": "0.0.0.0/0",
+
+                        "Description": "All Traffic",
+
+                        "FromPort": "-1",
+
+                        "IpProtocol": "-1",
+
+                        "ToPort": "-1"
+
+                    }
+
+                ],
+
+                "SecurityGroupIngress": [
+
+                    {
+
+                        "CidrIp": "0.0.0.0/0",
+
+                        "Description": "Custom TCP",
+
+                        "FromPort": "80",
+
+                        "IpProtocol": "tcp",
+
+                        "ToPort": "80"
+
+                    },
+
+                    {
+
+                        "CidrIp": "0.0.0.0/0",
+
+                        "Description": "Custom TCP",
+
+                        "FromPort": "443",
+
+                        "IpProtocol": "tcp",
+
+                        "ToPort": "443"
+
+                    },
+
+                    {
+
+                        "CidrIp": {
+
+                            "Ref": "AllowedSubnet1"
+
+                        },
+
+                        "Description": "All Traffic",
+
+                        "FromPort": "-1",
+
+                        "IpProtocol": "-1",
+
+                        "ToPort": "-1"
+
+                    },
+
+                    {
+
+                        "CidrIp": {
+
+                            "Ref": "AllowedSubnet2"
+
+                        },
+
+                        "Description": "All Traffic",
+
+                        "FromPort": "-1",
+
+                        "IpProtocol": "-1",
+
+                        "ToPort": "-1"
+
+                    },
+
+                    {
+
+                        "CidrIp": {
+
+                            "Ref": "AllowedSubnet3"
+
+                        },
+
+                        "Description": "All Traffic",
+
+                        "FromPort": "-1",
+
+                        "IpProtocol": "-1",
+
+                        "ToPort": "-1"
+
+                    },
+
+                    {
+
+                        "CidrIp": {
+
+                            "Ref": "VPCCIDR"
+
+                        },
+
+                        "Description": "All Traffic",
+
+                        "FromPort": "-1",
+
+                        "IpProtocol": "-1",
+
+                        "ToPort": "-1"
+
+                    }    
+
+                ],
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "ManagementInterfaceSG"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ],
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::SecurityGroup"
+
+        },
+
+        "Nat": {
+
+            "DependsOn": "StackPublicSubnetA",
+
+            "Properties": {
+
+                "AllocationId": {
+
+                    "Fn::GetAtt": [
+
+                        "NatEip",
+
+                        "AllocationId"
+
+                    ]
+
+                },
+
+                "SubnetId": {
+
+                    "Ref": "StackPublicSubnetA"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::NatGateway"
+
+        },
+
+        "NatEip": {
+
+            "Properties": {
+
+                "Domain": "vpc"
+
+            },
+
+            "Type": "AWS::EC2::EIP"
+
+        },
+
+        "NatRoute": {
+
+            "DependsOn": "StackPublicSubnetA",
+
+            "Properties": {
+
+                "DestinationCidrBlock": "0.0.0.0/0",
+
+                "NatGatewayId": {
+
+                    "Ref": "Nat"
+
+                },
+
+                "RouteTableId": {
+
+                    "Ref": "PrivateRouteTable"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::Route"
+
+        },
+
+        "NatsMessageBroker": {
+
+            "DependsOn": "eth0",
+
+            "Properties": {
+
+                "BlockDeviceMappings": [
+
+                    {
+
+                        "DeviceName": "/dev/sda1",
+
+                        "Ebs": {
+
+                            "VolumeSize": "8",
+                            "DeleteOnTermination" : true
+
+                        }
+
+                    }
+
+                ],
+
+                "ImageId": {
+
+                    "Ref": "AmiIdforRemoteMB"
+
+                },
+
+                "InstanceType": "t2.medium",
+
+                "KeyName": {
+
+                    "Ref": "KeyNameForCyPerfAgent"
+
+                },
+
+                "NetworkInterfaces": [
+
+                    {
+
+                        "DeviceIndex": "0",
+
+                        "NetworkInterfaceId": {
+
+                            "Ref": "eth0"
+
+                        }
+
+                    }
+
+                ],
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "Nats-MB"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }                 
+
+                ]
+
+            },
+
+            "Type": "AWS::EC2::Instance"
+
+        },
+        
+        "ClientAgent": {
+
+            "DependsOn": [
+
+                "clieth0",
+
+                "NatsMessageBroker",
+
+                "EC2InstanceProfile"
+
+            ],
+
+            "Properties": {
+
+                "BlockDeviceMappings": [
+
+                    {
+
+                        "DeviceName": "/dev/sda1",
+
+                        "Ebs": {
+
+                            "VolumeSize": "40",
+                            "DeleteOnTermination" : true
+
+                        }
+
+                    }
+
+                ],
+
+                "IamInstanceProfile": {
+
+                    "Ref": "EC2InstanceProfile"
+
+                },
+
+                "ImageId": {
+
+                    "Ref": "AMIIDForCyPerfAgent"
+
+                },
+
+                "InstanceType": {
+
+                    "Ref": "InstanceTypeForCyPerfAgent"
+
+                },
+
+                "KeyName": {
+
+                    "Ref": "KeyNameForCyPerfAgent"
+
+                },
+
+                "NetworkInterfaces": [
+
+                    {
+
+                        "DeviceIndex": "0",
+
+                        "NetworkInterfaceId": {
+
+                            "Ref": "clieth0"
+
+                        }
+
+                    }
+
+                ],
+
+                "UserData": {
+
+                    "Fn::Base64": {
+
+                        "Fn::Join": [
+
+                            "",
+
+                            [
+
+                                "#!/bin/bash -xe\n",
+
+                                "cd /opt/keysight/tiger/active/bin/\n",
+
+                                "sh /opt/keysight/tiger/active/bin/Appsec_init ",
+
+                                {
+
+
+
+                                    "Fn::Join": [
+
+                                        "",
+
+                                        [
+
+                                            {
+
+                                                "Fn::GetAtt": [
+
+                                                    "NatsMessageBroker",
+
+                                                    "PrivateIp"
+
+                                                ]
+
+                                            }
+
+                                        ]
+
+                                    ]
+
+                                },
+                                " 4222",
+                                " >> /root/Appsec_init\n"
+
+                            ]
+
+                        ]
+
+                    }
+
+                },
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "ClientAgent"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ]
+
+            },
+
+            "Type": "AWS::EC2::Instance"
+
+        },
+
+        "PrivateRouteTable": {
+
+            "Properties": {
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "private-rt"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    }
+
+                ],
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::RouteTable"
+
+        },
+
+        "PrivateSubnetARouteTable": {
+
+            "DependsOn": "StackPrivateSubnetA",
+
+            "Properties": {
+
+                "RouteTableId": {
+
+                    "Ref": "PrivateRouteTable"
+
+                },
+
+                "SubnetId": {
+
+                    "Ref": "StackPrivateSubnetA"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::SubnetRouteTableAssociation"
+
+        },
+
+        "PrivateSubnetBRouteTable": {
+
+            "DependsOn": "StackPrivateSubnetB",
+
+            "Properties": {
+
+                "RouteTableId": {
+
+                    "Ref": "PrivateRouteTable"
+
+                },
+
+                "SubnetId": {
+
+                    "Ref": "StackPrivateSubnetB"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::SubnetRouteTableAssociation"
+
+        },
+
+        "PrivateSubnetCRouteTable": {
+
+            "DependsOn": "StackPrivateSubnetC",
+
+            "Properties": {
+
+                "RouteTableId": {
+
+                    "Ref": "PrivateRouteTable"
+
+                },
+
+                "SubnetId": {
+
+                    "Ref": "StackPrivateSubnetC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::SubnetRouteTableAssociation"
+
+        },
+
+        "PrivateSubnetDRouteTable": {
+
+            "DependsOn": "StackPrivateSubnetD",
+
+            "Properties": {
+
+                "RouteTableId": {
+
+                    "Ref": "PrivateRouteTable"
+
+                },
+
+                "SubnetId": {
+
+                    "Ref": "StackPrivateSubnetD"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::SubnetRouteTableAssociation"
+
+        },
+
+        "PublicRouteTable": {
+
+            "Properties": {
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "public-rt"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    }
+
+                ],
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::RouteTable"
+
+        },
+
+        "PublicSubnetARouteTable": {
+
+            "DependsOn": "StackPublicSubnetA",
+
+            "Properties": {
+
+                "RouteTableId": {
+
+                    "Ref": "PublicRouteTable"
+
+                },
+
+                "SubnetId": {
+
+                    "Ref": "StackPublicSubnetA"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::SubnetRouteTableAssociation"
+
+        },
+
+        "PublicSubnetBRouteTable": {
+
+            "DependsOn": "StackPublicSubnetB",
+
+            "Properties": {
+
+                "RouteTableId": {
+
+                    "Ref": "PublicRouteTable"
+
+                },
+
+                "SubnetId": {
+
+                    "Ref": "StackPublicSubnetB"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::SubnetRouteTableAssociation"
+
+        },
+
+        "RouteToInternet": {
+
+            "DependsOn": "InternetGatewayAttachment",
+
+            "Properties": {
+
+                "DestinationCidrBlock": "0.0.0.0/0",
+
+                "GatewayId": {
+
+                    "Ref": "InternetGateway"
+
+                },
+
+                "RouteTableId": {
+
+                    "Ref": "PublicRouteTable"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::Route"
+
+        },
+
+        "StackPrivateSubnetA": {
+
+            "Properties": {
+
+                "AvailabilityZone": {
+
+                    "Ref": "AvailabilityZone1"
+
+                },
+
+                "CidrBlock": {
+
+                    "Ref": "TestInitForCyPerfAgentAZ1"
+
+                },
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "Private subnet A"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ],
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::Subnet"
+
+        },
+
+        "StackPrivateSubnetB": {
+
+            "Properties": {
+
+                "AvailabilityZone": {
+
+                    "Ref": "AvailabilityZone2"
+
+                },
+
+                "CidrBlock": {
+
+                    "Ref": "TestInitForCyPerfAgentAZ2"
+
+                },
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "Private subnet B"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ],
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::Subnet"
+
+        },
+
+        "StackPrivateSubnetC": {
+
+            "Properties": {
+
+                "AvailabilityZone": {
+
+                    "Ref": "AvailabilityZone1"
+
+                },
+
+                "CidrBlock": {
+
+                    "Ref": "MBInitForCyPerfAgentAZ1"
+
+                },
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "Private subnet MessageBrokerSubnet C"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ],
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::Subnet"
+
+        },
+
+        "StackPrivateSubnetD": {
+
+            "Properties": {
+
+                "AvailabilityZone": {
+
+                    "Ref": "AvailabilityZone2"
+
+                },
+
+                "CidrBlock": {
+
+                    "Ref": "MBInitForCyPerfAgentAZ2"
+
+                },
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "Private subnet MessageBrokerSubnet D"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ],
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::Subnet"
+
+        },
+
+        "StackPublicSubnetA": {
+
+            "Properties": {
+
+                "AvailabilityZone": {
+
+                    "Ref": "AvailabilityZone1"
+
+                },
+
+                "CidrBlock": {
+
+                    "Ref": "ManagementNetworkCIDR1"
+
+                },
+
+                "MapPublicIpOnLaunch": "true",
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "public subnet A"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ],
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::Subnet"
+
+        },
+
+        "StackPublicSubnetB": {
+
+            "Properties": {
+
+                "AvailabilityZone": {
+
+                    "Ref": "AvailabilityZone2"
+
+                },
+
+                "CidrBlock": {
+
+                    "Ref": "ManagementNetworkCIDR2"
+
+                },
+
+                "MapPublicIpOnLaunch": "true",
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "public subnet B"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ],
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                }
+
+            },
+
+            "Type": "AWS::EC2::Subnet"
+
+        },
+
+        "TargetGroupWebApplication": {
+
+            "Properties": {
+
+                "HealthCheckIntervalSeconds": "6",
+
+                "HealthCheckPath": "/AppSecHTTPHealthCheck",
+
+                "HealthCheckPort": {
+
+                    "Ref": "ApplicationLBHTTPHealthChkPort"
+
+                },
+
+                "HealthCheckProtocol": "HTTP",
+
+                "HealthCheckTimeoutSeconds": "5",
+
+                "HealthyThresholdCount": "2",
+
+                "Matcher": {
+
+                    "HttpCode": "200"
+
+                },
+
+                "Name": {
+
+                    "Fn::Join": [
+
+                        "",
+
+                        [
+
+                            {
+
+                                "Ref": "AWS::StackName"
+
+                            },
+
+                            "-TG-ApplicationLB"
+
+                        ]
+
+                    ]
+
+                },
+
+                "Port": {
+
+                    "Ref": "ApplicationLBHTTPListenerPort"
+
+                },
+
+                "Protocol": "HTTP",
+
+                "Targets": [],
+
+                "UnhealthyThresholdCount": "3",
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                },
+                "TargetGroupAttributes": [
+                    {
+                    "Key": "stickiness.enabled",
+                    "Value": "false"
+                    },
+                    {
+                    "Key" : "stickiness.lb_cookie.duration_seconds",
+                    "Value" : 120
+                    }
+                ]     
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+
+        },
+
+        "TargetGroupWebApplicationHTTPS": {
+
+            "Properties": {
+
+                "HealthCheckIntervalSeconds": "6",
+
+                "HealthCheckPath": "/AppSecHTTPSHealthCheck",
+
+                "HealthCheckPort": {
+
+                    "Ref": "ApplicationLBHTTPSHealthChkPort"
+
+                },
+
+                "HealthCheckProtocol": "HTTPS",
+
+                "HealthCheckTimeoutSeconds": "5",
+
+                "HealthyThresholdCount": "2",
+
+                "Matcher": {
+
+                    "HttpCode": "200"
+
+                },
+
+                "Name": {
+
+                    "Fn::Join": [
+
+                        "",
+
+                        [
+
+                            {
+
+                                "Ref": "AWS::StackName"
+
+                            },
+
+                            "-TG-HTTPSLoadBalancer"
+
+                        ]
+
+                    ]
+
+                },
+
+                "Port": {
+
+                    "Ref": "ApplicationLBHTTPSListenerPort"
+
+                },
+
+                "Protocol": "HTTPS",
+
+                "Targets": [],
+
+                "UnhealthyThresholdCount": "3",
+
+                "VpcId": {
+
+                    "Ref": "VPC"
+
+                },
+                "TargetGroupAttributes": [
+                    {
+                    "Key": "stickiness.enabled",
+                    "Value": "false"
+                    },
+                    {
+                    "Key" : "stickiness.lb_cookie.duration_seconds",
+                    "Value" : 120
+                    }
+                ]       
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+
+        },
+
+        "VPC": {
+
+            "Properties": {
+
+                "CidrBlock": {
+
+                    "Ref": "VPCCIDR"
+
+                },
+
+                "EnableDnsHostnames": "true",
+
+                "EnableDnsSupport": "true",
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Ref": "AWS::StackName"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ]
+
+            },
+
+            "Type": "AWS::EC2::VPC"
+
+        },
+
+        "VPCxDhcpOptions": {
+
+            "Properties": {
+
+                "DomainName": "VPCxDhcpOptions",
+
+                "DomainNameServers": [
+
+                    "8.8.8.8",
+
+                    "8.8.4.4",
+
+                    "AmazonProvidedDNS"
+
+                ],
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": "AppSecVPCx"
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ]
+
+            },
+
+            "Type": "AWS::EC2::DHCPOptions"
+
+        },
+
+        "eth0": {
+
+            "Properties": {
+
+                "Description": "eth0",
+
+                "GroupSet": [
+
+                    {
+
+                        "Ref": "MgmtInstanceSecurityGroup"
+
+                    }
+
+                ],
+
+                "SourceDestCheck": "true",
+
+                "SubnetId": {
+
+                    "Ref": "StackPublicSubnetA"
+
+                },
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "MB-Interface"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+                ]
+
+            },
+
+            "Type": "AWS::EC2::NetworkInterface"
+
+        },
+
+        "clieth0": {
+
+            "Properties": {
+
+                "Description": "Client Agent eth0",
+
+                "GroupSet": [
+
+                    {
+
+                        "Ref": "MgmtInstanceSecurityGroup"
+
+                    }
+
+                ],
+
+                "SourceDestCheck": "true",
+
+                "SubnetId": {
+
+                    "Ref": "StackPrivateSubnetA"
+
+                },
+
+                "Tags": [
+
+                    {
+
+                        "Key": "Name",
+
+                        "Value": {
+
+                            "Fn::Join": [
+
+                                "-",
+
+                                [
+
+                                    {
+
+                                        "Ref": "AWS::StackName"
+
+                                    },
+
+                                    "CA-Interface"
+
+                                ]
+
+                            ]
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Project",
+
+                        "Value": {
+
+                            "Ref": "Project"
+
+                        }
+
+                    },
+
+                    {
+
+                        "Key": "Username",
+
+                        "Value": {
+
+                            "Ref": "Username"
+
+                        }
+
+                    }
+
+                ]
+
+            },
+
+            "Type": "AWS::EC2::NetworkInterface"
+
+        },
+
+        "AutoscalingGroupALB": {
+            "Properties": {
+                "AvailabilityZones": [
+                    {
+                        "Ref": "AvailabilityZone1"
+                    },
+                    {
+                        "Ref": "AvailabilityZone2"
+                    }
+                ],
+                "Cooldown" : "60",
+                "DesiredCapacity": {
+                    "Ref": "ScaleCapacityMin"
+                },
+                "HealthCheckType": "EC2",
+                "LaunchConfigurationName": {
+                    "Ref": "LaunchConfiguration"
+                },
+                "MaxSize": {
+                    "Ref": "ScaleCapacityMax"
+                },
+                "MinSize": {
+                    "Ref": "ScaleCapacityMin"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "PropagateAtLaunch": true,
+                        "Value": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    {
+                                        "Ref": "TagBehindApplicationLB"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "TagName",
+                        "PropagateAtLaunch": true,
+                        "Value": "ServerFarmBehindALB"
+                    },
+                    {
+                        "Key": "Username",
+                        "PropagateAtLaunch": true,
+                        "Value": {
+                            "Ref": "Username"
+                        }
+                    }
+                ],
+                "TargetGroupARNs": [
+                    {
+                        "Ref": "TargetGroupWebApplication"
+                    },
+                    {
+                        "Ref": "TargetGroupWebApplicationHTTPS"
+                    }
+                ],
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "StackPrivateSubnetA"
+                    },
+                    {
+                        "Ref": "StackPrivateSubnetB"
+                    }
+                ]
+            },
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "UpdatePolicy": {
+                "AutoScalingReplacingUpdate": {
+                    "WillReplace": "true"
+                },
+                "AutoScalingRollingUpdate": {
+                    "MaxBatchSize": "1",
+                    "MinInstancesInService": "1",
+                    "PauseTime": "PT5M",
+                    "WaitOnResourceSignals": "true"
+                }
+            }
+        },
+        "AutoscalingPolicyALB": {
+            "Properties": {
+                "AutoScalingGroupName": {
+                    "Ref": "AutoscalingGroupALB"
+                },
+                "PolicyType": "TargetTrackingScaling",
+                "TargetTrackingConfiguration": {
+                    "PredefinedMetricSpecification": {
+                        "PredefinedMetricType": "ASGAverageNetworkOut"
+                    },
+                    "TargetValue": {
+                        "Ref": "NetworkOutBytesPerMinute"
+                    }
+                }
+            },
+            "Type": "AWS::AutoScaling::ScalingPolicy"
+        },
+        "MyWebACLAssociation": {
+            "Type": "AWS::WAFRegional::WebACLAssociation",
+            "Properties": {
+              "ResourceArn": { "Ref": "ApplicationElasticLB" },
+              "WebACLId": { "Fn::GetAtt" : [ "CyPerfWAF", "Outputs.wafWebACL" ] }
+            }
+        },
+        
+        "myLifecycleHook":{
+            "Type":"AWS::AutoScaling::LifecycleHook",
+            "Properties":{
+                "AutoScalingGroupName":{
+                  "Ref":"AutoscalingGroupALB"
+                },
+                "LifecycleTransition":"autoscaling:EC2_INSTANCE_LAUNCHING",
+                "HeartbeatTimeout":180,
+                "DefaultResult":"CONTINUE"
+            }
+        }      
+    }
+
+}
+
