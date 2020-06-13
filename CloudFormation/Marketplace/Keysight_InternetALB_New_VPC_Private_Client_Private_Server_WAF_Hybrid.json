@@ -471,6 +471,14 @@
             },
             "Type": "AWS::IAM::InstanceProfile"
         },
+		"DefaultEgress1": {
+			"Type" : "AWS::EC2::SecurityGroupEgress",
+			"Properties" : {
+				"GroupId": { "Fn::GetAtt" : ["VPC", "DefaultSecurityGroup"] },
+				"IpProtocol": "-1",
+				"SourceSecurityGroupId": { "Fn::GetAtt" : ["VPC", "DefaultSecurityGroup"] }
+			}
+		},
         "InternetGateway": {
             "Properties": {
                 "Tags": [
@@ -490,8 +498,7 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
+                        "Value": { "Ref": "Project"
                         }
                     },
                     {
@@ -709,8 +716,13 @@
                             "Ref": "Project"
                         }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+
                     {
-                        "Key": "Username",
+                        "Key": "Owner",
                         "Value": {
                             "Ref": "Username"
                         }
