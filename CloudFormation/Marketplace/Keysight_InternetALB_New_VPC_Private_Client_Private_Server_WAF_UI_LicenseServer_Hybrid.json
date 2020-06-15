@@ -929,15 +929,14 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
-                    {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -995,15 +994,14 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
-                    {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -1079,15 +1077,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -1145,15 +1143,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
                         "Key": "Owner",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
