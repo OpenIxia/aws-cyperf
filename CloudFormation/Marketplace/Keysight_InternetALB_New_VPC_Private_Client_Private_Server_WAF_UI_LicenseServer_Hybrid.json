@@ -567,8 +567,7 @@
                                         "ec2:AttachNetworkInterface",
                                         "ec2:DescribeSubnets",
                                         "ec2:DescribeSecurityGroups",
-                                        "ec2:DescribeTags",
-                                        "*"
+                                        "ec2:DescribeTags"
                                     ],
                                     "Effect": "Allow",
                                     "Resource": "*"
@@ -934,7 +933,8 @@
 					{
 						"Key": "Options",
 						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
-					},                    {
+					},
+                    {
                         "Key": "Owner",
                         "Value": { "Ref": "Username" }
                     }
@@ -999,7 +999,8 @@
 					{
 						"Key": "Options",
 						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
-					},                    {
+					},
+                    {
                         "Key": "Owner",
                         "Value": { "Ref": "Username" }
                     }

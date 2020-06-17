@@ -1,6 +1,180 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "\n    Stack creating a VPC and launch EC2 instances within it.\n    **WARNING** This template creates Amazon EC2 instances.\n    You will be billed for the AWS resources used if you create\n    a stack from this template. **WARNING** This template creates\n    role for the launching/deleting instances/subnets/interfaces.\n    This role will invoke AWSLambdaBasicExecutionRole, please see\n    AWS Documentation for details on AWSLambdaBasicExecutionRole.",
+    "Mappings" : {
+		"RegionMap" : {
+			"us-east-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-0df61fd3bd78bfb19",
+				"AMIxAGENT" : "ami-003a218861e31278c",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "US East (N. Virginia)",
+				"REGIONxTAG" : "US_EAST_1"
+			},
+			"us-east-2" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.16.146.0/29",
+				"EC2xREGION" : "US East (Ohio)",
+				"REGIONxTAG" : "US_EAST_2"
+			},
+			"us-west-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.52.6.112/29",
+				"EC2xREGION" : "US West (N. California)",
+				"REGIONxTAG" : "US_WEST_1"
+			},
+			"us-west-2" : {
+				"AMIxCLIENT" : "ami-0816b04b77b54461e",
+				"AMIxBROKER" : "ami-0a865cfcb259f887c",
+				"AMIxAGENT" : "ami-054d27cb97f2d3d9b",
+				"AMIxLICENSE" : "ami-0a240b616f85ff292",
+				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
+				"EC2xREGION" : "US West (Oregon)",
+				"REGIONxTAG" : "US_WEST_2"
+			},
+			"ap-east-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "Asia Pacific (Hong Kong)",		
+				"REGIONxTAG" : "AP_EAST_1"
+			},
+			"ap-south-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.233.177.0/29",
+				"EC2xREGION" : "Asia Pacific (Mumbai)",
+				"REGIONxTAG" : "AP_SOUTH_1"
+			},
+			"ap-northeast-2" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.209.1.56/29",
+				"EC2xREGION" : "Asia Pacific (Seoul)",
+				"REGIONxTAG" : "AP_NORTHEAST_2"
+			},
+			"ap-southeast-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.0.5.32/29",
+				"EC2xREGION" : "Asia Pacific (Singapore)",
+				"REGIONxTAG" : "AP_SOUTHEAST_1"
+			},
+			"ap-southeast-2" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.239.158.0/29",
+				"EC2xREGION" : "Asia Pacific (Sydney)",
+				"REGIONxTAG" : "AP_SOUTHEAST_2"
+			},
+			"ap-northeast-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.112.23.0/29",
+				"EC2xREGION" : "Asia Pacific (Tokyo)",
+				"REGIONxTAG" : "AP_NORTHEAST_1"
+			},
+			"ca-central-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "35.183.92.176/29",
+				"EC2xREGION" : "Canada (Central)",
+				"REGIONxTAG" : "CA_CENTRAL_1"
+			},
+			"eu-central-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.120.181.40/29",
+				"EC2xREGION" : "EU (Frankfurt)",
+				"REGIONxTAG" : "EU_CENTRAL_1"
+			},
+			"eu-west-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.202.216.48/29",
+				"EC2xREGION" : "EU (Ireland)",
+				"REGIONxTAG" : "EU_WEST_1"
+			},
+			"eu-west-2" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.8.37.24/29",
+				"EC2xREGION" : "EU (London)",
+				"REGIONxTAG" : "EU_WEST_2"
+			},
+			"eu-west-3" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "35.180.112.80/29",
+				"EC2xREGION" : "EU (Paris)",
+				"REGIONxTAG" : "EU_WEST_3"
+			},
+			"eu-north-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
+				"EC2xREGION" : "EU (Stockholm)",
+				"REGIONxTAG" : "EU_NORTH_1"
+			},
+			"me-south-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "Middle East (Bahrain)",		
+				"REGIONxTAG" : "ME_SOUTH_1"
+			},
+			"sa-east-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
+				"EC2xREGION" : "South America (Sao Paulo)",
+				"REGIONxTAG" : "SA_EAST_1"
+			}
+		},
+		"VariableMap" : {
+			"global" : {
+                "OPTIONSxTAG" : "DAY",
+                "PROJECTxTAG" : "CyPerf",
+                "FLOWxLOGxRESOURCExTYPE" : "VPC",
+				"FLOWxLOGxTRAFFICxTYPE" : "REJECT"
+			}
+		}
+    },
     "Metadata": {
         "AWS::CloudFormation::Interface": {
             "ParameterGroups": [
@@ -28,8 +202,6 @@
                         "default": "CyPerf Agent Configuration"
                     },
                     "Parameters": [
-                        "AMIIDForCyPerfAgent",
-                        "AmiIdforRemoteMB",
                         "InstanceTypeForCyPerfAgent",
                         "KeyNameForCyPerfAgent",
                         "TagBehindApplicationLB",
@@ -44,30 +216,16 @@
                         "default": "Security-Group Configuration"
                     },
                     "Parameters": [
-                        "AllowedSubnet1",
-                        "AllowedSubnet2",
-                        "AllowedSubnet3"
+                        "AllowedSubnet1"
                     ]
                 }
             ],
             "ParameterLabels": {
-                "AMIIDForCyPerfAgent": {
-                    "default": "AMI-ID for CyPerf Agent"
-                },
-                "AmiIdforRemoteMB": {
-                    "default": "AMI-ID for Remote Message Broker"
-                },
                 "AvailabilityZone1": {
                     "default": "Availability Zone 1"
                 },
                 "AvailabilityZone2": {
                     "default": "Availability Zone 2"
-                },
-                "AllowedSubnet2": {
-                    "default": "AllowedSubnet2"
-                },
-                "AllowedSubnet3": {
-                    "default": "AllowedSubnet3"
                 },
                 "InstanceCount": {
                     "default": "Instance Count"
@@ -172,16 +330,6 @@
         }
     },
     "Parameters": {
-        "AMIIDForCyPerfAgent": {
-            "Default": "<Spicify shared AMI ID for CyPerf Agent>",
-            "Description": "AMI-ID for the CyPerf Agent instances",
-            "Type": "AWS::EC2::Image::Id"
-        },
-        "AmiIdforRemoteMB": {
-            "Default": "<Specify shared AMI ID for Message Broker>",
-            "Description": "AMI-ID for the Message Broker instance",
-            "Type": "AWS::EC2::Image::Id"
-        },
         "ApplicationLBHTTPHealthChkPort": {
             "Default": "80",
             "Description": "TCP/IP port of the ApplicationLB HTTP Health Check",
@@ -193,36 +341,18 @@
             "Type": "String"
         },
         "AvailabilityZone1": {
-            "Default": "us-east-2a",
+            "Default": "us-east-1a",
             "Description": "Preferred availability zone",
             "Type": "AWS::EC2::AvailabilityZone::Name"
         },
         "AvailabilityZone2": {
-            "Default": "us-east-2b",
+            "Default": "us-east-1b",
             "Description": "Preferred availability zone",
             "Type": "AWS::EC2::AvailabilityZone::Name"
         },
-        "AllowedSubnet2": {
-            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
-            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-            "Default": "2.2.2.2/2",
-            "Description": "Subnet range allowed to access deployed AWS resources",
-            "MaxLength": "18",
-            "MinLength": "9",
-            "Type": "String"
-        },
-        "AllowedSubnet3": {
-            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
-            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-            "Default": "3.3.3.3/3",
-            "Description": "Subnet range to allow access deployed AWS resources",
-            "MaxLength": "18",
-            "MinLength": "9",
-            "Type": "String"
-        },
         "CertificateARN": {
-            "Default": "arn:aws:iam::<AccountID>:server-certificate/Secured_RSA_2K",
-            "Description": "Retrieves a certificate specified by ARN & associate it with HTTPSLB",
+            "Default": "<Specify ARN of server certificates>",
+            "Description": "Retrieves a certificate specified by ARN & associate it with Load Balancer's HTTPS listener profile. Example: arn:aws:iam::<AccountID>:server-certificate/<Server certificate name>",
             "Type": "String"
         },
         "ApplicationLBHTTPSHealthChkPort": {
@@ -372,7 +502,7 @@
                 "Scheme": "internet-facing",
                 "SecurityGroups": [
                     {
-                        "Ref": "MgmtInstanceSecurityGroup"
+                        "Ref": "LoadBalancerSecurityGroup"
                     }
                 ],
                 "Subnets": [
@@ -424,8 +554,7 @@
                                         "ec2:AttachNetworkInterface",
                                         "ec2:DescribeSubnets",
                                         "ec2:DescribeSecurityGroups",
-                                        "ec2:DescribeTags",
-                                        "*"
+                                        "ec2:DescribeTags"
                                     ],
                                     "Effect": "Allow",
                                     "Resource": "*"
@@ -498,14 +627,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": { "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ]
             },
@@ -540,9 +670,7 @@
                 "IamInstanceProfile": {
                     "Ref": "EC2InstanceProfile"
                 },
-                "ImageId": {
-                    "Ref": "AMIIDForCyPerfAgent"
-                },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxAGENT"] },
                 "InstanceType": {
                     "Ref": "InstanceTypeForCyPerfAgent"
                 },
@@ -631,16 +759,34 @@
             },
             "Type": "AWS::ElasticLoadBalancingV2::Listener"
         },
-        "MgmtInstanceSecurityGroup": {
+        "LoadBalancerSecurityGroup": {
+            "DependsOn": "MgmtInstanceSecurityGroup",
             "Properties": {
                 "GroupDescription": "Allow restricted-access to launched Instances",
                 "SecurityGroupEgress": [
                     {
-                        "CidrIp": "0.0.0.0/0",
-                        "Description": "All Traffic",
-                        "FromPort": "-1",
-                        "IpProtocol": "-1",
-                        "ToPort": "-1"
+                        "SourceSecurityGroupId": {
+                            "Fn::GetAtt": [
+                               "MgmtInstanceSecurityGroup",
+                               "GroupId"
+                            ]
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "80",
+                        "IpProtocol": "tcp",
+                        "ToPort": "80"
+                    },
+                    {
+                        "SourceSecurityGroupId": {
+                            "Fn::GetAtt": [
+                               "MgmtInstanceSecurityGroup",
+                               "GroupId"
+                            ]
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "ToPort": "443"
                     }
                 ],
                 "SecurityGroupIngress": [
@@ -657,43 +803,7 @@
                         "FromPort": "443",
                         "IpProtocol": "tcp",
                         "ToPort": "443"
-                    },
-                    {
-                        "CidrIp": {
-                            "Ref": "AllowedSubnet1"
-                        },
-                        "Description": "All Traffic",
-                        "FromPort": "-1",
-                        "IpProtocol": "-1",
-                        "ToPort": "-1"
-                    },
-                    {
-                        "CidrIp": {
-                            "Ref": "AllowedSubnet2"
-                        },
-                        "Description": "All Traffic",
-                        "FromPort": "-1",
-                        "IpProtocol": "-1",
-                        "ToPort": "-1"
-                    },
-                    {
-                        "CidrIp": {
-                            "Ref": "AllowedSubnet3"
-                        },
-                        "Description": "All Traffic",
-                        "FromPort": "-1",
-                        "IpProtocol": "-1",
-                        "ToPort": "-1"
-                    },
-                    {
-                        "CidrIp": {
-                            "Ref": "VPCCIDR"
-                        },
-                        "Description": "All Traffic",
-                        "FromPort": "-1",
-                        "IpProtocol": "-1",
-                        "ToPort": "-1"
-                    }    
+                    }
                 ],
                 "Tags": [
                     {
@@ -705,7 +815,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "ManagementInterfaceSG"
+                                    "LoadBalancerSG"
                                 ]
                             ]
                         }
@@ -716,13 +826,158 @@
                             "Ref": "Project"
                         }
                     },
-					{
-						"Key": "Options",
-						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
-					},
-
                     {
-                        "Key": "Owner",
+                        "Key": "Username",
+                        "Value": {
+                            "Ref": "Username"
+                        }
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VPC"
+                }
+            },
+            "Type": "AWS::EC2::SecurityGroup"
+        },
+        "MgmtInstanceSecurityGroup": {
+            "Properties": {
+                "GroupDescription": "Allow restricted-access to launched Instances",
+                "SecurityGroupEgress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "Description": "All Traffic",
+                        "FromPort": "-1",
+                        "IpProtocol": "-1",
+                        "ToPort": "-1"
+                    }
+                ],
+                "SecurityGroupIngress": [
+                    {
+                        "CidrIp": {
+                            "Ref": "VPCCIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "80",
+                        "IpProtocol": "tcp",
+                        "ToPort": "80"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "VPCCIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "ToPort": "443"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "CyPerfAgentSG"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": {
+                            "Ref": "Project"
+                        }
+                    },
+                    {
+                        "Key": "Username",
+                        "Value": {
+                            "Ref": "Username"
+                        }
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VPC"
+                }
+            },
+            "Type": "AWS::EC2::SecurityGroup"
+        },
+        "RemoteMessageBrokerSecurityGroup": {
+            "Properties": {
+                "GroupDescription": "Allow restricted-access to launched Instances",
+                "SecurityGroupEgress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "Description": "All Traffic",
+                        "FromPort": "-1",
+                        "IpProtocol": "-1",
+                        "ToPort": "-1"
+                    }
+                ],
+                "SecurityGroupIngress": [
+                    {
+                        "CidrIp": {
+                            "Ref": "VPCCIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "4222",
+                        "IpProtocol": "tcp",
+                        "ToPort": "4222"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "VPCCIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "ToPort": "443"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "AllowedSubnet1"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "ToPort": "443"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "AllowedSubnet1"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "22",
+                        "IpProtocol": "tcp",
+                        "ToPort": "22"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "CyPerRemoteMBSG"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": {
+                            "Ref": "Project"
+                        }
+                    },
+                    {
+                        "Key": "Username",
                         "Value": {
                             "Ref": "Username"
                         }
@@ -780,9 +1035,7 @@
                         }
                     }
                 ],
-                "ImageId": {
-                    "Ref": "AmiIdforRemoteMB"
-                },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxBROKER"] },
                 "InstanceType": "t2.medium",
                 "KeyName": {
                     "Ref": "KeyNameForCyPerfAgent"
@@ -812,15 +1065,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }                 
                 ]
             },
@@ -845,9 +1098,7 @@
                 "IamInstanceProfile": {
                     "Ref": "EC2InstanceProfile"
                 },
-                "ImageId": {
-                    "Ref": "AMIIDForCyPerfAgent"
-                },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxAGENT"] },
                 "InstanceType": {
                     "Ref": "InstanceTypeForCyPerfAgent"
                 },
@@ -906,15 +1157,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ]
             },
@@ -1078,15 +1329,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -1120,15 +1371,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -1162,15 +1413,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -1204,15 +1455,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -1247,15 +1498,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -1290,15 +1541,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -1415,15 +1666,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ]
             },
@@ -1440,30 +1691,62 @@
                 "Tags": [
                     {
                         "Key": "Name",
-                        "Value": "AppSecVPCx"
+                        "Value": "CyPerfVPCx"
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ]
             },
             "Type": "AWS::EC2::DHCPOptions"
         },
+        "KeyVPCFlowLogAccessRole": {
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": "sts:AssumeRole",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": "vpc-flow-logs.amazonaws.com"
+                            }
+                        }
+                    ],
+                    "Version": "2012-10-17"
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+                ],
+                "Path": "/"
+            },
+            "Type": "AWS::IAM::Role"
+        },
+        "KeyVpcFlowLog" : {
+			"Type" : "AWS::EC2::FlowLog",
+			"Properties" : {
+				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["KeyVPCFlowLogAccessRole", "Arn"] },
+				"LogGroupName" : { "Fn::Join" : [ "_", [ { "Ref": "AWS::StackName" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "VPC_FLOW_LOG", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
+				"ResourceId" : { "Ref" : "VPC" },
+				"ResourceType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxRESOURCExTYPE"] },
+				"TrafficType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxTRAFFICxTYPE"] }
+			}
+		},
         "eth0": {
             "Properties": {
                 "Description": "eth0",
                 "GroupSet": [
                     {
-                        "Ref": "MgmtInstanceSecurityGroup"
+                        "Ref": "RemoteMessageBrokerSecurityGroup"
                     }
                 ],
                 "SourceDestCheck": "true",
@@ -1487,15 +1770,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ]
             },
@@ -1530,15 +1813,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ]
             },
@@ -1592,11 +1875,19 @@
                         "Value": "ServerFarmBehindALB"
                     },
                     {
-                        "Key": "Username",
+                        "Key": "Project",
                         "PropagateAtLaunch": true,
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+                        "PropagateAtLaunch": true,
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "PropagateAtLaunch": true,
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "TargetGroupARNs": [
