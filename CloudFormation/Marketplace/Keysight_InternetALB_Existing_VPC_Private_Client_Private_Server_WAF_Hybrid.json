@@ -5,8 +5,8 @@
 		"RegionMap" : {
 			"us-east-1" : {
 				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-0df61fd3bd78bfb19",
-				"AMIxAGENT" : "ami-003a218861e31278c",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
 				"EC2xREGION" : "US East (N. Virginia)",
@@ -349,12 +349,12 @@
             "Type": "String"
         },
         "AvailabilityZone1": {
-            "Default": "us-east-1a",
+            "Default": "us-west-2a",
             "Description": "Preferred availability zone",
             "Type": "AWS::EC2::AvailabilityZone::Name"
         },
         "AvailabilityZone2": {
-            "Default": "us-east-1b",
+            "Default": "us-west-2b",
             "Description": "Preferred availability zone",
             "Type": "AWS::EC2::AvailabilityZone::Name"
         },
