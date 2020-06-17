@@ -1,7 +1,7 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "\n    Stack creating a VPC and launch EC2 instances within it.\n    **WARNING** This template creates Amazon EC2 instances.\n    You will be billed for the AWS resources used if you create\n    a stack from this template. **WARNING** This template creates\n    role for the launching/deleting instances/subnets/interfaces.\n    This role will invoke AWSLambdaBasicExecutionRole, please see\n    AWS Documentation for details on AWSLambdaBasicExecutionRole.",
-    "Mappings" : {
+	"Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
 				"AMIxCLIENT" : "ami-00000000000000000",
@@ -168,7 +168,7 @@
 		},
 		"VariableMap" : {
 			"global" : {
-                "OPTIONSxTAG" : "DAY",
+                "OPTIONSxTAG" : "MANUAL",
                 "PROJECTxTAG" : "CyPerf",
                 "FLOWxLOGxRESOURCExTYPE" : "VPC",
 				"FLOWxLOGxTRAFFICxTYPE" : "REJECT"
@@ -432,7 +432,7 @@
         },
         "TagBehindApplicationLB": {
             "Default": "ServerFarmBehindALB",
-            "Description": "DO NOT Change. Agent Tag running behind Application LB",
+            "Description": "CyPerf Agent Tag running behind Application LB",
             "Type": "String"
         },
         "TestInitForCyPerfAgentAZ1": {
@@ -822,15 +822,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -888,15 +888,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {
@@ -972,15 +972,15 @@
                     },
                     {
                         "Key": "Project",
-                        "Value": {
-                            "Ref": "Project"
-                        }
+                        "Value": { "Ref": "Project" }
                     },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
                     {
-                        "Key": "Username",
-                        "Value": {
-                            "Ref": "Username"
-                        }
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
                     }
                 ],
                 "VpcId": {

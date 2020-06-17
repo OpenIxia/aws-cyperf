@@ -168,7 +168,7 @@
 		},
 		"VariableMap" : {
 			"global" : {
-                "OPTIONSxTAG" : "DAY",
+                "OPTIONSxTAG" : "MANUAL",
                 "PROJECTxTAG" : "CyPerf",
                 "FLOWxLOGxRESOURCExTYPE" : "VPC",
 				"FLOWxLOGxTRAFFICxTYPE" : "REJECT"
