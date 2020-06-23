@@ -501,7 +501,7 @@
         "CyPerfWAF" : {
             "Type" : "AWS::CloudFormation::Stack",
             "Properties" : {
-              "TemplateURL" : "https://s3-keysight-share.s3.us-east-2.amazonaws.com/owasp_10_base_custom.yml",
+              "TemplateURL" : "https://aws-cyperf.s3-us-west-2.amazonaws.com/owasp_10_base_custom.yml",
               "Parameters": {
                 "stackPrefix": { "Ref": "AWS::StackName" }
             },
