@@ -31,9 +31,9 @@
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxCLIENT" : "ami-0816b04b77b54461e",
+				"AMIxCLIENT" : "ami-0ec863c56c572494d",
 				"AMIxBROKER" : "ami-0a865cfcb259f887c",
-				"AMIxAGENT" : "ami-054d27cb97f2d3d9b",
+				"AMIxAGENT" : "ami-08c58c41b49c9db0e",
 				"AMIxLICENSE" : "ami-0a240b616f85ff292",
 				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
 				"EC2xREGION" : "US West (Oregon)",
