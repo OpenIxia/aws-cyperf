@@ -1,2 +1,2 @@
-# aws-cyperf
-Deployment examples for Keysight CyPerf on Amazon Web Services
+# aws-keysight
+Deployment examples for Keysight on Amazon Web Services
