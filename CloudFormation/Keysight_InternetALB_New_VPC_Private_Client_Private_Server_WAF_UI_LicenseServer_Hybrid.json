@@ -31,7 +31,7 @@
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxCLIENT" : "ami-03e1d900d93a3d244",
+				"AMIxCLIENT" : "ami-052ddc6bd82ddabe1",
 				"AMIxBROKER" : "ami-09213e3c579009fb7",
 				"AMIxAGENT" : "ami-0d5099a001ebf719d",
 				"AMIxLICENSE" : "ami-0a240b616f85ff292",
@@ -829,6 +829,15 @@
                         "FromPort": "443",
                         "IpProtocol": "tcp",
                         "ToPort": "443"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "VPCCIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "9022",
+                        "IpProtocol": "tcp",
+                        "ToPort": "9022"
                     }   
                 ],
                 "Tags": [
@@ -975,6 +984,15 @@
                         "FromPort": "443",
                         "IpProtocol": "tcp",
                         "ToPort": "443"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "VPCCIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "22",
+                        "IpProtocol": "tcp",
+                        "ToPort": "22"
                     }
                 ],
                 "Tags": [
@@ -1228,18 +1246,6 @@
                         }
                     }
                 ],
-                "UserData": {
-                    "Fn::Base64": {
-                        "Fn::Join": [
-                            "",
-                            [
-                                "#!/bin/bash -xe\n",
-                                "appsec_mw_prepare.sh 2>&1 >> /tmp/user-data.out\n",
-                                "echo \"=== DONE ===\" >> /tmp/user-data.out\n"
-                            ]
-                        ]
-                    }
-                },
                 "Tags": [
                     {
                         "Key": "Name",
