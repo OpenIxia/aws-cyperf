@@ -31,9 +31,9 @@
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxCLIENT" : "ami-0ec863c56c572494d",
-				"AMIxBROKER" : "ami-0a865cfcb259f887c",
-				"AMIxAGENT" : "ami-08c58c41b49c9db0e",
+				"AMIxCLIENT" : "ami-03e1d900d93a3d244",
+				"AMIxBROKER" : "ami-09213e3c579009fb7",
+				"AMIxAGENT" : "ami-0d5099a001ebf719d",
 				"AMIxLICENSE" : "ami-0a240b616f85ff292",
 				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
 				"EC2xREGION" : "US West (Oregon)",
@@ -1334,7 +1334,7 @@
                     {
                         "DeviceName": "/dev/sda1",
                         "Ebs": {
-                            "VolumeSize": "8",
+                            "VolumeSize": "100",
                             "DeleteOnTermination" : true
                         }
                     }

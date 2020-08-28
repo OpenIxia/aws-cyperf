@@ -25,8 +25,8 @@
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxBROKER" : "ami-0a865cfcb259f887c",
-				"AMIxAGENT" : "ami-08c58c41b49c9db0e",
+				"AMIxBROKER" : "ami-09213e3c579009fb7",
+				"AMIxAGENT" : "ami-0d5099a001ebf719d",
 				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
 				"EC2xREGION" : "US West (Oregon)",
 				"REGIONxTAG" : "US_WEST_2"
@@ -654,7 +654,7 @@
                     {
                         "DeviceName": "/dev/sda1",
                         "Ebs": {
-                            "VolumeSize": "8",
+                            "VolumeSize": "100",
                             "DeleteOnTermination" : true
                         }
                     }
