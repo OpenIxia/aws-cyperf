@@ -31,7 +31,7 @@
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxCLIENT" : "ami-052ddc6bd82ddabe1",
+				"AMIxCLIENT" : "ami-0892b11d01e03a7f0",
 				"AMIxBROKER" : "ami-09213e3c579009fb7",
 				"AMIxAGENT" : "ami-0d5099a001ebf719d",
 				"AMIxLICENSE" : "ami-0a240b616f85ff292",
