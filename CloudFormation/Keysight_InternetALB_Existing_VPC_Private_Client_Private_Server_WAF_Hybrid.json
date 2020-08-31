@@ -19,7 +19,7 @@
 			},
 			"us-west-1" : {
 				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-071ff573d8af62027",
 				"EC2xCONNECTxCIDR" : "13.52.6.112/29",
 				"EC2xREGION" : "US West (N. California)",
 				"REGIONxTAG" : "US_WEST_1"
