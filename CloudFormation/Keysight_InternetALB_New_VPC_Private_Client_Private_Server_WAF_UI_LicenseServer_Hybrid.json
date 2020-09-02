@@ -1880,7 +1880,7 @@
         "TargetGroupWebApplication": {
             "Properties": {
                 "HealthCheckIntervalSeconds": "6",
-                "HealthCheckPath": "/AppSecHTTPHealthCheck",
+                "HealthCheckPath": "/AppSecHTTPSHealthCheck",
                 "HealthCheckPort": {
                     "Ref": "ApplicationLBHTTPHealthChkPort"
                 },
