@@ -1,0 +1,19 @@
+---
+- name: Configures Appsec in vmware Esxi
+  hosts: all
+
+  vars_files:
+    - variables.yml
+ 
+  tasks:
+    - name: Configuring Node (updating portmanager-config.json)
+      become: yes
+      template:
+        src: portmanager-config_template.json
+        dest: /etc/portmanager/portmanager-config.json
+
+    - name: Restarting portmanager service
+      become: yes
+      service:
+        name: portmanager
+        state: restarted

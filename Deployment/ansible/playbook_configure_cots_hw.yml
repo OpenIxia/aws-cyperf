@@ -1,0 +1,28 @@
+---
+- name: Configures Appsec in Commercial Off-The-Shelf (COTS) Hardware
+  hosts: all
+
+  vars_files:
+    - variables.yml
+
+  tasks:
+    - name: Copying the Appsec Agent installer {{ VarAppsecInstaller }} in Node(s)
+      copy:
+        src: {{ VarAppsecInstaller }}
+        dest: /tmp/{{ VarAppsecInstaller }}
+  
+    - name: Installing the Appsec Agent installer in Node(s)
+      become: yes
+      shell: 'cd /tmp && sudo apt install ./{{ VarAppsecInstaller }}'
+    
+    - name: Configuring Node(s) (updating portmanager-config.json)
+      become: yes
+      template:
+        src: portmanager-config_template.json
+        dest: /etc/portmanager/portmanager-config.json
+
+    - name: Restarting portmanager service in Node(s)
+      become: yes
+      service:
+        name: portmanager
+        state: restarted
