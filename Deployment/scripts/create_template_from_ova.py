@@ -3,16 +3,16 @@ import os
 import json
 
 
-def CreateTemplate(vcenterName, vsphere_user, vsphere_password, vsphere_datastore, vsphere_src_template, vsphere_src_ova):
-    govc_line1="GOVC_URL="+str(vsphere_user)+":"+ "\""+str(vsphere_password)+"\""+"@"+str(vcenter_name)+"/sdk GOVC_INSECURE=1 govc import.ova -ds="+str(vsphere_datastore)+ " -name="+str(vsphere_src_template)+ " "+str(vsphere_src_ova)
+def CreateTemplate(vcenterName, vsphere_user, vsphere_password, vsphere_datastore, vsphere_src_template, vsphere_src_ova, vsphere_resource_pool_host):
+    govc_line1="GOVC_URL="+str(vsphere_user)+":"+ "\""+str(vsphere_password)+"\""+"@"+str(vcenter_name)+"/sdk GOVC_INSECURE=1 govc import.ova -host="+str(vsphere_resource_pool_host)+ " -ds="+str(vsphere_datastore)+ " -name="+str(vsphere_src_template)+ " "+str(vsphere_src_ova)
     govc_line2="GOVC_URL="+str(vsphere_user)+":"+ "\""+str(vsphere_password)+"\""+"@"+str(vcenter_name)+"/sdk GOVC_INSECURE=1 govc vm.markastemplate "+str(vsphere_src_template)
     print("Copying ova to vCenter {0}".format(vcenter_name))
-    #print(govc_line1)
+    print(govc_line1)
     stream1 = os.popen(govc_line1)
     output1= stream1.read()
     output1
     print("Creating template {0} in the vCenter {1}".format(vsphere_src_template,vcenter_name))
-    #print(govc_line2)
+    print(govc_line2)
     stream2 = os.popen(govc_line2)
     output2= stream2.read()
     output2
@@ -35,16 +35,18 @@ if os.path.exists("../config/user_configurations.json"):
                 vsphere_datastore=raw_value
             elif (raw_key=='vsphere_src_template'):
                 vsphere_src_template=raw_value
+            elif (raw_key=='vsphere_resource_pool_host'):
+                vsphere_resource_pool_host=raw_value
             elif (raw_key=='vsphere_src_ova'):
                 vsphere_src_ova=raw_value
 
-                
-        CreateTemplate(vcenter_name, vsphere_user, vsphere_password, vsphere_datastore, vsphere_src_template, vsphere_src_ova)
+
+        CreateTemplate(vcenter_name, vsphere_user, vsphere_password, vsphere_datastore, vsphere_src_template, vsphere_src_ova, vsphere_resource_pool_host)
 else:
     print("../config/user_configurations.json file not found ")
 
 
 
 #Copy ova in the current directory
-#1. GOVC_URL=<vCenter username>:"<vCenter password>"@<vCenter IP>/sdk GOVC_INSECURE=1 govc import.ova -ds=<datastore name> -name=cyperfAgent_<build no>_template ./<cyperf ova>
+#1. GOVC_URL=<vCenter username>:"<vCenter password>"@<vCenter IP>/sdk GOVC_INSECURE=1 govc import.ova -host=<resource pool host> -ds=<datastore name> -name=cyperfAgent_<build no>_template <cyperf ova>
 #2. GOVC_URL=<vCenter username>:"<vCenter password>"@<vCenter IP>/sdk GOVC_INSECURE=1 govc vm.markastemplate cyperfAgent_<build no>_template
