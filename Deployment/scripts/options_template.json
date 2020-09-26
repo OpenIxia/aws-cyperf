@@ -1,0 +1,20 @@
+{
+  "DiskProvisioning": "flat",
+  "IPAllocationPolicy": "dhcpPolicy",
+  "IPProtocol": "IPv4",
+  "NetworkMapping": [
+    {
+      "Name": "Management Network",
+      "Network": "MGMT-VSWITCH"
+    },
+    {
+      "Name": "Test Network",
+      "Network": "TEST-VSWITCH"
+    }
+  ],
+  "MarkAsTemplate": false,
+  "PowerOn": false,
+  "InjectOvfEnv": false,
+  "WaitForIP": false,
+  "Name": null
+}
