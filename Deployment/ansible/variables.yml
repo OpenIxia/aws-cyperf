@@ -1,5 +1,0 @@
----
-VarTestInterface: "ens192"
-VarManagementInterface: "ens160"
-VarAppsecInstaller: "CYPERFAGENTBINARY"
-VarNatsBrokerUrl: "nats://10.36.75.87:30422"
