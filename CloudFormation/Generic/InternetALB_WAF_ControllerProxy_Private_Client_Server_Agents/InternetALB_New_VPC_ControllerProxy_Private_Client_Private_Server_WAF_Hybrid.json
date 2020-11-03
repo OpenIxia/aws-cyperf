@@ -13,7 +13,7 @@
 				"REGIONxTAG" : "US_EAST_1"
 			},
 			"us-east-2" : {
-				"AMIxCLIENT" : "ami-0de433242f79a200e",
+				"AMIxCLIENT" : "ami-08909431c662fd195",
 				"AMIxBROKER" : "ami-01eeb055dcbecbff8",
 				"AMIxAGENT" : "ami-019f3da2b90728fef",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -31,7 +31,7 @@
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxCLIENT" : "ami-06d9688ff4415863b",
+				"AMIxCLIENT" : "ami-05f20562ee197f13a",
 				"AMIxBROKER" : "ami-0a56c31426046fa19",
 				"AMIxAGENT" : "ami-0c8c4ea10cc652c80",
 				"AMIxLICENSE" : "ami-0000000000000000",
