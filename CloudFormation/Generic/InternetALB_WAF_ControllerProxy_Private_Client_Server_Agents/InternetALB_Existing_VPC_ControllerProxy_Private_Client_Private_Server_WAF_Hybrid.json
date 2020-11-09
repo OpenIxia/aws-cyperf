@@ -13,14 +13,14 @@
 				"REGIONxTAG" : "US_EAST_1"
 			},
 			"us-east-2" : {
-				"AMIxCLIENT" : "ami-08909431c662fd195",
-				"AMIxBROKER" : "ami-01eeb055dcbecbff8",
-				"AMIxAGENT" : "ami-019f3da2b90728fef",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "3.16.146.0/29",
-				"EC2xREGION" : "US East (Ohio)",
-				"REGIONxTAG" : "US_EAST_2"
-			},
+                                "AMIxCLIENT" : "ami-017f95b88cc512f91",
+                                "AMIxBROKER" : "ami-0b8b248aa6b1bf7f1",
+                                "AMIxAGENT" : "ami-0e529653595180503",
+                                "AMIxLICENSE" : "ami-00000000000000000",
+                                "EC2xCONNECTxCIDR" : "3.16.146.0/29",
+                                "EC2xREGION" : "US East (Ohio)",
+                                "REGIONxTAG" : "US_EAST_2"
+                        },
 			"us-west-1" : {
 				"AMIxCLIENT" : "ami-00000000000000000",
 				"AMIxBROKER" : "ami-00000000000000000",
@@ -30,15 +30,15 @@
 				"EC2xREGION" : "US West (N. California)",
 				"REGIONxTAG" : "US_WEST_1"
 			},
-			"us-west-2" : {
-				"AMIxCLIENT" : "ami-05f20562ee197f13a",
-				"AMIxBROKER" : "ami-0a56c31426046fa19",
-				"AMIxAGENT" : "ami-0c8c4ea10cc652c80",
-				"AMIxLICENSE" : "ami-0000000000000000",
-				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
-				"EC2xREGION" : "US West (Oregon)",
-				"REGIONxTAG" : "US_WEST_2"
-			},
+			 "us-west-2" : {
+                                "AMIxCLIENT" : "ami-02eb0a5c6c02a94ad",
+                                "AMIxBROKER" : "ami-0fbd9bb7d93f329de",
+                                "AMIxAGENT" : "ami-0c51121b516c50c97",
+                                "AMIxLICENSE" : "ami-0000000000000000",
+                                "EC2xCONNECTxCIDR" : "18.237.140.160/29",
+                                "EC2xREGION" : "US West (Oregon)",
+                                "REGIONxTAG" : "US_WEST_2"
+                        },
 			"ap-east-1" : {
 				"AMIxCLIENT" : "ami-00000000000000000",
 				"AMIxBROKER" : "ami-00000000000000000",
