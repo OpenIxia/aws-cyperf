@@ -15,7 +15,7 @@
 			"us-east-2" : {
 				"AMIxCLIENT" : "ami-017f95b88cc512f91",
 				"AMIxBROKER" : "ami-0b8b248aa6b1bf7f1",
-				"AMIxAGENT" : "ami-0e529653595180503",
+				"AMIxAGENT" : "ami-00904144dd9af4c05",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "3.16.146.0/29",
 				"EC2xREGION" : "US East (Ohio)",
@@ -33,7 +33,7 @@
 			"us-west-2" : {
 				"AMIxCLIENT" : "ami-02eb0a5c6c02a94ad",
 				"AMIxBROKER" : "ami-0fbd9bb7d93f329de",
-				"AMIxAGENT" : "ami-0c51121b516c50c97",
+				"AMIxAGENT" : "ami-0120b2f012aa7488b",
 				"AMIxLICENSE" : "ami-0000000000000000",
 				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
 				"EC2xREGION" : "US West (Oregon)",
@@ -716,7 +716,6 @@
                                         ]
                                     ]
                                 },
-                                " 30422",
                                 " >> /root/Appsec_init\n"
                             ]
                         ]
@@ -1191,7 +1190,6 @@
                                         ]
                                     ]
                                 },
-                                " 30422",
                                 " >> /root/Appsec_init\n"
                             ]
                         ]
