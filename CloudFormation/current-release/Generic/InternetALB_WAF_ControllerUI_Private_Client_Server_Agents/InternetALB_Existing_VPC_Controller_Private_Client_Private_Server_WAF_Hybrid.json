@@ -1,0 +1,1212 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "\n    Stack creating a VPC and launch EC2 instances within it.\n    **WARNING** This template creates Amazon EC2 instances.\n    You will be billed for the AWS resources used if you create\n    a stack from this template. **WARNING** This template creates\n    role for the launching/deleting instances/subnets/interfaces.\n    This role will invoke AWSLambdaBasicExecutionRole, please see\n    AWS Documentation for details on AWSLambdaBasicExecutionRole.",
+    "Mappings" : {
+		"RegionMap" : {
+			"us-east-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "US East (N. Virginia)",
+				"REGIONxTAG" : "US_EAST_1"
+			},
+			 "us-east-2" : {
+                                "AMIxCLIENT" : "ami-0131c1951425bf673",
+                                "AMIxBROKER" : "ami-0b8b248aa6b1bf7f1",
+                                "AMIxAGENT" : "ami-00904144dd9af4c05",
+                                "AMIxLICENSE" : "ami-00000000000000000",
+                                "EC2xCONNECTxCIDR" : "3.16.146.0/29",
+                                "EC2xREGION" : "US East (Ohio)",
+                                "REGIONxTAG" : "US_EAST_2"
+                        },
+			"us-west-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.52.6.112/29",
+				"EC2xREGION" : "US West (N. California)",
+				"REGIONxTAG" : "US_WEST_1"
+			},
+			"us-west-2" : {
+                                "AMIxCLIENT" : "ami-0c1cd54f66a3fb06d",
+                                "AMIxBROKER" : "ami-0fbd9bb7d93f329de",
+                                "AMIxAGENT" : "ami-0120b2f012aa7488b",
+                                "AMIxLICENSE" : "ami-0000000000000000",
+                                "EC2xCONNECTxCIDR" : "18.237.140.160/29",
+                                "EC2xREGION" : "US West (Oregon)",
+                                "REGIONxTAG" : "US_WEST_2"
+                        },
+			"ap-east-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "Asia Pacific (Hong Kong)",		
+				"REGIONxTAG" : "AP_EAST_1"
+			},
+			"ap-south-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.233.177.0/29",
+				"EC2xREGION" : "Asia Pacific (Mumbai)",
+				"REGIONxTAG" : "AP_SOUTH_1"
+			},
+			"ap-northeast-2" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.209.1.56/29",
+				"EC2xREGION" : "Asia Pacific (Seoul)",
+				"REGIONxTAG" : "AP_NORTHEAST_2"
+			},
+			"ap-southeast-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.0.5.32/29",
+				"EC2xREGION" : "Asia Pacific (Singapore)",
+				"REGIONxTAG" : "AP_SOUTHEAST_1"
+			},
+			"ap-southeast-2" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.239.158.0/29",
+				"EC2xREGION" : "Asia Pacific (Sydney)",
+				"REGIONxTAG" : "AP_SOUTHEAST_2"
+			},
+			"ap-northeast-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.112.23.0/29",
+				"EC2xREGION" : "Asia Pacific (Tokyo)",
+				"REGIONxTAG" : "AP_NORTHEAST_1"
+			},
+			"ca-central-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "35.183.92.176/29",
+				"EC2xREGION" : "Canada (Central)",
+				"REGIONxTAG" : "CA_CENTRAL_1"
+			},
+			"eu-central-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.120.181.40/29",
+				"EC2xREGION" : "EU (Frankfurt)",
+				"REGIONxTAG" : "EU_CENTRAL_1"
+			},
+			"eu-west-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.202.216.48/29",
+				"EC2xREGION" : "EU (Ireland)",
+				"REGIONxTAG" : "EU_WEST_1"
+			},
+			"eu-west-2" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.8.37.24/29",
+				"EC2xREGION" : "EU (London)",
+				"REGIONxTAG" : "EU_WEST_2"
+			},
+			"eu-west-3" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "35.180.112.80/29",
+				"EC2xREGION" : "EU (Paris)",
+				"REGIONxTAG" : "EU_WEST_3"
+			},
+			"eu-north-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
+				"EC2xREGION" : "EU (Stockholm)",
+				"REGIONxTAG" : "EU_NORTH_1"
+			},
+			"me-south-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "Middle East (Bahrain)",		
+				"REGIONxTAG" : "ME_SOUTH_1"
+			},
+			"sa-east-1" : {
+				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
+				"EC2xREGION" : "South America (Sao Paulo)",
+				"REGIONxTAG" : "SA_EAST_1"
+			}
+		},
+		"VariableMap" : {
+			"global" : {
+                "OPTIONSxTAG" : "MANUAL",
+                "PROJECTxTAG" : "CyPerf",
+                "FLOWxLOGxRESOURCExTYPE" : "VPC",
+				"FLOWxLOGxTRAFFICxTYPE" : "REJECT"
+			}
+		}
+    },
+    "Metadata": {
+        "AWS::CloudFormation::Interface": {
+            "ParameterGroups": [
+                {
+                    "Label": {
+                        "default": "NETWORK CONFIGURATION"
+                    }
+                },
+                {
+                    "Label": {
+                        "default": "VPC Configuration"
+                    },
+                    "Parameters": [
+                        "Username",
+                        "Project",
+                        "AvailabilityZone1",
+                        "AvailabilityZone2",
+                        "VPC",
+                        "ManagementNetworkCIDR1",
+                        "ManagementNetworkCIDR2"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "CyPerf Agent Configuration"
+                    },
+                    "Parameters": [
+                        "InstanceTypeForCyPerfAgent",
+                        "InstanceTypeForCyPerfUI",
+                        "KeyNameForCyPerfAgent",
+                        "TagBehindApplicationLB",
+                        "TestInitForCyPerfAgentAZ1",
+                        "TestInitForCyPerfAgentAZ2",
+                        "MBInitForCyPerfAgentAZ1",
+                        "MBInitForCyPerfAgentAZ2"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "CyPerf Security-Group Configuration"
+                    },
+                    "Parameters": [
+                        "CyPerfUISecurityGroup",
+                        "LoadBalancerSecurityGroup",
+                        "MgmtInstanceSecurityGroup"
+                    ]
+                }
+            ],
+            "ParameterLabels": {
+                "AvailabilityZone1": {
+                    "default": "Availability Zone 1"
+                },
+                "AvailabilityZone2": {
+                    "default": "Availability Zone 2"
+                },
+                "InstanceCount": {
+                    "default": "Instance Count"
+                },
+                "InstanceTypeForCyPerfAgent": {
+                    "default": "Instance Type CyPerf Agent"
+                },
+                "KeyNameForCyPerfAgent": {
+                    "default": "SSH Key"
+                },
+                "MBInitForCyPerfAgentAZ1": {
+                    "default": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1"
+                },
+                "MBInitForCyPerfAgentAZ2": {
+                    "default": "Management Subnet (Message Broker subnet D) for CyPerf Agent for AZ2"
+                },
+                "ManagementNetworkCIDR1": {
+                    "default": "Public subnet (Public subnet A) for AZ1"
+                },
+                "ManagementNetworkCIDR2": {
+                    "default": "Public subnet (Public subnet B) for AZ2"
+                },
+                "TagBehindApplicationLB": {
+                    "default": " Agents Tag running Behind Application LB"
+                },
+                "TestInitForCyPerfAgentAZ1": {
+                    "default": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1"
+                },
+                "TestInitForCyPerfAgentAZ2": {
+                    "default": "Test Subnet (Private subnet B) for CyPerf Agent for AZ2"
+                },
+                "VPC": {
+                    "default": "VPC"
+                },
+                "MgmtInstanceSecurityGroup": {
+                    "default": "Security group for CyPerf Agent"
+                },
+                "LoadBalancerSecurityGroup": {
+                    "default": "Security group for Load Balancer"
+                },
+                "CyPerfUISecurityGroup": {
+                    "default": "Security group for CyPerf UI"
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "ApplicationLBTargetGroup": {
+            "Description": "ARN of HTTP target group behind ALB",
+            "Value": {
+                "Ref": "TargetGroupWebApplication"
+            }
+        },
+        "ApplicationLBTargetGroupHTTPS": {
+            "Description": "ARN of HTTPS target group behind ALB",
+            "Value": {
+                "Ref": "TargetGroupWebApplicationHTTPS"
+            }
+        },
+        "LaunchConfigurationName": {
+            "Description": "Name of LaunchConfiguration",
+            "Value": {
+                "Ref": "LaunchConfiguration"
+            }
+        },
+        "LoadBalacerALBURI": {
+            "Description": "Application Load Balancer DNS name",
+            "Value": {
+                "Fn::Join": [
+                    "",
+                    [
+                        {
+                            "Fn::GetAtt": [
+                                "ApplicationElasticLB",
+                                "DNSName"
+                            ]
+                        }
+                    ]
+                ]
+            }
+        },
+        "LoadBalacerALBArn": {
+            "Description": "Application Load Balancer ARN name",
+            "Value": {
+                "Ref": "ApplicationElasticLB"
+            }
+        },
+        "NatsMBINstanceDNS": {
+            "Description": "DNS name of Controller instance",
+            "Value": {
+                "Fn::Join": [
+                    "",
+                    [
+                        {
+                            "Fn::GetAtt": [
+                                "CyPerfUI",
+                                "PublicDnsName"
+                            ]
+                        }
+                    ]
+                ]
+            }
+        },
+        "StackRef": {"Value": { "Ref" : "CyPerfWAF"}},
+        "WafID" : {
+            "Description": "AWS WAF ID",  
+            "Value" : { "Fn::GetAtt" : [ "CyPerfWAF", "Outputs.wafWebACL" ] }
+        }
+    },
+    "Parameters": {
+        "ApplicationLBHTTPHealthChkPort": {
+            "Default": "80",
+            "Description": "TCP/IP port of the ApplicationLB HTTP Health Check",
+            "Type": "String"
+        },
+        "ApplicationLBHTTPListenerPort": {
+            "Default": "80",
+            "Description": "TCP/IP port of the ApplicationLB HTTP Listener",
+            "Type": "String"
+        },
+        "AvailabilityZone1": {
+            "Default": "us-west-2a",
+            "Description": "Preferred availability zone",
+            "Type": "AWS::EC2::AvailabilityZone::Name"
+        },
+        "AvailabilityZone2": {
+            "Default": "us-west-2b",
+            "Description": "Preferred availability zone",
+            "Type": "AWS::EC2::AvailabilityZone::Name"
+        },
+        "CyPerfUISecurityGroup": {
+            "Default": "<Select CyPerfUISecurityGroup security group from drop down>",
+            "Description": "CyPerf UI Security group",
+            "Type": "AWS::EC2::SecurityGroup::Id"
+        },
+        "LoadBalancerSecurityGroup": {
+            "Default": "<Select LoadBalancerSecurityGroup security group from drop down>",
+            "Description": "Load Balancer Security group",
+            "Type": "AWS::EC2::SecurityGroup::Id"
+        },
+        "MgmtInstanceSecurityGroup": {
+            "Default": "<Select CyPerf Agent security group from drop down>",
+            "Description": "CyPerf Agent Security group",
+            "Type": "AWS::EC2::SecurityGroup::Id"
+        },
+        "CertificateARN": {
+            "Default": "<Specify ARN of server certificates>",
+            "Description": "Retrieves a certificate specified by ARN & associate it with Load Balancer's HTTPS listener profile. Example: arn:aws:iam::<AccountID>:server-certificate/<Server certificate name>",
+            "Type": "String"
+        },
+        "ApplicationLBHTTPSHealthChkPort": {
+            "Default": "443",
+            "Description": "TCP/IP port of the ApplicationLB HTTPS Health Check",
+            "Type": "String"
+        },
+        "ApplicationLBHTTPSListenerPort": {
+            "Default": "443",
+            "Description": "TCP/IP port of the ApplicationLB HTTPS Listener",
+            "Type": "String"
+        },
+        "InstanceTypeForCyPerfAgent": {
+            "AllowedValues": [
+                "c4.2xlarge",
+                "c5n.9xlarge"
+            ],
+            "Default": "c4.2xlarge",
+            "Description": "Please select CyPerf instance type",
+            "Type": "String"
+        },
+        "InstanceTypeForCyPerfUI": {
+            "AllowedValues": [
+                "c4.2xlarge",
+                "c5n.9xlarge"
+            ],
+            "Default": "c4.2xlarge",
+            "Description": "Please select CyPerf UI/MDW instance type.",
+            "Type": "String"
+        },
+        "KeyNameForCyPerfAgent": {
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair",
+            "Default": "CyPerf-keypair",
+            "Description": "Existing KeyPair to login to the CyPerf instances",
+            "Type": "AWS::EC2::KeyPair::KeyName"
+        },
+        "MBInitForCyPerfAgentAZ1": {
+            "Default": "Select Management subnet from drop down",
+            "Description": "Management Subnet (Private MessageBrokerSubnet C) for CyPerf Agent for AZ1 (eth1)",
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "MBInitForCyPerfAgentAZ2": {
+            "Default": "Select Management subnet from drop down",
+            "Description": "Management Subnet (Private MessageBrokerSubnet D) for CyPerf Agent for AZ2 (eth1)",
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "ManagementNetworkCIDR1": {
+            "Default": "Select Public subnet from drop down",
+            "Description": "Public Subnet (Public subnet A)",
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "ManagementNetworkCIDR2": {
+            "Default": "Select Public subnet from drop down",
+            "Description": "Public Subnet (Public subnet B)",
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "Project": {
+            "Default": "CyPerf-AWS",
+            "Description": "Enter Project Name",
+            "Type": "String"
+        },
+        "TagBehindApplicationLB": {
+            "Default": "ServerFarmBehindALB",
+            "Description": "CyPerf Agent Tag running behind Application LB",
+            "Type": "String"
+        },
+        "TestInitForCyPerfAgentAZ1": {
+            "Default": "Select Test subnet from drop down",
+            "Description": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1 (eth0)",
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "TestInitForCyPerfAgentAZ2": {
+            "Default": "Select Test subnet from drop down",
+            "Description": "Test Subnet (Private subnet B) for CyPerf Agent for AZ2 (eth0)",
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "Username": {
+            "Default": "<UserName>@keysight.com",
+            "Description": "Enter Team or Individual email id  Responsible for the Stack.",
+            "Type": "String"
+        },
+        "VPC": {
+            "Default": "<Select VPC from drop down>",
+            "Description": "Stack use seletced VPC",
+            "Type": "AWS::EC2::VPC::Id"
+        },
+        "ScaleCapacityMax": {
+            "Default": "2",
+            "Description": "Number of maximum CyPerf Agent to run",
+            "Type": "String"
+        },
+        "ScaleCapacityMin": {
+            "Default": "2",
+            "Description": "Number of minimum CyPerf Agent to run",
+            "Type": "String"
+        },
+        "NetworkOutBytesPerMinute": {
+            "Default": "100000",
+            "Description": "Average network out capacity to trigger auto scaling",
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "CyPerfWAF" : {
+            "Type" : "AWS::CloudFormation::Stack",
+            "Properties" : {
+              "TemplateURL" : "https://aws-cyperf.s3-us-west-2.amazonaws.com/owasp_10_base_custom.yml",
+              "Parameters": {
+                "stackPrefix": { "Ref": "AWS::StackName" }
+            },
+              "TimeoutInMinutes" : 120
+            }
+        },
+        "ApplicationElasticLB": {
+            "Properties": {
+                "Name": {
+                    "Fn::Sub": "${AWS::StackName}-ApplicationLB"
+                },
+                "Scheme": "internet-facing",
+                "SecurityGroups": [
+                    {
+                        "Ref": "LoadBalancerSecurityGroup"
+                    }
+                ],
+                "Subnets": [
+                    {
+                        "Ref": "ManagementNetworkCIDR1"
+                    },
+                    {
+                        "Ref": "ManagementNetworkCIDR2"
+                    }
+                ]
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer"
+        },
+        "EC2IfaceRole": {
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": "sts:AssumeRole",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": "ec2.amazonaws.com"
+                            }
+                        }
+                    ],
+                    "Version": "2012-10-17"
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Action": [
+                                        "ec2:CreateNetworkInterface",
+                                        "ec2:DescribeInstances",
+                                        "ec2:ModifyNetworkInterfaceAttribute",
+                                        "ec2:AttachNetworkInterface",
+                                        "ec2:DescribeSubnets",
+                                        "ec2:DescribeSecurityGroups",
+                                        "ec2:DescribeTags"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": "*"
+                                }
+                            ],
+                            "Version": "2012-10-17"
+                        },
+                        "PolicyName": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "EC2IfacePolicy"
+                                ]
+                            ]
+                        }
+                    }
+                ],
+                "RoleName": {
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "AWS::StackName"
+                            },
+                            "EC2IfaceRole"
+                        ]
+                    ]
+                }
+            },
+            "Type": "AWS::IAM::Role"
+        },
+        "EC2InstanceProfile": {
+            "DependsOn": "EC2IfaceRole",
+            "Properties": {
+                "Roles": [
+                    {
+                        "Ref": "EC2IfaceRole"
+                    }
+                ]
+            },
+            "Type": "AWS::IAM::InstanceProfile"
+        },
+        "LaunchConfiguration": {
+            "DependsOn": [
+                "CyPerfUI",
+                "EC2InstanceProfile"
+            ],
+            "Properties": {
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/sda1",
+                        "Ebs": {
+                            "VolumeSize": "8",
+                            "DeleteOnTermination" : true
+                        }
+                    }
+                ],
+                "IamInstanceProfile": {
+                    "Ref": "EC2InstanceProfile"
+                },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxAGENT"] },
+                "InstanceType": {
+                    "Ref": "InstanceTypeForCyPerfAgent"
+                },
+                "KeyName": {
+                    "Ref": "KeyNameForCyPerfAgent"
+                },
+                "SecurityGroups": [
+                    {
+                        "Ref": "MgmtInstanceSecurityGroup"
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -xe\n",
+                                "cd /opt/keysight/tiger/active/bin/\n",
+                                "sh /opt/keysight/tiger/active/bin/Appsec_init ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            {
+                                                "Fn::GetAtt": [
+                                                    "CyPerfUI",
+                                                    "PrivateIp"
+                                                ]
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /root/Appsec_init\n"
+                            ]
+                        ]
+                    }
+                }
+            },
+            "Type": "AWS::AutoScaling::LaunchConfiguration"
+        },
+        "ListenerApplication": {
+            "Properties": {
+                "DefaultActions": [
+                    {
+                        "TargetGroupArn": {
+                            "Ref": "TargetGroupWebApplication"
+                        },
+                        "Type": "forward"
+                    }
+                ],
+                "LoadBalancerArn": {
+                    "Ref": "ApplicationElasticLB"
+                },
+                "Port": {
+                    "Ref": "ApplicationLBHTTPListenerPort"
+                },
+                "Protocol": "HTTP"
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::Listener"
+        },
+        "ListenerSSL": {
+            "Properties": {
+                "Certificates": [
+                    {
+                        "CertificateArn": {
+                            "Ref": "CertificateARN"
+                        }
+                    }
+                ],
+                "DefaultActions": [
+                    {
+                        "TargetGroupArn": {
+                            "Ref": "TargetGroupWebApplication"
+                        },
+                        "Type": "forward"
+                    }
+                ],
+                "LoadBalancerArn": {
+                    "Ref": "ApplicationElasticLB"
+                },
+                "Port": {
+                    "Ref": "ApplicationLBHTTPSListenerPort"
+                },
+                "Protocol": "HTTPS"
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::Listener"
+        },
+        "AppSecMDW": {
+            "DependsOn": [
+                "mdweth0",
+                "EC2InstanceProfile"
+            ],
+            "Properties": {
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/sda1",
+                        "Ebs": {
+                            "VolumeSize": "100",
+                            "DeleteOnTermination" : true
+                        }
+                    }
+                ],
+                "IamInstanceProfile": {
+                    "Ref": "EC2InstanceProfile"
+                },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxCLIENT"] },
+                "InstanceType": {
+                    "Ref": "InstanceTypeForCyPerfUI"
+                },
+                "KeyName": {
+                    "Ref": "KeyNameForCyPerfAgent"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "DeviceIndex": "0",
+                        "NetworkInterfaceId": {
+                            "Ref": "mdweth0"
+                        }
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "MDW"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::Instance"
+        },
+        "AppSecLicenseServer": {
+            "DependsOn": "liceth0",
+            "Properties": {
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/sda1",
+                        "Ebs": {
+                            "VolumeSize": "20",
+                            "DeleteOnTermination" : true
+                        }
+                    }
+                ],
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxLICENSE"] },
+                "InstanceType": "t2.micro",
+                "KeyName": {
+                    "Ref": "KeyNameForCyPerfAgent"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "DeviceIndex": "0",
+                        "NetworkInterfaceId": {
+                            "Ref": "liceth0"
+                        }
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "License-Server"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }                  
+                ]
+            },
+            "Type": "AWS::EC2::Instance"
+        },
+        "ClientAgent": {
+            "DependsOn": [
+                "clieth0",
+                "CyPerfUI",
+                "EC2InstanceProfile"
+            ],
+            "Properties": {
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/sda1",
+                        "Ebs": {
+                            "VolumeSize": "8",
+                            "DeleteOnTermination" : true
+                        }
+                    }
+                ],
+                "IamInstanceProfile": {
+                    "Ref": "EC2InstanceProfile"
+                },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxAGENT"] },
+                "InstanceType": {
+                    "Ref": "InstanceTypeForCyPerfAgent"
+                },
+                "KeyName": {
+                    "Ref": "KeyNameForCyPerfAgent"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "DeviceIndex": "0",
+                        "NetworkInterfaceId": {
+                            "Ref": "clieth0"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -xe\n",
+                                "cd /opt/keysight/tiger/active/bin/\n",
+                                "sh /opt/keysight/tiger/active/bin/Appsec_init ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            {
+                                                "Fn::GetAtt": [
+                                                    "CyPerfUI",
+                                                    "PrivateIp"
+                                                ]
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /root/Appsec_init\n"
+                            ]
+                        ]
+                    }
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "ClientAgent"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::Instance"
+        },
+        "TargetGroupWebApplication": {
+            "Properties": {
+                "HealthCheckIntervalSeconds": "6",
+                "HealthCheckPath": "/CyPerfHTTPHealthCheck",
+                "HealthCheckPort": {
+                    "Ref": "ApplicationLBHTTPHealthChkPort"
+                },
+                "HealthCheckProtocol": "HTTP",
+                "HealthCheckTimeoutSeconds": "5",
+                "HealthyThresholdCount": "2",
+                "Matcher": {
+                    "HttpCode": "200"
+                },
+                "Name": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "AWS::StackName"
+                            },
+                            "-TG-ApplicationLB"
+                        ]
+                    ]
+                },
+                "Port": {
+                    "Ref": "ApplicationLBHTTPListenerPort"
+                },
+                "Protocol": "HTTP",
+                "Targets": [],
+                "UnhealthyThresholdCount": "3",
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "TargetGroupAttributes": [
+                    {
+                    "Key": "stickiness.enabled",
+                    "Value": "false"
+                    },
+                    {
+                    "Key" : "stickiness.lb_cookie.duration_seconds",
+                    "Value" : 120
+                    }
+                ]     
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+        },
+        "TargetGroupWebApplicationHTTPS": {
+            "Properties": {
+                "HealthCheckIntervalSeconds": "6",
+                "HealthCheckPath": "/CyPerfHTTPSHealthCheck",
+                "HealthCheckPort": {
+                    "Ref": "ApplicationLBHTTPSHealthChkPort"
+                },
+                "HealthCheckProtocol": "HTTPS",
+                "HealthCheckTimeoutSeconds": "5",
+                "HealthyThresholdCount": "2",
+                "Matcher": {
+                    "HttpCode": "200"
+                },
+                "Name": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "AWS::StackName"
+                            },
+                            "-TG-HTTPSLoadBalancer"
+                        ]
+                    ]
+                },
+                "Port": {
+                    "Ref": "ApplicationLBHTTPSListenerPort"
+                },
+                "Protocol": "HTTPS",
+                "Targets": [],
+                "UnhealthyThresholdCount": "3",
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "TargetGroupAttributes": [
+                    {
+                    "Key": "stickiness.enabled",
+                    "Value": "false"
+                    },
+                    {
+                    "Key" : "stickiness.lb_cookie.duration_seconds",
+                    "Value" : 120
+                    }
+                ]       
+            },
+            "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+        },
+        "mdweth0": {
+            "Properties": {
+                "Description": "MDW eth0",
+                "GroupSet": [
+                    {
+                        "Ref": "CyPerfUISecurityGroup"
+                    }
+                ],
+                "SourceDestCheck": "true",
+                "SubnetId": {
+                    "Ref": "ManagementNetworkCIDR1"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "MB-Interface"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::NetworkInterface"
+        },
+        "clieth0": {
+            "Properties": {
+                "Description": "Client Agent eth0",
+                "GroupSet": [
+                    {
+                        "Ref": "MgmtInstanceSecurityGroup"
+                    }
+                ],
+                "SourceDestCheck": "true",
+                "SubnetId": {
+                    "Ref": "TestInitForCyPerfAgentAZ1"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "CA-Interface"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::NetworkInterface"
+        },
+        "AutoscalingGroupALB": {
+            "Properties": {
+                "AvailabilityZones": [
+                    {
+                        "Ref": "AvailabilityZone1"
+                    },
+                    {
+                        "Ref": "AvailabilityZone2"
+                    }
+                ],
+                "Cooldown" : "60",
+                "DesiredCapacity": {
+                    "Ref": "ScaleCapacityMin"
+                },
+                "HealthCheckType": "EC2",
+                "LaunchConfigurationName": {
+                    "Ref": "LaunchConfiguration"
+                },
+                "MaxSize": {
+                    "Ref": "ScaleCapacityMax"
+                },
+                "MinSize": {
+                    "Ref": "ScaleCapacityMin"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "PropagateAtLaunch": true,
+                        "Value": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    {
+                                        "Ref": "TagBehindApplicationLB"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "TagName",
+                        "PropagateAtLaunch": true,
+                        "Value": "ServerFarmBehindALB"
+                    },
+                    {
+                        "Key": "Project",
+                        "PropagateAtLaunch": true,
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+                        "PropagateAtLaunch": true,
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "PropagateAtLaunch": true,
+                        "Value": { "Ref": "Username" }
+                    }
+                ],
+                "TargetGroupARNs": [
+                    {
+                        "Ref": "TargetGroupWebApplication"
+                    },
+                    {
+                        "Ref": "TargetGroupWebApplicationHTTPS"
+                    }
+                ],
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "TestInitForCyPerfAgentAZ1"
+                    },
+                    {
+                        "Ref": "TestInitForCyPerfAgentAZ2"
+                    }
+                ]
+            },
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "UpdatePolicy": {
+                "AutoScalingReplacingUpdate": {
+                    "WillReplace": "true"
+                },
+                "AutoScalingRollingUpdate": {
+                    "MaxBatchSize": "1",
+                    "MinInstancesInService": "1",
+                    "PauseTime": "PT5M",
+                    "WaitOnResourceSignals": "true"
+                }
+            }
+        },
+        "AutoscalingPolicyALB": {
+            "Properties": {
+                "AutoScalingGroupName": {
+                    "Ref": "AutoscalingGroupALB"
+                },
+                "PolicyType": "TargetTrackingScaling",
+                "TargetTrackingConfiguration": {
+                    "PredefinedMetricSpecification": {
+                        "PredefinedMetricType": "ASGAverageNetworkOut"
+                    },
+                    "TargetValue": {
+                        "Ref": "NetworkOutBytesPerMinute"
+                    }
+                }
+            },
+            "Type": "AWS::AutoScaling::ScalingPolicy"
+        },
+        "MyWebACLAssociation": {
+            "Type": "AWS::WAFRegional::WebACLAssociation",
+            "Properties": {
+              "ResourceArn": { "Ref": "ApplicationElasticLB" },
+              "WebACLId": { "Fn::GetAtt" : [ "CyPerfWAF", "Outputs.wafWebACL" ] }
+            }
+        },
+        "myLifecycleHook":{
+            "Type":"AWS::AutoScaling::LifecycleHook",
+            "Properties":{
+                "AutoScalingGroupName":{
+                  "Ref":"AutoscalingGroupALB"
+                },
+                "LifecycleTransition":"autoscaling:EC2_INSTANCE_LAUNCHING",
+                "HeartbeatTimeout":180,
+                "DefaultResult":"CONTINUE"
+            }
+        }      
+    }
+}
