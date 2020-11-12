@@ -1,179 +1,169 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "\n    Stack creating a VPC and launch EC2 instances within it.\n    **WARNING** This template creates Amazon EC2 instances.\n    You will be billed for the AWS resources used if you create\n    a stack from this template. **WARNING** This template creates\n    role for the launching/deleting instances/subnets/interfaces.\n    This role will invoke AWSLambdaBasicExecutionRole, please see\n    AWS Documentation for details on AWSLambdaBasicExecutionRole.",
-    "Mappings" : {
-		"RegionMap" : {
-			"us-east-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
-				"EC2xREGION" : "US East (N. Virginia)",
-				"REGIONxTAG" : "US_EAST_1"
-			},
-			"us-east-2" : {
-                                "AMIxCLIENT" : "ami-0131c1951425bf673",
-                                "AMIxBROKER" : "ami-0b8b248aa6b1bf7f1",
-                                "AMIxAGENT" : "ami-00904144dd9af4c05",
-                                "AMIxLICENSE" : "ami-00000000000000000",
-                                "EC2xCONNECTxCIDR" : "3.16.146.0/29",
-                                "EC2xREGION" : "US East (Ohio)",
-                                "REGIONxTAG" : "US_EAST_2"
-                        },
-			"us-west-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "13.52.6.112/29",
-				"EC2xREGION" : "US West (N. California)",
-				"REGIONxTAG" : "US_WEST_1"
-			},
-			 "us-west-2" : {
-                                "AMIxCLIENT" : "ami-0c1cd54f66a3fb06d",
-                                "AMIxBROKER" : "ami-0fbd9bb7d93f329de",
-                                "AMIxAGENT" : "ami-0120b2f012aa7488b",
-                                "AMIxLICENSE" : "ami-0000000000000000",
-                                "EC2xCONNECTxCIDR" : "18.237.140.160/29",
-                                "EC2xREGION" : "US West (Oregon)",
-                                "REGIONxTAG" : "US_WEST_2"
-                        },
-			"ap-east-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
-				"EC2xREGION" : "Asia Pacific (Hong Kong)",		
-				"REGIONxTAG" : "AP_EAST_1"
-			},
-			"ap-south-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "13.233.177.0/29",
-				"EC2xREGION" : "Asia Pacific (Mumbai)",
-				"REGIONxTAG" : "AP_SOUTH_1"
-			},
-			"ap-northeast-2" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "13.209.1.56/29",
-				"EC2xREGION" : "Asia Pacific (Seoul)",
-				"REGIONxTAG" : "AP_NORTHEAST_2"
-			},
-			"ap-southeast-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "3.0.5.32/29",
-				"EC2xREGION" : "Asia Pacific (Singapore)",
-				"REGIONxTAG" : "AP_SOUTHEAST_1"
-			},
-			"ap-southeast-2" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "13.239.158.0/29",
-				"EC2xREGION" : "Asia Pacific (Sydney)",
-				"REGIONxTAG" : "AP_SOUTHEAST_2"
-			},
-			"ap-northeast-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "3.112.23.0/29",
-				"EC2xREGION" : "Asia Pacific (Tokyo)",
-				"REGIONxTAG" : "AP_NORTHEAST_1"
-			},
-			"ca-central-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "35.183.92.176/29",
-				"EC2xREGION" : "Canada (Central)",
-				"REGIONxTAG" : "CA_CENTRAL_1"
-			},
-			"eu-central-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "3.120.181.40/29",
-				"EC2xREGION" : "EU (Frankfurt)",
-				"REGIONxTAG" : "EU_CENTRAL_1"
-			},
-			"eu-west-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "18.202.216.48/29",
-				"EC2xREGION" : "EU (Ireland)",
-				"REGIONxTAG" : "EU_WEST_1"
-			},
-			"eu-west-2" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "3.8.37.24/29",
-				"EC2xREGION" : "EU (London)",
-				"REGIONxTAG" : "EU_WEST_2"
-			},
-			"eu-west-3" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "35.180.112.80/29",
-				"EC2xREGION" : "EU (Paris)",
-				"REGIONxTAG" : "EU_WEST_3"
-			},
-			"eu-north-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
-				"EC2xREGION" : "EU (Stockholm)",
-				"REGIONxTAG" : "EU_NORTH_1"
-			},
-			"me-south-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
-				"EC2xREGION" : "Middle East (Bahrain)",		
-				"REGIONxTAG" : "ME_SOUTH_1"
-			},
-			"sa-east-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
-				"AMIxLICENSE" : "ami-00000000000000000",
-				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
-				"EC2xREGION" : "South America (Sao Paulo)",
-				"REGIONxTAG" : "SA_EAST_1"
-			}
-		},
-		"VariableMap" : {
-			"global" : {
-                "OPTIONSxTAG" : "MANUAL",
-                "PROJECTxTAG" : "CyPerf",
-                "FLOWxLOGxRESOURCExTYPE" : "VPC",
-				"FLOWxLOGxTRAFFICxTYPE" : "REJECT"
-			}
-		}
+    "RegionMap" : {
+        "us-east-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "18.206.107.24/29",
+            "EC2xREGION" : "US East (N. Virginia)",
+            "REGIONxTAG" : "US_EAST_1"
+        },
+        "us-east-2" : {
+            "AMIxAPPLICATION" : "ami-0b77f2aa7d965196b",
+            "AMIxBROKER" : "ami-05d579cbc03164a7d",
+            "AMIxAGENT" : "ami-0e2a530d7baa168e4",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "3.16.146.0/29",
+            "EC2xREGION" : "US East (Ohio)",
+            "REGIONxTAG" : "US_EAST_2"
+        },
+        "us-west-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "13.52.6.112/29",
+            "EC2xREGION" : "US West (N. California)",
+            "REGIONxTAG" : "US_WEST_1"
+        },
+        "us-west-2" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "18.237.140.160/29",
+            "EC2xREGION" : "US West (Oregon)",
+            "REGIONxTAG" : "US_WEST_2"
+        },
+        "ap-east-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "18.206.107.24/29",
+            "EC2xREGION" : "Asia Pacific (Hong Kong)",		
+            "REGIONxTAG" : "AP_EAST_1"
+        },
+        "ap-south-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "13.233.177.0/29",
+            "EC2xREGION" : "Asia Pacific (Mumbai)",
+            "REGIONxTAG" : "AP_SOUTH_1"
+        },
+        "ap-northeast-2" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "13.209.1.56/29",
+            "EC2xREGION" : "Asia Pacific (Seoul)",
+            "REGIONxTAG" : "AP_NORTHEAST_2"
+        },
+        "ap-southeast-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "3.0.5.32/29",
+            "EC2xREGION" : "Asia Pacific (Singapore)",
+            "REGIONxTAG" : "AP_SOUTHEAST_1"
+        },
+        "ap-southeast-2" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "13.239.158.0/29",
+            "EC2xREGION" : "Asia Pacific (Sydney)",
+            "REGIONxTAG" : "AP_SOUTHEAST_2"
+        },
+        "ap-northeast-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "3.112.23.0/29",
+            "EC2xREGION" : "Asia Pacific (Tokyo)",
+            "REGIONxTAG" : "AP_NORTHEAST_1"
+        },
+        "ca-central-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "35.183.92.176/29",
+            "EC2xREGION" : "Canada (Central)",
+            "REGIONxTAG" : "CA_CENTRAL_1"
+        },
+        "eu-central-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "3.120.181.40/29",
+            "EC2xREGION" : "EU (Frankfurt)",
+            "REGIONxTAG" : "EU_CENTRAL_1"
+        },
+        "eu-west-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "18.202.216.48/29",
+            "EC2xREGION" : "EU (Ireland)",
+            "REGIONxTAG" : "EU_WEST_1"
+        },
+        "eu-west-2" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "3.8.37.24/29",
+            "EC2xREGION" : "EU (London)",
+            "REGIONxTAG" : "EU_WEST_2"
+        },
+        "eu-west-3" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "35.180.112.80/29",
+            "EC2xREGION" : "EU (Paris)",
+            "REGIONxTAG" : "EU_WEST_3"
+        },
+        "eu-north-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "13.48.4.200/30",
+            "EC2xREGION" : "EU (Stockholm)",
+            "REGIONxTAG" : "EU_NORTH_1"
+        },
+        "me-south-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "18.206.107.24/29",
+            "EC2xREGION" : "Middle East (Bahrain)",		
+            "REGIONxTAG" : "ME_SOUTH_1"
+        },
+        "sa-east-1" : {
+            "AMIxAPPLICATION" : "ami-00000000000000000",
+            "AMIxBROKER" : "ami-00000000000000000",
+            "AMIxAGENT" : "ami-00000000000000000",
+            "AMIxLICENSE" : "ami-00000000000000000",
+            "EC2xCONNECTxCIDR" : "13.48.4.200/30",
+            "EC2xREGION" : "South America (Sao Paulo)",
+            "REGIONxTAG" : "SA_EAST_1"
+        }
     },
     "Metadata": {
         "AWS::CloudFormation::Interface": {
@@ -269,7 +259,7 @@
                     "default": "Security group for Load Balancer"
                 },
                 "ControllerProxySecurityGroup": {
-                    "default": "Security group for Controller Proxy"
+                    "default": "Security group for Message Broker"
                 }
             }
         }
@@ -316,7 +306,7 @@
             }
         },
         "NatsMBINstanceDNS": {
-            "Description": "DNS name of Controller Proxy instance",
+            "Description": "DNS name of Message Broker instance",
             "Value": {
                 "Fn::Join": [
                     "",
@@ -369,8 +359,8 @@
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "ControllerProxySecurityGroup": {
-            "Default": "<Select Controller Proxy security group from drop down>",
-            "Description": "CyPerf Controller Proxy Security group",
+            "Default": "<Select Message Broker security group from drop down>",
+            "Description": "CyPerf Message Broker Security group",
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "CertificateARN": {
@@ -717,7 +707,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "Controller-Proxy"
+                                    "Message Broker"
                                 ]
                             ]
                         }
