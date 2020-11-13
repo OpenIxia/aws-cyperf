@@ -424,7 +424,7 @@
                 "IamInstanceProfile": {
                     "Ref": "EC2InstanceProfile"
                 },
-                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxCLIENT"] },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxAPPLICATION"] },
                 "InstanceType": {
                     "Ref": "InstanceTypeForCyPerfUI"
                 },
