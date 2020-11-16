@@ -4,43 +4,43 @@
     "Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-09a4e5f2fed2ddfb6",
+				"AMIxBROKER" : "ami-0d4ef5067cc3714db",
+				"AMIxAGENT" : "ami-025c48f0eb04f2fcc",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
 				"EC2xREGION" : "US East (N. Virginia)",
 				"REGIONxTAG" : "US_EAST_1"
 			},
 			"us-east-2" : {
-				"AMIxCLIENT" : "ami-0de433242f79a200e",
-				"AMIxBROKER" : "ami-01eeb055dcbecbff8",
-				"AMIxAGENT" : "ami-019f3da2b90728fef",
+				"AMIxAPPLICATION" : "ami-06f169dacde1d6cd6",
+				"AMIxBROKER" : "ami-05d579cbc03164a7d",
+				"AMIxAGENT" : "ami-0fbe4ce8066f991a7",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "3.16.146.0/29",
 				"EC2xREGION" : "US East (Ohio)",
 				"REGIONxTAG" : "US_EAST_2"
 			},
 			"us-west-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-0a294aba2f6496b14",
+				"AMIxBROKER" : "ami-093fae7e3b203c125",
+				"AMIxAGENT" : "ami-07c2e4121ec5152c0",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "13.52.6.112/29",
 				"EC2xREGION" : "US West (N. California)",
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxCLIENT" : "ami-06d9688ff4415863b",
-				"AMIxBROKER" : "ami-0a56c31426046fa19",
-				"AMIxAGENT" : "ami-0c8c4ea10cc652c80",
-				"AMIxLICENSE" : "ami-0000000000000000",
+				"AMIxAPPLICATION" : "ami-02fa258e7dd8f3259",
+				"AMIxBROKER" : "ami-0efa4b448d7c11ac6",
+				"AMIxAGENT" : "ami-072d7dbb30a730e3c",
+				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
 				"EC2xREGION" : "US West (Oregon)",
 				"REGIONxTAG" : "US_WEST_2"
 			},
 			"ap-east-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-00000000000000000",
 				"AMIxBROKER" : "ami-00000000000000000",
 				"AMIxAGENT" : "ami-00000000000000000",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -49,106 +49,106 @@
 				"REGIONxTAG" : "AP_EAST_1"
 			},
 			"ap-south-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-0b53b0a97ad777021",
+				"AMIxBROKER" : "ami-072b4400dc8201e79",
+				"AMIxAGENT" : "ami-0e32397f10bfc431d",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "13.233.177.0/29",
 				"EC2xREGION" : "Asia Pacific (Mumbai)",
 				"REGIONxTAG" : "AP_SOUTH_1"
 			},
 			"ap-northeast-2" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-08731420cb466aa3c",
+				"AMIxBROKER" : "ami-0ac6397a68e319332",
+				"AMIxAGENT" : "ami-004559e4ab412929f",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "13.209.1.56/29",
 				"EC2xREGION" : "Asia Pacific (Seoul)",
 				"REGIONxTAG" : "AP_NORTHEAST_2"
 			},
 			"ap-southeast-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-0fb39244502c87171",
+				"AMIxBROKER" : "ami-0ccf8b54ad89e4263",
+				"AMIxAGENT" : "ami-0997ef3796fc14fd2",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "3.0.5.32/29",
 				"EC2xREGION" : "Asia Pacific (Singapore)",
 				"REGIONxTAG" : "AP_SOUTHEAST_1"
 			},
 			"ap-southeast-2" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-048bd6fd3464ae457",
+				"AMIxBROKER" : "ami-021bc105de269d106",
+				"AMIxAGENT" : "ami-037c500c57def618a",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "13.239.158.0/29",
 				"EC2xREGION" : "Asia Pacific (Sydney)",
 				"REGIONxTAG" : "AP_SOUTHEAST_2"
 			},
 			"ap-northeast-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-06ff67bc14ac8b054",
+				"AMIxBROKER" : "ami-08560f7c5a239bc34",
+				"AMIxAGENT" : "ami-0ad6554c09b2a926c",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "3.112.23.0/29",
 				"EC2xREGION" : "Asia Pacific (Tokyo)",
 				"REGIONxTAG" : "AP_NORTHEAST_1"
 			},
 			"ca-central-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-057bc8a6df4a2f43b",
+				"AMIxBROKER" : "ami-087b9537a0a76efa0",
+				"AMIxAGENT" : "ami-0b3d47f893b5232de",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "35.183.92.176/29",
 				"EC2xREGION" : "Canada (Central)",
 				"REGIONxTAG" : "CA_CENTRAL_1"
 			},
 			"eu-central-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-0391ce707dcb6f5b5",
+				"AMIxBROKER" : "ami-0a0fab56a2f823771",
+				"AMIxAGENT" : "ami-047e6d4b3c66320c1",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "3.120.181.40/29",
 				"EC2xREGION" : "EU (Frankfurt)",
 				"REGIONxTAG" : "EU_CENTRAL_1"
 			},
 			"eu-west-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-0c42a948112fc0100",
+				"AMIxBROKER" : "ami-04bd954946a887e49",
+				"AMIxAGENT" : "ami-05894fe66b980ff8b",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "18.202.216.48/29",
 				"EC2xREGION" : "EU (Ireland)",
 				"REGIONxTAG" : "EU_WEST_1"
 			},
 			"eu-west-2" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-0799beead956a5bac",
+				"AMIxBROKER" : "ami-0e2bf1999c8b62687",
+				"AMIxAGENT" : "ami-09b9714d8f34ac624",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "3.8.37.24/29",
 				"EC2xREGION" : "EU (London)",
 				"REGIONxTAG" : "EU_WEST_2"
 			},
 			"eu-west-3" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-0f2cfe3cc155160f5",
+				"AMIxBROKER" : "ami-057e4578404c668b4",
+				"AMIxAGENT" : "ami-0d9d5bb321cc23729",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "35.180.112.80/29",
 				"EC2xREGION" : "EU (Paris)",
 				"REGIONxTAG" : "EU_WEST_3"
 			},
 			"eu-north-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-0d4ee63e5d1fe8b42",
+				"AMIxBROKER" : "ami-0d3d65556ce9bb56e",
+				"AMIxAGENT" : "ami-0ec38b9df11ecd4c6",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
 				"EC2xREGION" : "EU (Stockholm)",
 				"REGIONxTAG" : "EU_NORTH_1"
 			},
 			"me-south-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-00000000000000000",
 				"AMIxBROKER" : "ami-00000000000000000",
 				"AMIxAGENT" : "ami-00000000000000000",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -157,9 +157,9 @@
 				"REGIONxTAG" : "ME_SOUTH_1"
 			},
 			"sa-east-1" : {
-				"AMIxCLIENT" : "ami-00000000000000000",
-				"AMIxBROKER" : "ami-00000000000000000",
-				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxAPPLICATION" : "ami-014db078e9b8c0bc3",
+				"AMIxBROKER" : "ami-0fae5436400c0d65d",
+				"AMIxAGENT" : "ami-0b996a98c2219cf59",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
 				"EC2xREGION" : "South America (Sao Paulo)",
@@ -191,7 +191,8 @@
                         "Username",
                         "Project",
                         "AvailabilityZone1",
-                        "VPCCIDR",
+                        "VPC1CIDR",
+                        "VPC2CIDR",
                         "ManagementNetworkCIDR1"
                     ]
                 },
@@ -203,7 +204,17 @@
                         "InstanceTypeForCyPerfAgent",
                         "KeyNameForCyPerfAgent",
                         "TestInitForCyPerfAgentAZ1",
-                        "MBInitForCyPerfAgentAZ1"
+                        "TestInitForCyPerfServerAgentAZ1",
+                        "MB1InitForCyPerfAgentAZ1",
+                        "MB2InitForCyPerfAgentAZ1"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "CyPerf Application Configuration"
+                    },
+                    "Parameters": [
+                        "InstanceTypeForCyPerfUI"
                     ]
                 },
                 {
@@ -225,27 +236,55 @@
                 "KeyNameForCyPerfAgent": {
                     "default": "SSH Key"
                 },
-                "MBInitForCyPerfAgentAZ1": {
-                    "default": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1"
+                "MB1InitForCyPerfAgentAZ1": {
+                    "default": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1 at VPC1"
+                },
+                "MB2InitForCyPerfAgentAZ1": {
+                    "default": "Management Subnet (Message Broker subnet D) for CyPerf Agent for AZ1 at VPC2"
                 },
                 "ManagementNetworkCIDR1": {
-                    "default": "Public subnet (Public subnet A) for AZ1"
+                    "default": "Public subnet (Public subnet A) for AZ1 at VPC1"
                 },
                 "AllowedSubnet1": {
-                    "default": "AllowedSubnet1"
+                    "default": "Allowed Subnet for Security Group"
+                },
+                "InstanceTypeForCyPerfUI": {
+                    "default": "Instance Type of CyPerf Application"
                 },
                 "TestInitForCyPerfAgentAZ1": {
-                    "default": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1"
+                    "default": "Test Subnet (Private subnet A) for CyPerf Client Agent for AZ1 at VPC1"
                 },
-                "VPCCIDR": {
-                    "default": "VPC"
+                "TestInitForCyPerfServerAgentAZ1": {
+                    "default": "Test Subnet (Public subnet B) for CyPerf Server Agent for AZ1 at VPC2"
+                },
+                "VPC1CIDR": {
+                    "default": "VPC1"
+                },
+                "VPC2CIDR": {
+                    "default": "VPC2"
                 }
             }
         }
     },
     "Outputs": {
-        "CyPerfControllerProxyDNS": {
-            "Description": "DNS name of CyPerf Controller Proxy instance",
+        "CyPerfUIINstanceDNS": {
+            "Description": "DNS name of CyPerf Application instance",
+            "Value": {
+                "Fn::Join": [
+                    "",
+                    [
+                        {
+                            "Fn::GetAtt": [
+                                "CyPerfUI",
+                                "PublicDnsName"
+                            ]
+                        }
+                    ]
+                ]
+            }
+        },
+        "CyPerfMessageBrokerINstanceDNS": {
+            "Description": "DNS name of CyPerf Message Broker instance",
             "Value": {
                 "Fn::Join": [
                     "",
@@ -267,13 +306,13 @@
             "Description": "Preferred availability zone",
             "Type": "AWS::EC2::AvailabilityZone::Name"
         },
-        "InstanceTypeForControllerProxy": {
+        "InstanceTypeForCyPerfUI": {
             "AllowedValues": [
-                "t2.medium",
-                "c4.2xlarge"
+                "c4.2xlarge",
+                "c5n.9xlarge"
             ],
-            "Default": "t2.medium",
-            "Description": "Please select CyPerf Controller proxy instance type.",
+            "Default": "c4.2xlarge",
+            "Description": "Please select CyPerf Application instance type.",
             "Type": "String"
         },
         "InstanceTypeForCyPerfAgent": {
@@ -291,11 +330,20 @@
             "Description": "Existing KeyPair to login to the CyPerf instances",
             "Type": "AWS::EC2::KeyPair::KeyName"
         },
-        "MBInitForCyPerfAgentAZ1": {
+        "MB1InitForCyPerfAgentAZ1": {
             "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
             "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
             "Default": "172.16.5.0/24",
-            "Description": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1 (eth1)",
+            "Description": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1 (eth1) at VPC1",
+            "MaxLength": "18",
+            "MinLength": "9",
+            "Type": "String"
+        },
+        "MB2InitForCyPerfAgentAZ1": {
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+            "Default": "192.16.5.0/24",
+            "Description": "Management Subnet (Message Broker subnet D) for CyPerf Agent for AZ1 (eth1) at VPC2",
             "MaxLength": "18",
             "MinLength": "9",
             "Type": "String"
@@ -327,7 +375,16 @@
             "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
             "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
             "Default": "172.16.3.0/24",
-            "Description": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1 (eth0)",
+            "Description": "Test Subnet (Private subnet A) for CyPerf Client Agent for AZ1 (eth0) at VPC1",
+            "MaxLength": "18",
+            "MinLength": "9",
+            "Type": "String"
+        },
+        "TestInitForCyPerfServerAgentAZ1": {
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+            "Default": "192.16.10.0/24",
+            "Description": "Test Subnet (Public subnet B) for CyPerf Server Agent for AZ1 (eth0) at VPC2",
             "MaxLength": "18",
             "MinLength": "9",
             "Type": "String"
@@ -337,24 +394,44 @@
             "Description": "Enter Team or Individual email id  Responsible for the Stack.",
             "Type": "String"
         },
-        "VPCCIDR": {
+        "VPC1CIDR": {
             "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
             "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
             "Default": "172.16.0.0/16",
-            "Description": "CIDR range for the VPC",
+            "Description": "CIDR range for the VPC1",
+            "MaxLength": "18",
+            "MinLength": "9",
+            "Type": "String"
+        },
+        "VPC2CIDR": {
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+            "Default": "192.16.0.0/16",
+            "Description": "CIDR range for the VPC2",
             "MaxLength": "18",
             "MinLength": "9",
             "Type": "String"
         }
     },
     "Resources": {
-        "DhcpOptionsAssociation": {
+        "DhcpOptionsAssociation1": {
             "Properties": {
                 "DhcpOptionsId": {
                     "Ref": "VPCxDhcpOptions"
                 },
                 "VpcId": {
-                    "Ref": "VPC"
+                    "Ref": "VPC1"
+                }
+            },
+            "Type": "AWS::EC2::VPCDHCPOptionsAssociation"
+        },
+        "DhcpOptionsAssociation2": {
+            "Properties": {
+                "DhcpOptionsId": {
+                    "Ref": "VPCxDhcpOptions"
+                },
+                "VpcId": {
+                    "Ref": "VPC2"
                 }
             },
             "Type": "AWS::EC2::VPCDHCPOptionsAssociation"
@@ -435,12 +512,20 @@
 		"DefaultEgress1": {
 			"Type" : "AWS::EC2::SecurityGroupEgress",
 			"Properties" : {
-				"GroupId": { "Fn::GetAtt" : ["VPC", "DefaultSecurityGroup"] },
+				"GroupId": { "Fn::GetAtt" : ["VPC1", "DefaultSecurityGroup"] },
 				"IpProtocol": "-1",
-				"SourceSecurityGroupId": { "Fn::GetAtt" : ["VPC", "DefaultSecurityGroup"] }
+				"SourceSecurityGroupId": { "Fn::GetAtt" : ["VPC1", "DefaultSecurityGroup"] }
+			}
+        },
+        "DefaultEgress2": {
+			"Type" : "AWS::EC2::SecurityGroupEgress",
+			"Properties" : {
+				"GroupId": { "Fn::GetAtt" : ["VPC2", "DefaultSecurityGroup"] },
+				"IpProtocol": "-1",
+				"SourceSecurityGroupId": { "Fn::GetAtt" : ["VPC2", "DefaultSecurityGroup"] }
 			}
 		},
-        "InternetGateway": {
+        "InternetGateway1": {
             "Properties": {
                 "Tags": [
                     {
@@ -452,7 +537,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "-gateway"
+                                    "-gateway1"
                                 ]
                             ]
                         }
@@ -473,16 +558,235 @@
             },
             "Type": "AWS::EC2::InternetGateway"
         },
-        "InternetGatewayAttachment": {
+        "InternetGateway2": {
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "-gateway2"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::InternetGateway"
+        },
+        "InternetGatewayAttachment1": {
             "Properties": {
                 "InternetGatewayId": {
-                    "Ref": "InternetGateway"
+                    "Ref": "InternetGateway1"
                 },
                 "VpcId": {
-                    "Ref": "VPC"
+                    "Ref": "VPC1"
                 }
             },
             "Type": "AWS::EC2::VPCGatewayAttachment"
+        },
+        "InternetGatewayAttachment2": {
+            "Properties": {
+                "InternetGatewayId": {
+                    "Ref": "InternetGateway2"
+                },
+                "VpcId": {
+                    "Ref": "VPC2"
+                }
+            },
+            "Type": "AWS::EC2::VPCGatewayAttachment"
+        },
+        "CyPerfUISecurityGroup": {
+            "Properties": {
+                "GroupDescription": "Allow restricted-access to launched Instances",
+                "SecurityGroupEgress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "Description": "All Traffic",
+                        "FromPort": "-1",
+                        "IpProtocol": "-1",
+                        "ToPort": "-1"
+                    }
+                ],
+                "SecurityGroupIngress": [
+                    {
+                        "CidrIp": {
+                            "Ref": "AllowedSubnet1"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "30422",
+                        "IpProtocol": "tcp",
+                        "ToPort": "30422"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "AllowedSubnet1"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "ToPort": "443"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "AllowedSubnet1"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "22",
+                        "IpProtocol": "tcp",
+                        "ToPort": "22"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "AllowedSubnet1"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "9022",
+                        "IpProtocol": "tcp",
+                        "ToPort": "9022"
+                    },                    
+                    {
+                        "CidrIp": {
+                            "Ref": "VPC1CIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "30422",
+                        "IpProtocol": "tcp",
+                        "ToPort": "30422"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "VPC1CIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "ToPort": "443"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "VPC1CIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "9022",
+                        "IpProtocol": "tcp",
+                        "ToPort": "9022"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "CyPerfApplicationSG"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VPC1"
+                }
+            },
+            "Type": "AWS::EC2::SecurityGroup"
+        },
+        "CyPerfUI": {
+            "DependsOn": [
+                "mdweth0",
+                "EC2InstanceProfile"
+            ],
+            "Properties": {
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/sda1",
+                        "Ebs": {
+                            "VolumeSize": "100",
+                            "DeleteOnTermination" : true
+                        }
+                    }
+                ],
+                "IamInstanceProfile": {
+                    "Ref": "EC2InstanceProfile"
+                },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxAPPLICATION"] },
+                "InstanceType": {
+                    "Ref": "InstanceTypeForCyPerfUI"
+                },
+                "KeyName": {
+                    "Ref": "KeyNameForCyPerfAgent"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "DeviceIndex": "0",
+                        "NetworkInterfaceId": {
+                            "Ref": "mdweth0"
+                        }
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "Application"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::Instance"
         },
         "CyPerfControllerProxy": {
             "DependsOn": [
@@ -503,9 +807,7 @@
                     "Ref": "EC2InstanceProfile"
                 },
                 "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxBROKER"] },
-                "InstanceType": {
-                    "Ref": "InstanceTypeForControllerProxy"
-                },
+                "InstanceType": "t2.medium",
                 "KeyName": {
                     "Ref": "KeyNameForCyPerfAgent"
                 },
@@ -527,7 +829,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "ControllerProxy"
+                                    "MessageBroker"
                                 ]
                             ]
                         }
@@ -548,7 +850,7 @@
             },
             "Type": "AWS::EC2::Instance"
         },
-        "MgmtInstanceSecurityGroup": {
+        "MgmtInstanceSecurityGroup1": {
             "Properties": {
                 "GroupDescription": "Allow restricted-access to launched Instances",
                 "SecurityGroupEgress": [
@@ -563,7 +865,7 @@
                 "SecurityGroupIngress": [
                     {
                         "CidrIp": {
-                            "Ref": "VPCCIDR"
+                            "Ref": "VPC1CIDR"
                         },
                         "Description": "Custom TCP",
                         "FromPort": "80",
@@ -572,7 +874,7 @@
                     },
                     {
                         "CidrIp": {
-                            "Ref": "VPCCIDR"
+                            "Ref": "VPC1CIDR"
                         },
                         "Description": "Custom TCP",
                         "FromPort": "443",
@@ -581,12 +883,46 @@
                     },
                     {
                         "CidrIp": {
-                            "Ref": "VPCCIDR"
+                            "Ref": "VPC1CIDR"
                         },
                         "Description": "Custom TCP",
                         "FromPort": "22",
                         "IpProtocol": "tcp",
                         "ToPort": "22"
+                    },
+                    {
+                        "CidrIp": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Ref": "Nat2Eip"
+                                    },
+                                    "/32"
+                                ]
+                            ]
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "80",
+                        "IpProtocol": "tcp",
+                        "ToPort": "80"
+                    },
+                    {
+                        "CidrIp": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Ref": "Nat2Eip"
+                                    },
+                                    "/32"
+                                ]
+                            ]
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "ToPort": "443"
                     }
                 ],
                 "Tags": [
@@ -618,7 +954,116 @@
                     }
                 ],
                 "VpcId": {
-                    "Ref": "VPC"
+                    "Ref": "VPC1"
+                }
+            },
+            "Type": "AWS::EC2::SecurityGroup"
+        },
+        "MgmtInstanceSecurityGroup2": {
+            "Properties": {
+                "GroupDescription": "Allow restricted-access to launched Instances",
+                "SecurityGroupEgress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "Description": "All Traffic",
+                        "FromPort": "-1",
+                        "IpProtocol": "-1",
+                        "ToPort": "-1"
+                    }
+                ],
+                "SecurityGroupIngress": [
+                    {
+                        "CidrIp": {
+                            "Ref": "VPC2CIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "80",
+                        "IpProtocol": "tcp",
+                        "ToPort": "80"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "VPC2CIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "ToPort": "443"
+                    },
+                    {
+                        "CidrIp": {
+                            "Ref": "VPC2CIDR"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "22",
+                        "IpProtocol": "tcp",
+                        "ToPort": "22"
+                    },
+                    {
+                        "CidrIp": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Ref": "Nat1Eip"
+                                    },
+                                    "/32"
+                                ]
+                            ]
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "80",
+                        "IpProtocol": "tcp",
+                        "ToPort": "80"
+                    },
+                    {
+                        "CidrIp": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Ref": "Nat1Eip"
+                                    },
+                                    "/32"
+                                ]
+                            ]
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "ToPort": "443"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "CyPerfAgentSG"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VPC2"
                 }
             },
             "Type": "AWS::EC2::SecurityGroup"
@@ -638,7 +1083,7 @@
                 "SecurityGroupIngress": [
                     {
                         "CidrIp": {
-                            "Ref": "VPCCIDR"
+                            "Ref": "VPC2CIDR"
                         },
                         "Description": "Custom TCP",
                         "FromPort": "30422",
@@ -647,7 +1092,7 @@
                     },
                     {
                         "CidrIp": {
-                            "Ref": "VPCCIDR"
+                            "Ref": "VPC2CIDR"
                         },
                         "Description": "Custom TCP",
                         "FromPort": "443",
@@ -671,6 +1116,29 @@
                         "FromPort": "22",
                         "IpProtocol": "tcp",
                         "ToPort": "22"
+                    },
+                    {
+                        "CidrIp": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+
+                                        "Fn::GetAtt": [
+                                            "CyPerfUI",
+                                            "PublicIp"
+            
+                                        ]
+            
+                                    },
+                                    "/32"
+                                ]
+                            ]
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "ToPort": "443"
                     }
                 ],
                 "Tags": [
@@ -683,7 +1151,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "CyPerfControllerProxySG"
+                                    "CyPerfMessageBrokerSG"
                                 ]
                             ]
                         }
@@ -702,17 +1170,17 @@
                     }
                 ],
                 "VpcId": {
-                    "Ref": "VPC"
+                    "Ref": "VPC2"
                 }
             },
             "Type": "AWS::EC2::SecurityGroup"
         },
-        "Nat": {
+        "Nat1": {
             "DependsOn": "StackPublicSubnetA",
             "Properties": {
                 "AllocationId": {
                     "Fn::GetAtt": [
-                        "NatEip",
+                        "Nat1Eip",
                         "AllocationId"
                     ]
                 },
@@ -722,21 +1190,55 @@
             },
             "Type": "AWS::EC2::NatGateway"
         },
-        "NatEip": {
+        "Nat1Eip": {
             "Properties": {
-                "Domain": "vpc"
+                "Domain": "vpc1"
             },
             "Type": "AWS::EC2::EIP"
         },
-        "NatRoute": {
+        "Nat1Route": {
             "DependsOn": "StackPublicSubnetA",
             "Properties": {
                 "DestinationCidrBlock": "0.0.0.0/0",
                 "NatGatewayId": {
-                    "Ref": "Nat"
+                    "Ref": "Nat1"
                 },
                 "RouteTableId": {
-                    "Ref": "PrivateRouteTable"
+                    "Ref": "PrivateRouteTable1"
+                }
+            },
+            "Type": "AWS::EC2::Route"
+        },
+        "Nat2": {
+            "DependsOn": "StackPublicSubnetB",
+            "Properties": {
+                "AllocationId": {
+                    "Fn::GetAtt": [
+                        "Nat2Eip",
+                        "AllocationId"
+                    ]
+                },
+                "SubnetId": {
+                    "Ref": "StackPublicSubnetB"
+                }
+            },
+            "Type": "AWS::EC2::NatGateway"
+        },
+        "Nat2Eip": {
+            "Properties": {
+                "Domain": "vpc2"
+            },
+            "Type": "AWS::EC2::EIP"
+        },
+        "Nat2Route": {
+            "DependsOn": "StackPublicSubnetB",
+            "Properties": {
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "NatGatewayId": {
+                    "Ref": "Nat2"
+                },
+                "RouteTableId": {
+                    "Ref": "PrivateRouteTable2"
                 }
             },
             "Type": "AWS::EC2::Route"
@@ -744,7 +1246,7 @@
         "ClientAgent": {
             "DependsOn": [
                 "clieth0",
-                "CyPerfControllerProxy",
+                "CyPerfUI",
                 "EC2InstanceProfile"
             ],
             "Properties": {
@@ -796,7 +1298,6 @@
                                         ]
                                     ]
                                 },
-                                " 30422",
                                 " >> /root/Appsec_init\n"
                             ]
                         ]
@@ -881,14 +1382,13 @@
                                         [
                                             {
                                                 "Fn::GetAtt": [
-                                                    "CyPerfUI",
+                                                    "CyPerfControllerProxy",
                                                     "PrivateIp"
                                                 ]
                                             }
                                         ]
                                     ]
                                 },
-                                " 30422",
                                 " >> /root/Appsec_init\n"
                             ]
                         ]
@@ -925,7 +1425,7 @@
             },
             "Type": "AWS::EC2::Instance"
         },
-        "PrivateRouteTable": {
+        "PrivateRouteTable1": {
             "Properties": {
                 "Tags": [
                     {
@@ -944,7 +1444,31 @@
                     }
                 ],
                 "VpcId": {
-                    "Ref": "VPC"
+                    "Ref": "VPC1"
+                }
+            },
+            "Type": "AWS::EC2::RouteTable"
+        },
+        "PrivateRouteTable2": {
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "private-rt"
+                                ]
+                            ]
+                        }
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VPC2"
                 }
             },
             "Type": "AWS::EC2::RouteTable"
@@ -953,7 +1477,7 @@
             "DependsOn": "StackPrivateSubnetA",
             "Properties": {
                 "RouteTableId": {
-                    "Ref": "PrivateRouteTable"
+                    "Ref": "PrivateRouteTable1"
                 },
                 "SubnetId": {
                     "Ref": "StackPrivateSubnetA"
@@ -965,7 +1489,7 @@
             "DependsOn": "StackPrivateSubnetC",
             "Properties": {
                 "RouteTableId": {
-                    "Ref": "PrivateRouteTable"
+                    "Ref": "PrivateRouteTable1"
                 },
                 "SubnetId": {
                     "Ref": "StackPrivateSubnetC"
@@ -973,7 +1497,19 @@
             },
             "Type": "AWS::EC2::SubnetRouteTableAssociation"
         },
-        "PublicRouteTable": {
+        "PrivateSubnetDRouteTable": {
+            "DependsOn": "StackPrivateSubnetD",
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "PrivateRouteTable2"
+                },
+                "SubnetId": {
+                    "Ref": "StackPrivateSubnetD"
+                }
+            },
+            "Type": "AWS::EC2::SubnetRouteTableAssociation"
+        },
+        "PublicRouteTable1": {
             "Properties": {
                 "Tags": [
                     {
@@ -992,7 +1528,31 @@
                     }
                 ],
                 "VpcId": {
-                    "Ref": "VPC"
+                    "Ref": "VPC1"
+                }
+            },
+            "Type": "AWS::EC2::RouteTable"
+        },
+        "PublicRouteTable2": {
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "public-rt"
+                                ]
+                            ]
+                        }
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VPC2"
                 }
             },
             "Type": "AWS::EC2::RouteTable"
@@ -1001,7 +1561,7 @@
             "DependsOn": "StackPublicSubnetA",
             "Properties": {
                 "RouteTableId": {
-                    "Ref": "PublicRouteTable"
+                    "Ref": "PublicRouteTable1"
                 },
                 "SubnetId": {
                     "Ref": "StackPublicSubnetA"
@@ -1009,15 +1569,40 @@
             },
             "Type": "AWS::EC2::SubnetRouteTableAssociation"
         },
-        "RouteToInternet": {
-            "DependsOn": "InternetGatewayAttachment",
+        "PublicSubnetBRouteTable": {
+            "DependsOn": "StackPublicSubnetB",
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable2"
+                },
+                "SubnetId": {
+                    "Ref": "StackPublicSubnetB"
+                }
+            },
+            "Type": "AWS::EC2::SubnetRouteTableAssociation"
+        },
+        "RouteToInternet1": {
+            "DependsOn": "InternetGatewayAttachment1",
             "Properties": {
                 "DestinationCidrBlock": "0.0.0.0/0",
                 "GatewayId": {
-                    "Ref": "InternetGateway"
+                    "Ref": "InternetGateway1"
                 },
                 "RouteTableId": {
-                    "Ref": "PublicRouteTable"
+                    "Ref": "PublicRouteTable1"
+                }
+            },
+            "Type": "AWS::EC2::Route"
+        },
+        "RouteToInternet2": {
+            "DependsOn": "InternetGatewayAttachment2",
+            "Properties": {
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "GatewayId": {
+                    "Ref": "InternetGateway2"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable2"
                 }
             },
             "Type": "AWS::EC2::Route"
@@ -1059,7 +1644,7 @@
                     }
                 ],
                 "VpcId": {
-                    "Ref": "VPC"
+                    "Ref": "VPC1"
                 }
             },
             "Type": "AWS::EC2::Subnet"
@@ -1070,7 +1655,7 @@
                     "Ref": "AvailabilityZone1"
                 },
                 "CidrBlock": {
-                    "Ref": "MBInitForCyPerfAgentAZ1"
+                    "Ref": "MB1InitForCyPerfAgentAZ1"
                 },
                 "Tags": [
                     {
@@ -1101,7 +1686,49 @@
                     }
                 ],
                 "VpcId": {
-                    "Ref": "VPC"
+                    "Ref": "VPC1"
+                }
+            },
+            "Type": "AWS::EC2::Subnet"
+        },
+        "StackPrivateSubnetD": {
+            "Properties": {
+                "AvailabilityZone": {
+                    "Ref": "AvailabilityZone1"
+                },
+                "CidrBlock": {
+                    "Ref": "MB2InitForCyPerfAgentAZ1"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "Private subnet MessageBrokerSubnet D"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VPC2"
                 }
             },
             "Type": "AWS::EC2::Subnet"
@@ -1144,15 +1771,58 @@
                     }
                 ],
                 "VpcId": {
-                    "Ref": "VPC"
+                    "Ref": "VPC1"
                 }
             },
             "Type": "AWS::EC2::Subnet"
         },
-        "VPC": {
+        "StackPublicSubnetB": {
+            "Properties": {
+                "AvailabilityZone": {
+                    "Ref": "AvailabilityZone1"
+                },
+                "CidrBlock": {
+                    "Ref": "TestInitForCyPerfServerAgentAZ1"
+                },
+                "MapPublicIpOnLaunch": "true",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "public subnet B"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VPC2"
+                }
+            },
+            "Type": "AWS::EC2::Subnet"
+        },
+        "VPC1": {
             "Properties": {
                 "CidrBlock": {
-                    "Ref": "VPCCIDR"
+                    "Ref": "VPC1CIDR"
                 },
                 "EnableDnsHostnames": "true",
                 "EnableDnsSupport": "true",
@@ -1229,17 +1899,58 @@
             },
             "Type": "AWS::IAM::Role"
         },
-        "KeyVpcFlowLog" : {
+        "KeyVpc1FlowLog" : {
 			"Type" : "AWS::EC2::FlowLog",
 			"Properties" : {
 				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["KeyVPCFlowLogAccessRole", "Arn"] },
 				"LogGroupName" : { "Fn::Join" : [ "_", [ { "Ref": "AWS::StackName" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "VPC_FLOW_LOG", 
 							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
-				"ResourceId" : { "Ref" : "VPC" },
+				"ResourceId" : { "Ref" : "VPC1" },
 				"ResourceType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxRESOURCExTYPE"] },
 				"TrafficType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxTRAFFICxTYPE"] }
 			}
-		},
+        },
+        "VPC2": {
+            "Properties": {
+                "CidrBlock": {
+                    "Ref": "VPC2CIDR"
+                },
+                "EnableDnsHostnames": "true",
+                "EnableDnsSupport": "true",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "AWS::StackName"
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::VPC"
+        },
+        "KeyVpc2FlowLog" : {
+			"Type" : "AWS::EC2::FlowLog",
+			"Properties" : {
+				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["KeyVPCFlowLogAccessRole", "Arn"] },
+				"LogGroupName" : { "Fn::Join" : [ "_", [ { "Ref": "AWS::StackName" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "VPC_FLOW_LOG", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
+				"ResourceId" : { "Ref" : "VPC2" },
+				"ResourceType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxRESOURCExTYPE"] },
+				"TrafficType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxTRAFFICxTYPE"] }
+			}
+        },
         "eth0": {
             "Properties": {
                 "Description": "eth0",
@@ -1250,7 +1961,7 @@
                 ],
                 "SourceDestCheck": "true",
                 "SubnetId": {
-                    "Ref": "StackPublicSubnetA"
+                    "Ref": "StackPublicSubnetB"
                 },
                 "Tags": [
                     {
@@ -1288,7 +1999,7 @@
                 "Description": "Client Agent eth0",
                 "GroupSet": [
                     {
-                        "Ref": "MgmtInstanceSecurityGroup"
+                        "Ref": "MgmtInstanceSecurityGroup1"
                     }
                 ],
                 "SourceDestCheck": "true",
@@ -1331,12 +2042,12 @@
                 "Description": "Server Agent eth0",
                 "GroupSet": [
                     {
-                        "Ref": "MgmtInstanceSecurityGroup"
+                        "Ref": "MgmtInstanceSecurityGroup2"
                     }
                 ],
                 "SourceDestCheck": "true",
                 "SubnetId": {
-                    "Ref": "StackPrivateSubnetA"
+                    "Ref": "StackPublicSubnetB"
                 },
                 "Tags": [
                     {
@@ -1349,6 +2060,49 @@
                                         "Ref": "AWS::StackName"
                                     },
                                     "SA-Interface"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::NetworkInterface"
+        },
+        "mdweth0": {
+            "Properties": {
+                "Description": "Application eth0",
+                "GroupSet": [
+                    {
+                        "Ref": "CyPerfUISecurityGroup"
+                    }
+                ],
+                "SourceDestCheck": "true",
+                "SubnetId": {
+                    "Ref": "StackPublicSubnetA"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "Applicatation-Interface"
                                 ]
                             ]
                         }
