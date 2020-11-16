@@ -213,8 +213,14 @@
                 "InstanceTypeForCyPerfUI": {
                     "default": "Instance Type CyPerf Application"
                 },
+                "MgmtSubnetForCyPerfUIAZ1": {
+                    "default": "Management Public subnet (Public subnet A) for AZ1"
+                },
                 "KeyNameForCyPerfUI": {
                     "default": "SSH Key"
+                },
+                "CyPerfUISecurityGroup": {
+                    "default": "Select Security Group of CyPerf Application"
                 },
                 "VPCCIDR": {
                     "default": "VPC"
@@ -241,7 +247,7 @@
         },
         "CyPerfUISecurityGroup": {
             "Default": "<Select CyPerf Application security group from drop down>",
-            "Description": "CyPerf Application Security group",
+            "Description": "CyPerf Application Security group CyPerfUISecurityGroup",
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "KeyNameForCyPerfUI": {

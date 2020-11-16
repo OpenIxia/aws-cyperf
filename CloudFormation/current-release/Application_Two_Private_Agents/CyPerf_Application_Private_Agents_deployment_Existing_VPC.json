@@ -203,7 +203,17 @@
                         "InstanceTypeForCyPerfAgent",
                         "KeyNameForCyPerfAgent",
                         "TestInitForCyPerfAgentAZ1",
-                        "MBInitForCyPerfAgentAZ1"
+                        "MBInitForCyPerfAgentAZ1",
+                        "MgmtInstanceSecurityGroup"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "CyPerf Application Configuration"
+                    },
+                    "Parameters": [
+                        "InstanceTypeForCyPerfUI",
+                        "CyPerfUISecurityGroup"
                     ]
                 },
                 {
@@ -232,7 +242,16 @@
                     "default": "Public subnet (Public subnet A) for AZ1"
                 },
                 "AllowedSubnet1": {
-                    "default": "AllowedSubnet1"
+                    "default": "Allowed Subnet for Security Group"
+                },
+                "InstanceTypeForCyPerfUI": {
+                    "default": "Instance Type of CyPerf Application"
+                },
+                "CyPerfUISecurityGroup": {
+                    "default": "Security Group of CyPerf Application"
+                },
+                "MgmtInstanceSecurityGroup": {
+                    "default": "Security Group of CyPerf Agent"
                 },
                 "TestInitForCyPerfAgentAZ1": {
                     "default": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1"

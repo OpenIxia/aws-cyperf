@@ -208,6 +208,14 @@
                 },
                 {
                     "Label": {
+                        "default": "CyPerf Message Broker Configuration"
+                    },
+                    "Parameters": [
+                        "InstanceTypeForControllerProxy"
+                    ]
+                },
+                {
+                    "Label": {
                         "default": "Security-Group Configuration"
                     },
                     "Parameters": [
@@ -232,7 +240,10 @@
                     "default": "Public subnet (Public subnet A) for AZ1"
                 },
                 "AllowedSubnet1": {
-                    "default": "AllowedSubnet1"
+                    "default": "Allowed Subnet for Security Group"
+                },
+                "InstanceTypeForControllerProxy": {
+                    "default": "Instance type of Message Broker"
                 },
                 "TestInitForCyPerfAgentAZ1": {
                     "default": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1"
@@ -789,7 +800,7 @@
                                         [
                                             {
                                                 "Fn::GetAtt": [
-                                                    "CyPerfUI",
+                                                    "CyPerfControllerProxy",
                                                     "PrivateIp"
                                                 ]
                                             }
@@ -880,7 +891,7 @@
                                         [
                                             {
                                                 "Fn::GetAtt": [
-                                                    "CyPerfUI",
+                                                    "CyPerfControllerProxy",
                                                     "PrivateIp"
                                                 ]
                                             }

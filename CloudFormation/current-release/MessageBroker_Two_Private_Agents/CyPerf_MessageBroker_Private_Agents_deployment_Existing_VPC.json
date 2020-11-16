@@ -203,7 +203,17 @@
                         "InstanceTypeForCyPerfAgent",
                         "KeyNameForCyPerfAgent",
                         "TestInitForCyPerfAgentAZ1",
-                        "MBInitForCyPerfAgentAZ1"
+                        "MBInitForCyPerfAgentAZ1",
+                        "MgmtInstanceSecurityGroup"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "CyPerf Message Broker Configuration"
+                    },
+                    "Parameters": [
+                        "InstanceTypeForControllerProxy",
+                        "ControllerProxySecurityGroup"
                     ]
                 },
                 {
@@ -232,7 +242,16 @@
                     "default": "Public subnet (Public subnet A) for AZ1"
                 },
                 "AllowedSubnet1": {
-                    "default": "AllowedSubnet1"
+                    "default": "Allowed Subnet for Security Group"
+                },
+                "InstanceTypeForControllerProxy": {
+                    "default": "Instance type of Message Broker"
+                },
+                "ControllerProxySecurityGroup": {
+                    "default": "Security Group name of Message Broker"
+                },
+                "MgmtInstanceSecurityGroup": {
+                    "default": "Security Group of Agents"
                 },
                 "TestInitForCyPerfAgentAZ1": {
                     "default": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1"
@@ -244,15 +263,15 @@
         }
     },
     "Outputs": {
-        "CyPerfUIINstanceDNS": {
-            "Description": "DNS name of CyPerf UI instance",
+        "CyPerfControllerProxyDNS": {
+            "Description": "DNS name of CyPerf Message Broker instance",
             "Value": {
                 "Fn::Join": [
                     "",
                     [
                         {
                             "Fn::GetAtt": [
-                                "CyPerfUI",
+                                "CyPerfControllerProxy",
                                 "PublicDnsName"
                             ]
                         }
@@ -292,7 +311,7 @@
         },
         "ControllerProxySecurityGroup": {
             "Default": "<Select CyPerf Message Broker ControllerProxySecurityGroup from drop down>",
-            "Description": "CyPerf Message Broker Security group",
+            "Description": "CyPerf Message Broker Security group ControllerProxySecurityGroup",
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "KeyNameForCyPerfAgent": {
@@ -518,7 +537,7 @@
                                         [
                                             {
                                                 "Fn::GetAtt": [
-                                                    "CyPerfUI",
+                                                    "CyPerfControllerProxy",
                                                     "PrivateIp"
                                                 ]
                                             }
@@ -609,7 +628,7 @@
                                         [
                                             {
                                                 "Fn::GetAtt": [
-                                                    "CyPerfUI",
+                                                    "CyPerfControllerProxy",
                                                     "PrivateIp"
                                                 ]
                                             }

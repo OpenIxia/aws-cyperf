@@ -220,11 +220,14 @@
                 "InstanceTypeForCyPerfUI": {
                     "default": "Instance Type CyPerf Application"
                 },
+                "ManagementNetworkCIDR1": {
+                    "default": "Public subnet (Public subnet A) for AZ1"
+                },
                 "KeyNameForCyPerfAgent": {
                     "default": "SSH Key"
                 },
                 "AllowedSubnet1": {
-                    "default": "AllowedSubnet1"
+                    "default": "Allowed Subnet for Security Group"
                 },
                 "VPCCIDR": {
                     "default": "VPC"

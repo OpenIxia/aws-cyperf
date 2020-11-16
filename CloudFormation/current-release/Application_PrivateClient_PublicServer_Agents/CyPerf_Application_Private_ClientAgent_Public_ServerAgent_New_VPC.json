@@ -209,6 +209,14 @@
                 },
                 {
                     "Label": {
+                        "default": "CyPerf Application Configuration"
+                    },
+                    "Parameters": [
+                        "InstanceTypeForCyPerfUI"
+                    ]
+                },
+                {
+                    "Label": {
                         "default": "Security-Group Configuration"
                     },
                     "Parameters": [
@@ -221,7 +229,10 @@
                     "default": "Availability Zone 1"
                 },
                 "InstanceTypeForCyPerfAgent": {
-                    "default": "Instance Type CyPerf Agent"
+                    "default": "Instance Type of CyPerf Agent"
+                },
+                "InstanceTypeForCyPerfUI": {
+                    "default": "Instance Type of CyPerf Application"
                 },
                 "KeyNameForCyPerfAgent": {
                     "default": "SSH Key"
@@ -233,7 +244,7 @@
                     "default": "Public subnet (Public subnet A) for AZ1"
                 },
                 "AllowedSubnet1": {
-                    "default": "AllowedSubnet1"
+                    "default": "Allowed Subnet for Security Group"
                 },
                 "TestInitForCyPerfAgentAZ1": {
                     "default": "Test Subnet (Private subnet A) for CyPerf Client Agent for AZ1"
