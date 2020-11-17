@@ -1,0 +1,526 @@
+{
+
+    "AWSTemplateFormatVersion": "2010-09-09",
+
+    "Description": "\n    Stack creating a VPC and launch EC2 instances within it.\n    **WARNING** This template creates Amazon EC2 instances.\n    You will be billed for the AWS resources used if you create\n    a stack from this template. **WARNING** This template creates\n    role for the launching/deleting instances/subnets/interfaces.\n    This role will invoke AWSLambdaBasicExecutionRole, please see\n    AWS Documentation for details on AWSLambdaBasicExecutionRole.",
+    "Mappings" : {
+		"RegionMap" : {
+			"us-east-1" : {
+				"AMIxAPPLICATION" : "ami-09a4e5f2fed2ddfb6",
+				"AMIxBROKER" : "ami-0d4ef5067cc3714db",
+				"AMIxAGENT" : "ami-025c48f0eb04f2fcc",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "US East (N. Virginia)",
+				"REGIONxTAG" : "US_EAST_1"
+			},
+			"us-east-2" : {
+				"AMIxAPPLICATION" : "ami-06f169dacde1d6cd6",
+				"AMIxBROKER" : "ami-05d579cbc03164a7d",
+				"AMIxAGENT" : "ami-0fbe4ce8066f991a7",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.16.146.0/29",
+				"EC2xREGION" : "US East (Ohio)",
+				"REGIONxTAG" : "US_EAST_2"
+			},
+			"us-west-1" : {
+				"AMIxAPPLICATION" : "ami-0a294aba2f6496b14",
+				"AMIxBROKER" : "ami-093fae7e3b203c125",
+				"AMIxAGENT" : "ami-07c2e4121ec5152c0",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.52.6.112/29",
+				"EC2xREGION" : "US West (N. California)",
+				"REGIONxTAG" : "US_WEST_1"
+			},
+			"us-west-2" : {
+				"AMIxAPPLICATION" : "ami-02fa258e7dd8f3259",
+				"AMIxBROKER" : "ami-0efa4b448d7c11ac6",
+				"AMIxAGENT" : "ami-072d7dbb30a730e3c",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
+				"EC2xREGION" : "US West (Oregon)",
+				"REGIONxTAG" : "US_WEST_2"
+			},
+			"ap-east-1" : {
+				"AMIxAPPLICATION" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "Asia Pacific (Hong Kong)",		
+				"REGIONxTAG" : "AP_EAST_1"
+			},
+			"ap-south-1" : {
+				"AMIxAPPLICATION" : "ami-0b53b0a97ad777021",
+				"AMIxBROKER" : "ami-072b4400dc8201e79",
+				"AMIxAGENT" : "ami-0e32397f10bfc431d",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.233.177.0/29",
+				"EC2xREGION" : "Asia Pacific (Mumbai)",
+				"REGIONxTAG" : "AP_SOUTH_1"
+			},
+			"ap-northeast-2" : {
+				"AMIxAPPLICATION" : "ami-08731420cb466aa3c",
+				"AMIxBROKER" : "ami-0ac6397a68e319332",
+				"AMIxAGENT" : "ami-004559e4ab412929f",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.209.1.56/29",
+				"EC2xREGION" : "Asia Pacific (Seoul)",
+				"REGIONxTAG" : "AP_NORTHEAST_2"
+			},
+			"ap-southeast-1" : {
+				"AMIxAPPLICATION" : "ami-0fb39244502c87171",
+				"AMIxBROKER" : "ami-0ccf8b54ad89e4263",
+				"AMIxAGENT" : "ami-0997ef3796fc14fd2",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.0.5.32/29",
+				"EC2xREGION" : "Asia Pacific (Singapore)",
+				"REGIONxTAG" : "AP_SOUTHEAST_1"
+			},
+			"ap-southeast-2" : {
+				"AMIxAPPLICATION" : "ami-048bd6fd3464ae457",
+				"AMIxBROKER" : "ami-021bc105de269d106",
+				"AMIxAGENT" : "ami-037c500c57def618a",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.239.158.0/29",
+				"EC2xREGION" : "Asia Pacific (Sydney)",
+				"REGIONxTAG" : "AP_SOUTHEAST_2"
+			},
+			"ap-northeast-1" : {
+				"AMIxAPPLICATION" : "ami-06ff67bc14ac8b054",
+				"AMIxBROKER" : "ami-08560f7c5a239bc34",
+				"AMIxAGENT" : "ami-0ad6554c09b2a926c",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.112.23.0/29",
+				"EC2xREGION" : "Asia Pacific (Tokyo)",
+				"REGIONxTAG" : "AP_NORTHEAST_1"
+			},
+			"ca-central-1" : {
+				"AMIxAPPLICATION" : "ami-057bc8a6df4a2f43b",
+				"AMIxBROKER" : "ami-087b9537a0a76efa0",
+				"AMIxAGENT" : "ami-0b3d47f893b5232de",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "35.183.92.176/29",
+				"EC2xREGION" : "Canada (Central)",
+				"REGIONxTAG" : "CA_CENTRAL_1"
+			},
+			"eu-central-1" : {
+				"AMIxAPPLICATION" : "ami-0391ce707dcb6f5b5",
+				"AMIxBROKER" : "ami-0a0fab56a2f823771",
+				"AMIxAGENT" : "ami-047e6d4b3c66320c1",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.120.181.40/29",
+				"EC2xREGION" : "EU (Frankfurt)",
+				"REGIONxTAG" : "EU_CENTRAL_1"
+			},
+			"eu-west-1" : {
+				"AMIxAPPLICATION" : "ami-0c42a948112fc0100",
+				"AMIxBROKER" : "ami-04bd954946a887e49",
+				"AMIxAGENT" : "ami-05894fe66b980ff8b",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.202.216.48/29",
+				"EC2xREGION" : "EU (Ireland)",
+				"REGIONxTAG" : "EU_WEST_1"
+			},
+			"eu-west-2" : {
+				"AMIxAPPLICATION" : "ami-0799beead956a5bac",
+				"AMIxBROKER" : "ami-0e2bf1999c8b62687",
+				"AMIxAGENT" : "ami-09b9714d8f34ac624",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "3.8.37.24/29",
+				"EC2xREGION" : "EU (London)",
+				"REGIONxTAG" : "EU_WEST_2"
+			},
+			"eu-west-3" : {
+				"AMIxAPPLICATION" : "ami-0f2cfe3cc155160f5",
+				"AMIxBROKER" : "ami-057e4578404c668b4",
+				"AMIxAGENT" : "ami-0d9d5bb321cc23729",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "35.180.112.80/29",
+				"EC2xREGION" : "EU (Paris)",
+				"REGIONxTAG" : "EU_WEST_3"
+			},
+			"eu-north-1" : {
+				"AMIxAPPLICATION" : "ami-0d4ee63e5d1fe8b42",
+				"AMIxBROKER" : "ami-0d3d65556ce9bb56e",
+				"AMIxAGENT" : "ami-0ec38b9df11ecd4c6",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
+				"EC2xREGION" : "EU (Stockholm)",
+				"REGIONxTAG" : "EU_NORTH_1"
+			},
+			"me-south-1" : {
+				"AMIxAPPLICATION" : "ami-00000000000000000",
+				"AMIxBROKER" : "ami-00000000000000000",
+				"AMIxAGENT" : "ami-00000000000000000",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "Middle East (Bahrain)",		
+				"REGIONxTAG" : "ME_SOUTH_1"
+			},
+			"sa-east-1" : {
+				"AMIxAPPLICATION" : "ami-014db078e9b8c0bc3",
+				"AMIxBROKER" : "ami-0fae5436400c0d65d",
+				"AMIxAGENT" : "ami-0b996a98c2219cf59",
+				"AMIxLICENSE" : "ami-00000000000000000",
+				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
+				"EC2xREGION" : "South America (Sao Paulo)",
+				"REGIONxTAG" : "SA_EAST_1"
+			}
+		},
+		"VariableMap" : {
+			"global" : {
+                "OPTIONSxTAG" : "MANUAL",
+                "PROJECTxTAG" : "CyPerf",
+                "FLOWxLOGxRESOURCExTYPE" : "VPC",
+				"FLOWxLOGxTRAFFICxTYPE" : "REJECT"
+			}
+		}
+    },
+    "Metadata": {
+        "AWS::CloudFormation::Interface": {
+            "ParameterGroups": [
+                {
+                    "Label": {
+                        "default": "NETWORK CONFIGURATION"
+                    }
+                },
+                {
+                    "Label": {
+                        "default": "VPC Configuration"
+                    },
+                    "Parameters": [
+                        "Username",
+                        "Project",
+                        "AvailabilityZone1",
+                        "VPCCIDR"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "CyPerf Agent Configuration"
+                    },
+                    "Parameters": [
+                        "InstanceTypeForCyPerfAgent",
+                        "KeyNameForCyPerfAgent",
+                        "TagCyperfAgent",
+                        "TestSubnetForCyPerfAgentAZ1",
+                        "MgmtSubnetForCyPerfAgentAZ1",
+                        "CyPerfUI"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "Security-Group Configuration"
+                    },
+                    "Parameters": [
+                        "AllowedSubnet1"
+                    ]
+                }
+            ],
+            "ParameterLabels": {
+                "AvailabilityZone1": {
+                    "default": "Availability Zone 1"
+                },
+                "InstanceCount": {
+                    "default": "Instance Count"
+                },
+                "InstanceTypeForCyPerfAgent": {
+                    "default": "Instance Type CyPerf Agent"
+                },
+                "KeyNameForCyPerfAgent": {
+                    "default": "SSH Key"
+                },
+                "MgmtSubnetForCyPerfAgentAZ1": {
+                    "default": "Management Subnet (Message Broker subnet B) for CyPerf Agent for AZ1"
+                },
+                "TestSubnetForCyPerfAgentAZ1": {
+                    "default": "Test subnet (Public subnet A) for AZ1"
+                },
+                "AllowedSubnet1": {
+                    "default": "Allowed Subnet for Security Group"
+                },
+                "TagCyperfAgent": {
+                    "default": " CyPerf Agents Tag"
+                },
+                "VPCCIDR": {
+                    "default": "VPC"
+                },
+                "CyPerfUI": {
+                    "default": "CyPerf Application"
+                }
+            }
+        }
+    },
+    "Outputs": {
+    },
+    "Parameters": {
+        "AvailabilityZone1": {
+            "Default": "us-west-2a",
+            "Description": "Preferred availability zone",
+            "Type": "AWS::EC2::AvailabilityZone::Name"
+        },
+        "InstanceTypeForCyPerfAgent": {
+            "AllowedValues": [
+                "c4.2xlarge",
+                "c5n.9xlarge"
+            ],
+            "Default": "c4.2xlarge",
+            "Description": "Please select CyPerf instance type",
+            "Type": "String"
+        },
+        "MgmtInstanceSecurityGroup": {
+            "Default": "<Select CyPerf Agent security group from drop down>",
+            "Description": "CyPerf Agent Security group",
+            "Type": "AWS::EC2::SecurityGroup::Id"
+        },
+        "KeyNameForCyPerfAgent": {
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair",
+            "Default": "CyPerf-keypair",
+            "Description": "Existing KeyPair to login to the CyPerf instances",
+            "Type": "AWS::EC2::KeyPair::KeyName"
+        },
+        "MgmtSubnetForCyPerfAgentAZ1": {
+            "Default": "Select Management subnet from drop down",
+            "Description": "Management Public Subnet (Message Broker subnet B) for CyPerf Agent for AZ1 (eth1)",
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "TestSubnetForCyPerfAgentAZ1": {
+            "Default": "Select Test subnet from drop down",
+            "Description": "Test public Subnet (Public subnet A) for CyPerf Agent for AZ1 (eth0)",
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "Project": {
+            "Default": "CyPerf-AWS",
+            "Description": "Enter Project Name",
+            "Type": "String"
+        },
+        "TagCyperfAgent": {
+            "Default": "CyPerf-Agent",
+            "Description": "CyPerf Agent Tag",
+            "Type": "String"
+        },
+        "Username": {
+            "Default": "<UserName>@keysight.com",
+            "Description": "Enter Team or Individual email id  Responsible for the Stack.",
+            "Type": "String"
+        },
+        "VPCCIDR": {
+            "Default": "<Select VPC from drop down>",
+            "Description": "Stack use seletced VPC",
+            "Type": "AWS::EC2::VPC::Id"
+        },
+        "CyPerfUI": {
+            "Default": "<CyPerf UI IP>",
+            "Description": "CyPerf Application for Agent peering",
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "EC2IfaceRole": {
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": "sts:AssumeRole",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": "ec2.amazonaws.com"
+                            }
+                        }
+                    ],
+                    "Version": "2012-10-17"
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Action": [
+                                        "ec2:CreateNetworkInterface",
+                                        "ec2:DescribeInstances",
+                                        "ec2:ModifyNetworkInterfaceAttribute",
+                                        "ec2:AttachNetworkInterface",
+                                        "ec2:DescribeSubnets",
+                                        "ec2:DescribeSecurityGroups",
+                                        "ec2:DescribeTags"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": "*"
+                                }
+                            ],
+                            "Version": "2012-10-17"
+                        },
+                        "PolicyName": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "EC2IfacePolicy"
+                                ]
+                            ]
+                        }
+                    }
+                ],
+                "RoleName": {
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "AWS::StackName"
+                            },
+                            "EC2IfaceRole"
+                        ]
+                    ]
+                }
+            },
+            "Type": "AWS::IAM::Role"
+        },
+        "EC2InstanceProfile": {
+            "DependsOn": "EC2IfaceRole",
+            "Properties": {
+                "Roles": [
+                    {
+                        "Ref": "EC2IfaceRole"
+                    }
+                ]
+            },
+            "Type": "AWS::IAM::InstanceProfile"
+        },
+        "cyperfAgent": {
+            "DependsOn": [
+                "cyperfeth0",
+                "EC2InstanceProfile"
+            ],
+            "Properties": {
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/sda1",
+                        "Ebs": {
+                            "VolumeSize": "8",
+                            "DeleteOnTermination" : true
+                        }
+                    }
+                ],
+                "IamInstanceProfile": {
+                    "Ref": "EC2InstanceProfile"
+                },
+                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxAGENT"] },
+                "InstanceType": {
+                    "Ref": "InstanceTypeForCyPerfAgent"
+                },
+                "KeyName": {
+                    "Ref": "KeyNameForCyPerfAgent"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "DeviceIndex": "0",
+                        "NetworkInterfaceId": {
+                            "Ref": "cyperfeth0"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -xe\n",
+                                "cd /opt/keysight/tiger/active/bin/\n",
+                                "sh /opt/keysight/tiger/active/bin/Appsec_init ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            {
+                                                "Ref": "CyPerfUI"   
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /root/Appsec_init\n",
+                                "netplan apply\n"
+                            ]
+                        ]
+                    }
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "cyperfAgent"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::Instance"
+        },
+        "cyperfeth0": {
+            "Properties": {
+                "Description": "Client Agent eth0",
+                "GroupSet": [
+                    {
+                        "Ref": "MgmtInstanceSecurityGroup"
+                    }
+                ],
+                "SourceDestCheck": "true",
+                "SubnetId": {
+                    "Ref": "TestSubnetForCyPerfAgentAZ1"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "CA-Interface"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::NetworkInterface"
+        }
+    }
+}
+
