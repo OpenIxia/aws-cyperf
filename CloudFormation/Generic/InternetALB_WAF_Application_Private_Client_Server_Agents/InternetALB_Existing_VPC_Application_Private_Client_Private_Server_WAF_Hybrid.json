@@ -203,13 +203,20 @@
                     },
                     "Parameters": [
                         "InstanceTypeForCyPerfAgent",
-                        "InstanceTypeForCyPerfUI",
                         "KeyNameForCyPerfAgent",
                         "TagBehindApplicationLB",
                         "TestInitForCyPerfAgentAZ1",
                         "TestInitForCyPerfAgentAZ2",
                         "MBInitForCyPerfAgentAZ1",
                         "MBInitForCyPerfAgentAZ2"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "CyPerf Application Configuration"
+                    },
+                    "Parameters": [
+                        "InstanceTypeForCyPerfUI"
                     ]
                 },
                 {
@@ -235,6 +242,9 @@
                 },
                 "InstanceTypeForCyPerfAgent": {
                     "default": "Instance Type CyPerf Agent"
+                },
+                "InstanceTypeForCyPerfUI": {
+                    "default": "Instance Type CyPerf Application"
                 },
                 "KeyNameForCyPerfAgent": {
                     "default": "SSH Key"
@@ -361,17 +371,17 @@
         },
         "CyPerfUISecurityGroup": {
             "Default": "<Select CyPerfUISecurityGroup security group from drop down>",
-            "Description": "CyPerf Application Security group",
+            "Description": "CyPerf Application Security group CyPerfUISecurityGroup",
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "LoadBalancerSecurityGroup": {
             "Default": "<Select LoadBalancerSecurityGroup security group from drop down>",
-            "Description": "Load Balancer Security group",
+            "Description": "Load Balancer Security group LoadBalancerSecurityGroup",
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "MgmtInstanceSecurityGroup": {
             "Default": "<Select CyPerf Agent security group from drop down>",
-            "Description": "CyPerf Agent Security group",
+            "Description": "CyPerf Agent Security group MgmtInstanceSecurityGroup",
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "CertificateARN": {
@@ -691,7 +701,7 @@
             },
             "Type": "AWS::ElasticLoadBalancingV2::Listener"
         },
-        "AppSecMDW": {
+        "CyPerfUI": {
             "DependsOn": [
                 "mdweth0",
                 "EC2InstanceProfile"
@@ -751,62 +761,6 @@
                         "Key": "Owner",
                         "Value": { "Ref": "Username" }
                     }
-                ]
-            },
-            "Type": "AWS::EC2::Instance"
-        },
-        "AppSecLicenseServer": {
-            "DependsOn": "liceth0",
-            "Properties": {
-                "BlockDeviceMappings": [
-                    {
-                        "DeviceName": "/dev/sda1",
-                        "Ebs": {
-                            "VolumeSize": "20",
-                            "DeleteOnTermination" : true
-                        }
-                    }
-                ],
-                "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxLICENSE"] },
-                "InstanceType": "t2.micro",
-                "KeyName": {
-                    "Ref": "KeyNameForCyPerfAgent"
-                },
-                "NetworkInterfaces": [
-                    {
-                        "DeviceIndex": "0",
-                        "NetworkInterfaceId": {
-                            "Ref": "liceth0"
-                        }
-                    }
-                ],
-                "Tags": [
-                    {
-                        "Key": "Name",
-                        "Value": {
-                            "Fn::Join": [
-                                "-",
-                                [
-                                    {
-                                        "Ref": "AWS::StackName"
-                                    },
-                                    "License-Server"
-                                ]
-                            ]
-                        }
-                    },
-                    {
-                        "Key": "Project",
-                        "Value": { "Ref": "Project" }
-                    },
-					{
-						"Key": "Options",
-						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
-					},
-                    {
-                        "Key": "Owner",
-                        "Value": { "Ref": "Username" }
-                    }                  
                 ]
             },
             "Type": "AWS::EC2::Instance"
