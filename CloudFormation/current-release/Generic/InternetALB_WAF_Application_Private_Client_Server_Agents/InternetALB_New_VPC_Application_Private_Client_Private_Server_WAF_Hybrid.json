@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "\n    Stack creating a VPC and launch EC2 instances within it.\n    **WARNING** This template creates Amazon EC2 instances.\n    You will be billed for the AWS resources used if you create\n    a stack from this template. **WARNING** This template creates\n    role for the launching/deleting instances/subnets/interfaces.\n    This role will invoke AWSLambdaBasicExecutionRole, please see\n    AWS Documentation for details on AWSLambdaBasicExecutionRole.",
+    "Description": "\n    Stack creating a VPC and launch EC2 instances within it.\n    **WARNING** This template creates Amazon EC2 instances.\n    You will be billed for the AWS resources used if you create\n    a stack from this template. **WARNING** This template creates\n    role for the launching/deleting instances/subnets/interfaces.\n    This role will invoke AWSLambdaBasicExecutionRole, please see\n    AWS Documentation for details on AWSLambdaBasicExecutionRole. For StackName please specify only Alphanumeric characters and maximum 10 characters as this CFT invoke a nested CFT.",
     "Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
@@ -203,13 +203,20 @@
                     },
                     "Parameters": [
                         "InstanceTypeForCyPerfAgent",
-                        "InstanceTypeForCyPerfUI",
                         "KeyNameForCyPerfAgent",
                         "TagBehindApplicationLB",
                         "TestInitForCyPerfAgentAZ1",
                         "TestInitForCyPerfAgentAZ2",
                         "MBInitForCyPerfAgentAZ1",
                         "MBInitForCyPerfAgentAZ2"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "CyPerf Application Configuration"
+                    },
+                    "Parameters": [
+                        "InstanceTypeForCyPerfUI"
                     ]
                 },
                 {
@@ -253,7 +260,7 @@
                     "default": "Public subnet (Public subnet B) for AZ2"
                 },
                 "AllowedSubnet1": {
-                    "default": "AllowedSubnet1"
+                    "default": "Allowed Subnet for Security Group"
                 },
                 "TagBehindApplicationLB": {
                     "default": " Agents Tag running Behind Application LB"
