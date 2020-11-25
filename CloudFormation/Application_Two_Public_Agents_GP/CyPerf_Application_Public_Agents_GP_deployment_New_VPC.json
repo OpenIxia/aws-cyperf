@@ -5,7 +5,7 @@
 		"RegionMap" : {
 			"us-east-1" : {
 				"AMIxAPPLICATION" : "ami-09a4e5f2fed2ddfb6",
-				"AMIxBROKER" : "ami-0d4ef5067cc3714db",
+				"AMIxBROKER" : "ami-00798ba8ca63df5c0",
 				"AMIxAGENT" : "ami-07b1030615583eeed",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
