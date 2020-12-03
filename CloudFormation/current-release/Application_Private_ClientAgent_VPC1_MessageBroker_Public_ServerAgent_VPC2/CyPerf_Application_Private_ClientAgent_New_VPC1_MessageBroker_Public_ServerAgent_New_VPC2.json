@@ -237,10 +237,10 @@
                     "default": "SSH Key"
                 },
                 "MB1InitForCyPerfAgentAZ1": {
-                    "default": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1 at VPC1"
+                    "default": "Management Subnet (Message Broker subnet C) for CyPerf Client Agent for AZ1 at VPC1"
                 },
                 "MB2InitForCyPerfAgentAZ1": {
-                    "default": "Management Subnet (Message Broker subnet D) for CyPerf Agent for AZ1 at VPC2"
+                    "default": "Management Subnet (Message Broker subnet D) for CyPerf Server Agent for AZ1 at VPC2"
                 },
                 "ManagementNetworkCIDR1": {
                     "default": "Public subnet (Public subnet A) for AZ1 at VPC1"
