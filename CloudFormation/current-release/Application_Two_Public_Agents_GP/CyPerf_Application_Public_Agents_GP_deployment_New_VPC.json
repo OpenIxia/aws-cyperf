@@ -272,8 +272,7 @@
         },
         "InstanceTypeForCyPerfUI": {
             "AllowedValues": [
-                "c4.2xlarge",
-                "c5n.9xlarge"
+                "c4.2xlarge"
             ],
             "Default": "c4.2xlarge",
             "Description": "Please select CyPerf Application instance type.",
@@ -482,6 +481,13 @@
                     }
                 ],
                 "SecurityGroupIngress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "Description": "Custom TCP",
+                        "FromPort": "30422",
+                        "IpProtocol": "tcp",
+                        "ToPort": "30422"
+                    },
                     {
                         "CidrIp": {
                             "Ref": "AllowedSubnet1"
