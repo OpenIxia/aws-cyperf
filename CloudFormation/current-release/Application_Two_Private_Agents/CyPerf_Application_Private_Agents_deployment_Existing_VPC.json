@@ -236,10 +236,10 @@
                     "default": "SSH Key"
                 },
                 "MBInitForCyPerfAgentAZ1": {
-                    "default": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1"
+                    "default": "Management Subnet for CyPerf Agent for AZ1"
                 },
                 "ManagementNetworkCIDR1": {
-                    "default": "Public subnet (Public subnet A) for AZ1"
+                    "default": "Public subnet for AZ1"
                 },
                 "AllowedSubnet1": {
                     "default": "Allowed Subnet for Security Group"
@@ -254,7 +254,7 @@
                     "default": "Security Group of CyPerf Agent"
                 },
                 "TestInitForCyPerfAgentAZ1": {
-                    "default": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1"
+                    "default": "Test Subnet for CyPerf Agent for AZ1"
                 },
                 "VPCCIDR": {
                     "default": "VPC"
@@ -306,12 +306,12 @@
         },        
         "CyPerfUISecurityGroup": {
             "Default": "<Select CyPerf Application security group CyPerfUISecurityGroup from drop down>",
-            "Description": "CyPerf Application Security group CyPerfUISecurityGroup",
+            "Description": "Default: CyPerf Application Security group CyPerfUISecurityGroup",
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "MgmtInstanceSecurityGroup": {
-            "Default": "<Select CyPerf Agent security group MgmtInstanceSecurityGroup from drop down>",
-            "Description": "CyPerf Agent Security group MgmtInstanceSecurityGroup",
+            "Default": "<Select CyPerf Agent security group from drop down>",
+            "Description": "Default: CyPerf Agent Security group MgmtInstanceSecurityGroup",
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "KeyNameForCyPerfAgent": {
@@ -322,12 +322,12 @@
         },
         "MBInitForCyPerfAgentAZ1": {
             "Default": "Select Management subnet from drop down",
-            "Description": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1 (eth1)",
+            "Description": "Default: Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1 (eth1)",
             "Type": "AWS::EC2::Subnet::Id"
         },
         "ManagementNetworkCIDR1": {
             "Default": "Select Management subnet from drop down",
-            "Description": "Public subnet (Public subnet A) for AZ1 (eth0)",
+            "Description": "Default: Public subnet (Public subnet A) for AZ1 (eth0)",
             "Type": "AWS::EC2::Subnet::Id"
         },
         "Project": {
@@ -337,7 +337,7 @@
         },
         "TestInitForCyPerfAgentAZ1": {
             "Default": "Select Management subnet from drop down",
-            "Description": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1 (eth0)",
+            "Description": "Default: Test Subnet (Private subnet A) for CyPerf Agent for AZ1 (eth0)",
             "Type": "AWS::EC2::Subnet::Id"
         },
         "Username": {
@@ -533,13 +533,19 @@
                                 "sh /opt/keysight/tiger/active/bin/Appsec_init ",
                                 {
                                     "Fn::Join": [
-                                        "",
+                                        " ",
                                         [
                                             {
                                                 "Fn::GetAtt": [
                                                     "CyPerfUI",
                                                     "PrivateIp"
                                                 ]
+                                            },
+                                            {
+                                                "Ref": "MBInitForCyPerfAgentAZ1"   
+                                            },
+                                            {
+                                                "Ref": "MgmtInstanceSecurityGroup"   
                                             }
                                         ]
                                     ]
@@ -624,13 +630,19 @@
                                 "sh /opt/keysight/tiger/active/bin/Appsec_init ",
                                 {
                                     "Fn::Join": [
-                                        "",
+                                        " ",
                                         [
                                             {
                                                 "Fn::GetAtt": [
                                                     "CyPerfUI",
                                                     "PrivateIp"
                                                 ]
+                                            },
+                                            {
+                                                "Ref": "MBInitForCyPerfAgentAZ1"   
+                                            },
+                                            {
+                                                "Ref": "MgmtInstanceSecurityGroup"   
                                             }
                                         ]
                                     ]
