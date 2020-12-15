@@ -232,7 +232,7 @@
                     "default": "SSH Key"
                 },
                 "MgmtSubnetForCyPerfAgentAZ1": {
-                    "default": "Management Subnet (Message Broker subnet B) for CyPerf Agent for AZ1"
+                    "default": "Management subnet (public Subnet B) for CyPerf Agent for AZ1"
                 },
                 "TestSubnetForCyPerfAgentAZ1": {
                     "default": "Test subnet (Public subnet A) for AZ1"
