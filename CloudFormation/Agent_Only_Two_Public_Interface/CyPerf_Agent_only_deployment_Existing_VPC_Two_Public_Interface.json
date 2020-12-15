@@ -206,7 +206,8 @@
                         "TagCyperfAgent",
                         "TestSubnetForCyPerfAgentAZ1",
                         "MgmtSubnetForCyPerfAgentAZ1",
-                        "CyPerfUI"
+                        "CyPerfUI",
+                        "MgmtInstanceSecurityGroup"
                     ]
                 },
                 {
@@ -232,10 +233,13 @@
                     "default": "SSH Key"
                 },
                 "MgmtSubnetForCyPerfAgentAZ1": {
-                    "default": "Management Subnet (Message Broker subnet B) for CyPerf Agent for AZ1"
+                    "default": "Management Subnet for CyPerf Agent for AZ1"
                 },
                 "TestSubnetForCyPerfAgentAZ1": {
-                    "default": "Test subnet (Public subnet A) for AZ1"
+                    "default": "Test subnet for CyPerf Agent for AZ1"
+                },
+                "MgmtInstanceSecurityGroup": {
+                    "default": "Security Group of CyPerf Agent"
                 },
                 "AllowedSubnet1": {
                     "default": "Allowed Subnet for Security Group"
@@ -271,7 +275,7 @@
         },
         "MgmtInstanceSecurityGroup": {
             "Default": "<Select CyPerf Agent security group from drop down>",
-            "Description": "CyPerf Agent Security group",
+            "Description": "Default: CyPerf Agent Security group MgmtInstanceSecurityGroup",
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "KeyNameForCyPerfAgent": {
@@ -282,12 +286,12 @@
         },
         "MgmtSubnetForCyPerfAgentAZ1": {
             "Default": "Select Management subnet from drop down",
-            "Description": "Management Public Subnet (Message Broker subnet B) for CyPerf Agent for AZ1 (eth1)",
+            "Description": "Default: Management Public Subnet (Message Broker subnet B) for CyPerf Agent for AZ1 (eth1)",
             "Type": "AWS::EC2::Subnet::Id"
         },
         "TestSubnetForCyPerfAgentAZ1": {
             "Default": "Select Test subnet from drop down",
-            "Description": "Test public Subnet (Public subnet A) for CyPerf Agent for AZ1 (eth0)",
+            "Description": "Default: Test public Subnet (Public subnet A) for CyPerf Agent for AZ1 (eth0)",
             "Type": "AWS::EC2::Subnet::Id"
         },
         "Project": {
@@ -433,10 +437,16 @@
                                 "sh /opt/keysight/tiger/active/bin/Appsec_init ",
                                 {
                                     "Fn::Join": [
-                                        "",
+                                        " ",
                                         [
                                             {
                                                 "Ref": "CyPerfUI"   
+                                            },
+                                            {
+                                                "Ref": "MgmtSubnetForCyPerfAgentAZ1"   
+                                            },
+                                            {
+                                                "Ref": "MgmtInstanceSecurityGroup"   
                                             }
                                         ]
                                     ]

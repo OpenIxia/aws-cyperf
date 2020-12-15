@@ -214,7 +214,7 @@
                     "default": "Instance Type CyPerf Application"
                 },
                 "MgmtSubnetForCyPerfUIAZ1": {
-                    "default": "Management Public subnet (Public subnet A) for AZ1"
+                    "default": "Management Public subnet for AZ1"
                 },
                 "KeyNameForCyPerfUI": {
                     "default": "SSH Key"
@@ -258,7 +258,7 @@
         },
         "MgmtSubnetForCyPerfUIAZ1": {
             "Default": "Select Management subnet from drop down",
-            "Description": "Management Public Subnet for CyPerf Application for AZ1",
+            "Description": "Default: Management Public Subnet (Public subnet A) for CyPerf Application for AZ1",
             "Type": "AWS::EC2::Subnet::Id"
         },
         "Project": {
