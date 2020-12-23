@@ -49,7 +49,7 @@
 				"REGIONxTAG" : "AP_EAST_1"
 			},
 			"ap-south-1" : {
-				"AMIxAPPLICATION" : "ami-0b53b0a97ad777021",
+				"AMIxAPPLICATION" : "ami-0a26b6ce9bbc9a2aa",
 				"AMIxBROKER" : "ami-09769ec41687ff2c0",
 				"AMIxAGENT" : "ami-0ef5505fe54957e6c",
 				"AMIxLICENSE" : "ami-00000000000000000",
