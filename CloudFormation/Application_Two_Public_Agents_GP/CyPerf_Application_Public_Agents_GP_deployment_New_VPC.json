@@ -22,7 +22,7 @@
 				"REGIONxTAG" : "US_EAST_2"
 			},
 			"us-west-1" : {
-				"AMIxAPPLICATION" : "ami-0a294aba2f6496b14",
+				"AMIxAPPLICATION" : "ami-032fc9afd8fab2c3a",
 				"AMIxBROKER" : "ami-093452bda1695c728",
 				"AMIxAGENT" : "ami-0fc09376b17100039",
 				"AMIxLICENSE" : "ami-00000000000000000",
