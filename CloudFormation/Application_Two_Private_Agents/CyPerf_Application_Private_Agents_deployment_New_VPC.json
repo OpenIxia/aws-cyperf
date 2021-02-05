@@ -15,7 +15,7 @@
 			"us-east-2" : {
 				"AMIxAPPLICATION" : "ami-06f169dacde1d6cd6",
 				"AMIxBROKER" : "ami-053f8a2338b06c626",
-				"AMIxAGENT" : "ami-0b0b470b73c2a0bad",
+				"AMIxAGENT" : "ami-047571debc562735e",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "3.16.146.0/29",
 				"EC2xREGION" : "US East (Ohio)",
@@ -33,7 +33,7 @@
 			"us-west-2" : {
 				"AMIxAPPLICATION" : "ami-02fa258e7dd8f3259",
 				"AMIxBROKER" : "ami-07323fd37d17b2d33",
-				"AMIxAGENT" : "ami-060844b2ebf7afa59",
+				"AMIxAGENT" : "ami-04066fb9499ceca11",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
 				"EC2xREGION" : "US West (Oregon)",
@@ -202,13 +202,13 @@
                     "Parameters": [
                         "InstanceTypeForCyPerfAgent",
                         "KeyNameForCyPerfAgent",
-                        "TestInitForCyPerfAgentAZ1",
-                        "MBInitForCyPerfAgentAZ1"
-                    ]
+                        "MBInitForCyPerfAgentAZ1",
+                        "TestInitForCyPerfAgentAZ1"
+                     ]
                 },
                 {
                     "Label": {
-                        "default": "CyPerf Application Configuration"
+                        "default": "CyPerf Controller Configuration"
                     },
                     "Parameters": [
                         "InstanceTypeForCyPerfUI"
@@ -233,20 +233,20 @@
                 "KeyNameForCyPerfAgent": {
                     "default": "SSH Key"
                 },
-                "MBInitForCyPerfAgentAZ1": {
-                    "default": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1"
-                },
                 "ManagementNetworkCIDR1": {
-                    "default": "Public subnet (Public subnet A) for AZ1"
+                    "default": "Management Subnet (Public subnet A) for CyPerf Contoller for Availability Zone 1"
+                },
+                "MBInitForCyPerfAgentAZ1": {
+                    "default": "Management Subnet (Private subnet A) for CyPerf Agent for Availability Zone 1"
                 },
                 "AllowedSubnet1": {
                     "default": "Allowed Subnet for Security Group"
                 },
                 "InstanceTypeForCyPerfUI": {
-                    "default": "Instance Type of CyPerf Application"
+                    "default": "Instance Type of CyPerf Controller"
                 },
                 "TestInitForCyPerfAgentAZ1": {
-                    "default": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1"
+                    "default": "Test Subnet (Private subnet C) for CyPerf Agent for Availability Zone 1"
                 },
                 "VPCCIDR": {
                     "default": "VPC"
@@ -256,7 +256,7 @@
     },
     "Outputs": {
         "CyPerfUIINstanceDNS": {
-            "Description": "DNS name of CyPerf Application instance",
+            "Description": "DNS name of CyPerf Controller instance",
             "Value": {
                 "Fn::Join": [
                     "",
@@ -284,7 +284,7 @@
                 "c5n.9xlarge"
             ],
             "Default": "c4.2xlarge",
-            "Description": "Please select CyPerf Application instance type.",
+            "Description": "Please select CyPerf Controller instance type.",
             "Type": "String"
         },
         "InstanceTypeForCyPerfAgent": {
@@ -302,20 +302,20 @@
             "Description": "Existing KeyPair to login to the CyPerf instances",
             "Type": "AWS::EC2::KeyPair::KeyName"
         },
-        "MBInitForCyPerfAgentAZ1": {
-            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
-            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-            "Default": "172.16.5.0/24",
-            "Description": "Management Subnet (Message Broker subnet C) for CyPerf Agent for AZ1 (eth1)",
-            "MaxLength": "18",
-            "MinLength": "9",
-            "Type": "String"
-        },
         "ManagementNetworkCIDR1": {
             "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
             "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
             "Default": "172.16.1.0/24",
-            "Description": "Public subnet (Public subnet A) for AZ1 (eth0)",
+            "Description": "Management Subnet (Public subnet A) for CyPerf Controller for Availability Zone 1 (eth0)",
+            "MaxLength": "18",
+            "MinLength": "9",
+            "Type": "String"
+        },
+        "MBInitForCyPerfAgentAZ1": {
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+            "Default": "172.16.3.0/24",
+            "Description": "Management Subnet (Private subnet A) for CyPerf Agents for Availability Zone 1 (eth0/ens4)",
             "MaxLength": "18",
             "MinLength": "9",
             "Type": "String"
@@ -337,8 +337,8 @@
         "TestInitForCyPerfAgentAZ1": {
             "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
             "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-            "Default": "172.16.3.0/24",
-            "Description": "Test Subnet (Private subnet A) for CyPerf Agent for AZ1 (eth0)",
+            "Default": "172.16.5.0/24",
+            "Description": "Test Subnet (Private subnet C) for CyPerf Agents for Availability Zone 1 (eth1/ens5)",
             "MaxLength": "18",
             "MinLength": "9",
             "Type": "String"
@@ -649,7 +649,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "Application"
+                                    "Controller"
                                 ]
                             ]
                         }
@@ -782,6 +782,7 @@
         "ClientAgent": {
             "DependsOn": [
                 "clieth0",
+                "clieth1",
                 "CyPerfUI",
                 "EC2InstanceProfile"
             ],
@@ -810,6 +811,12 @@
                         "DeviceIndex": "0",
                         "NetworkInterfaceId": {
                             "Ref": "clieth0"
+                        }
+                    },
+                    {
+                        "DeviceIndex": "1",
+                        "NetworkInterfaceId": {
+                            "Ref": "clieth1"
                         }
                     }
                 ],
@@ -873,6 +880,7 @@
         "ServerAgent": {
             "DependsOn": [
                 "svreth0",
+                "svreth1",
                 "CyPerfUI",
                 "EC2InstanceProfile"
             ],
@@ -901,6 +909,12 @@
                         "DeviceIndex": "0",
                         "NetworkInterfaceId": {
                             "Ref": "svreth0"
+                        }
+                    },
+                    {
+                        "DeviceIndex": "1",
+                        "NetworkInterfaceId": {
+                            "Ref": "svreth1"
                         }
                     }
                 ],
@@ -1064,7 +1078,7 @@
                     "Ref": "AvailabilityZone1"
                 },
                 "CidrBlock": {
-                    "Ref": "TestInitForCyPerfAgentAZ1"
+                    "Ref": "MBInitForCyPerfAgentAZ1"
                 },
                 "Tags": [
                     {
@@ -1106,7 +1120,7 @@
                     "Ref": "AvailabilityZone1"
                 },
                 "CidrBlock": {
-                    "Ref": "MBInitForCyPerfAgentAZ1"
+                    "Ref": "TestInitForCyPerfAgentAZ1"
                 },
                 "Tags": [
                     {
@@ -1118,7 +1132,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "Private subnet MessageBrokerSubnet C"
+                                    "Private subnet C"
                                 ]
                             ]
                         }
@@ -1278,7 +1292,7 @@
 		},
         "clieth0": {
             "Properties": {
-                "Description": "Client Agent eth0",
+                "Description": "Client Agent eth0/ens4",
                 "GroupSet": [
                     {
                         "Ref": "MgmtInstanceSecurityGroup"
@@ -1319,9 +1333,52 @@
             },
             "Type": "AWS::EC2::NetworkInterface"
         },
+        "clieth1": {
+            "Properties": {
+                "Description": "Client Agent eth1/ens5",
+                "GroupSet": [
+                    {
+                        "Ref": "MgmtInstanceSecurityGroup"
+                    }
+                ],
+                "SourceDestCheck": "true",
+                "SubnetId": {
+                    "Ref": "StackPrivateSubnetC"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "CA-Interface"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::NetworkInterface"
+        },
         "svreth0": {
             "Properties": {
-                "Description": "Server Agent eth0",
+                "Description": "Server Agent eth0/ens4",
                 "GroupSet": [
                     {
                         "Ref": "MgmtInstanceSecurityGroup"
@@ -1330,6 +1387,49 @@
                 "SourceDestCheck": "true",
                 "SubnetId": {
                     "Ref": "StackPrivateSubnetA"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "AWS::StackName"
+                                    },
+                                    "SA-Interface"
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "Project",
+                        "Value": { "Ref": "Project" }
+                    },
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "global", "OPTIONSxTAG"] }
+					},
+                    {
+                        "Key": "Owner",
+                        "Value": { "Ref": "Username" }
+                    }
+                ]
+            },
+            "Type": "AWS::EC2::NetworkInterface"
+        },
+        "svreth1": {
+            "Properties": {
+                "Description": "Server Agent eth1/ens5",
+                "GroupSet": [
+                    {
+                        "Ref": "MgmtInstanceSecurityGroup"
+                    }
+                ],
+                "SourceDestCheck": "true",
+                "SubnetId": {
+                    "Ref": "StackPrivateSubnetC"
                 },
                 "Tags": [
                     {
