@@ -190,9 +190,16 @@
                     "Parameters": [
                         "Username",
                         "Project",
-                        "AvailabilityZone1",
                         "VPCCIDR",
-                        "ManagementNetworkCIDR1"
+                        "AvailabilityZone"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "CyPerf Controller Configuration"
+                    },
+                    "Parameters": [
+                        "ControllerNetworkCIDR"
                     ]
                 },
                 {
@@ -202,30 +209,22 @@
                     "Parameters": [
                         "InstanceTypeForCyPerfAgent",
                         "KeyNameForCyPerfAgent",
-                        "MBInitForCyPerfAgentAZ1",
-                        "TestInitForCyPerfAgentAZ1"
+                        "AgentControlCIDR",
+                        "AgentTestCIDR"
                      ]
-                },
-                {
-                    "Label": {
-                        "default": "CyPerf Controller Configuration"
-                    },
-                    "Parameters": [
-                        "InstanceTypeForCyPerfUI"
-                    ]
                 },
                 {
                     "Label": {
                         "default": "Security-Group Configuration"
                     },
                     "Parameters": [
-                        "AllowedSubnet1"
+                        "AllowedSubnet"
                     ]
                 }
             ],
             "ParameterLabels": {
-                "AvailabilityZone1": {
-                    "default": "Availability Zone 1"
+                "AvailabilityZone": {
+                    "default": "Availability Zone"
                 },
                 "InstanceTypeForCyPerfAgent": {
                     "default": "Instance Type CyPerf Agent"
@@ -233,20 +232,20 @@
                 "KeyNameForCyPerfAgent": {
                     "default": "SSH Key"
                 },
-                "ManagementNetworkCIDR1": {
-                    "default": "Management Subnet (Public subnet A) for CyPerf Contoller for Availability Zone 1"
+                "ControllerNetworkCIDR": {
+                    "default": "Management Subnet for CyPerf Controller"
                 },
-                "MBInitForCyPerfAgentAZ1": {
-                    "default": "Management Subnet (Private subnet A) for CyPerf Agent for Availability Zone 1"
+                "AgentControlCIDR": {
+                    "default": "Control Subnet for CyPerf Agents"
                 },
-                "AllowedSubnet1": {
+                "AllowedSubnet": {
                     "default": "Allowed Subnet for Security Group"
                 },
                 "InstanceTypeForCyPerfUI": {
                     "default": "Instance Type of CyPerf Controller"
                 },
-                "TestInitForCyPerfAgentAZ1": {
-                    "default": "Test Subnet (Private subnet C) for CyPerf Agent for Availability Zone 1"
+                "AgentTestCIDR": {
+                    "default": "Test Subnet for CyPerf Agents"
                 },
                 "VPCCIDR": {
                     "default": "VPC"
@@ -273,19 +272,10 @@
         }
     },
     "Parameters": {
-        "AvailabilityZone1": {
-            "Default": "us-west-2a",
+        "AvailabilityZone": {
+            "Default": "<Select preffered availability zone from drop down>",
             "Description": "Preferred availability zone",
             "Type": "AWS::EC2::AvailabilityZone::Name"
-        },
-        "InstanceTypeForCyPerfUI": {
-            "AllowedValues": [
-                "c4.2xlarge",
-                "c5n.9xlarge"
-            ],
-            "Default": "c4.2xlarge",
-            "Description": "Please select CyPerf Controller instance type.",
-            "Type": "String"
         },
         "InstanceTypeForCyPerfAgent": {
             "AllowedValues": [
@@ -302,29 +292,29 @@
             "Description": "Existing KeyPair to login to the CyPerf instances",
             "Type": "AWS::EC2::KeyPair::KeyName"
         },
-        "ManagementNetworkCIDR1": {
+        "ControllerNetworkCIDR": {
             "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
             "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
             "Default": "172.16.1.0/24",
-            "Description": "Management Subnet (Public subnet A) for CyPerf Controller for Availability Zone 1 (eth0)",
+            "Description": "This subnet is attached to CyPerf controller and would be used to access tge CyPerf controllers' UI",
             "MaxLength": "18",
             "MinLength": "9",
             "Type": "String"
         },
-        "MBInitForCyPerfAgentAZ1": {
+        "AgentControlCIDR": {
             "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
             "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-            "Default": "172.16.3.0/24",
-            "Description": "Management Subnet (Private subnet A) for CyPerf Agents for Availability Zone 1 (eth0/ens4)",
+            "Default": "172.16.2.0/24",
+            "Description": "CyPerf agents will use this subnet for control plane communication with controller",
             "MaxLength": "18",
             "MinLength": "9",
             "Type": "String"
         },
-        "AllowedSubnet1": {
+        "AllowedSubnet": {
             "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
             "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
             "Default": "1.1.1.1/1",
-            "Description": "Subnet range allowed to access deployed AWS resources",
+            "Description": "Subnet range allowed to access deployed AWS resources. Execute 'curl ifconfig.co' to know MyIP",
             "MaxLength": "18",
             "MinLength": "9",
             "Type": "String"
@@ -334,11 +324,11 @@
             "Description": "Enter Project Name",
             "Type": "String"
         },
-        "TestInitForCyPerfAgentAZ1": {
+        "AgentTestCIDR": {
             "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
             "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-            "Default": "172.16.5.0/24",
-            "Description": "Test Subnet (Private subnet C) for CyPerf Agents for Availability Zone 1 (eth1/ens5)",
+            "Default": "172.16.3.0/24",
+            "Description": "CyPerf agents will use this subnet for test traffic",
             "MaxLength": "18",
             "MinLength": "9",
             "Type": "String"
@@ -510,7 +500,7 @@
                 "SecurityGroupIngress": [
                     {
                         "CidrIp": {
-                            "Ref": "AllowedSubnet1"
+                            "Ref": "AllowedSubnet"
                         },
                         "Description": "Custom TCP",
                         "FromPort": "30422",
@@ -519,7 +509,7 @@
                     },
                     {
                         "CidrIp": {
-                            "Ref": "AllowedSubnet1"
+                            "Ref": "AllowedSubnet"
                         },
                         "Description": "Custom TCP",
                         "FromPort": "443",
@@ -528,7 +518,7 @@
                     },
                     {
                         "CidrIp": {
-                            "Ref": "AllowedSubnet1"
+                            "Ref": "AllowedSubnet"
                         },
                         "Description": "Custom TCP",
                         "FromPort": "22",
@@ -537,7 +527,7 @@
                     },
                     {
                         "CidrIp": {
-                            "Ref": "AllowedSubnet1"
+                            "Ref": "AllowedSubnet"
                         },
                         "Description": "Custom TCP",
                         "FromPort": "9022",
@@ -625,9 +615,7 @@
                     "Ref": "EC2InstanceProfile"
                 },
                 "ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxAPPLICATION"] },
-                "InstanceType": {
-                    "Ref": "InstanceTypeForCyPerfUI"
-                },
+                "InstanceType": "c4.2xlarge",
                 "KeyName": {
                     "Ref": "KeyNameForCyPerfAgent"
                 },
@@ -670,7 +658,7 @@
             },
             "Type": "AWS::EC2::Instance"
         },
-        "MgmtInstanceSecurityGroup": {
+        "AgentSecurityGroup": {
             "Properties": {
                 "GroupDescription": "Allow restricted-access to launched Instances",
                 "SecurityGroupEgress": [
@@ -746,7 +734,7 @@
             "Type": "AWS::EC2::SecurityGroup"
         },
         "Nat": {
-            "DependsOn": "StackPublicSubnetA",
+            "DependsOn": "ControllerManagementSubnet",
             "Properties": {
                 "AllocationId": {
                     "Fn::GetAtt": [
@@ -755,7 +743,7 @@
                     ]
                 },
                 "SubnetId": {
-                    "Ref": "StackPublicSubnetA"
+                    "Ref": "ControllerManagementSubnet"
                 }
             },
             "Type": "AWS::EC2::NatGateway"
@@ -767,7 +755,7 @@
             "Type": "AWS::EC2::EIP"
         },
         "NatRoute": {
-            "DependsOn": "StackPublicSubnetA",
+            "DependsOn": "ControllerManagementSubnet",
             "Properties": {
                 "DestinationCidrBlock": "0.0.0.0/0",
                 "NatGatewayId": {
@@ -999,26 +987,26 @@
             },
             "Type": "AWS::EC2::RouteTable"
         },
-        "PrivateSubnetARouteTable": {
-            "DependsOn": "StackPrivateSubnetA",
+        "AgentControlSubnetRouteTable": {
+            "DependsOn": "AgentControlSubnet",
             "Properties": {
                 "RouteTableId": {
                     "Ref": "PrivateRouteTable"
                 },
                 "SubnetId": {
-                    "Ref": "StackPrivateSubnetA"
+                    "Ref": "AgentControlSubnet"
                 }
             },
             "Type": "AWS::EC2::SubnetRouteTableAssociation"
         },
-        "PrivateSubnetCRouteTable": {
-            "DependsOn": "StackPrivateSubnetC",
+        "AgentTestSubnetRouteTable": {
+            "DependsOn": "AgentTestSubnet",
             "Properties": {
                 "RouteTableId": {
                     "Ref": "PrivateRouteTable"
                 },
                 "SubnetId": {
-                    "Ref": "StackPrivateSubnetC"
+                    "Ref": "AgentTestSubnet"
                 }
             },
             "Type": "AWS::EC2::SubnetRouteTableAssociation"
@@ -1047,14 +1035,14 @@
             },
             "Type": "AWS::EC2::RouteTable"
         },
-        "PublicSubnetARouteTable": {
-            "DependsOn": "StackPublicSubnetA",
+        "ControllerManagementSubnetRouteTable": {
+            "DependsOn": "ControllerManagementSubnet",
             "Properties": {
                 "RouteTableId": {
                     "Ref": "PublicRouteTable"
                 },
                 "SubnetId": {
-                    "Ref": "StackPublicSubnetA"
+                    "Ref": "ControllerManagementSubnet"
                 }
             },
             "Type": "AWS::EC2::SubnetRouteTableAssociation"
@@ -1072,13 +1060,13 @@
             },
             "Type": "AWS::EC2::Route"
         },
-        "StackPrivateSubnetA": {
+        "AgentControlSubnet": {
             "Properties": {
                 "AvailabilityZone": {
-                    "Ref": "AvailabilityZone1"
+                    "Ref": "AvailabilityZone"
                 },
                 "CidrBlock": {
-                    "Ref": "MBInitForCyPerfAgentAZ1"
+                    "Ref": "AgentControlCIDR"
                 },
                 "Tags": [
                     {
@@ -1090,7 +1078,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "Private subnet A"
+                                    "Agent Control Subnet"
                                 ]
                             ]
                         }
@@ -1114,13 +1102,13 @@
             },
             "Type": "AWS::EC2::Subnet"
         },
-        "StackPrivateSubnetC": {
+        "AgentTestSubnet": {
             "Properties": {
                 "AvailabilityZone": {
-                    "Ref": "AvailabilityZone1"
+                    "Ref": "AvailabilityZone"
                 },
                 "CidrBlock": {
-                    "Ref": "TestInitForCyPerfAgentAZ1"
+                    "Ref": "AgentTestCIDR"
                 },
                 "Tags": [
                     {
@@ -1132,7 +1120,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "Private subnet C"
+                                    "Agent Test Subnet"
                                 ]
                             ]
                         }
@@ -1156,13 +1144,13 @@
             },
             "Type": "AWS::EC2::Subnet"
         },
-        "StackPublicSubnetA": {
+        "ControllerManagementSubnet": {
             "Properties": {
                 "AvailabilityZone": {
-                    "Ref": "AvailabilityZone1"
+                    "Ref": "AvailabilityZone"
                 },
                 "CidrBlock": {
-                    "Ref": "ManagementNetworkCIDR1"
+                    "Ref": "ControllerNetworkCIDR"
                 },
                 "MapPublicIpOnLaunch": "true",
                 "Tags": [
@@ -1175,7 +1163,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "public subnet A"
+                                    "Controller Management Subnet"
                                 ]
                             ]
                         }
@@ -1295,12 +1283,12 @@
                 "Description": "Client Agent eth0/ens4",
                 "GroupSet": [
                     {
-                        "Ref": "MgmtInstanceSecurityGroup"
+                        "Ref": "AgentSecurityGroup"
                     }
                 ],
                 "SourceDestCheck": "true",
                 "SubnetId": {
-                    "Ref": "StackPrivateSubnetA"
+                    "Ref": "AgentControlSubnet"
                 },
                 "Tags": [
                     {
@@ -1338,12 +1326,12 @@
                 "Description": "Client Agent eth1/ens5",
                 "GroupSet": [
                     {
-                        "Ref": "MgmtInstanceSecurityGroup"
+                        "Ref": "AgentSecurityGroup"
                     }
                 ],
                 "SourceDestCheck": "true",
                 "SubnetId": {
-                    "Ref": "StackPrivateSubnetC"
+                    "Ref": "AgentTestSubnet"
                 },
                 "Tags": [
                     {
@@ -1381,12 +1369,12 @@
                 "Description": "Server Agent eth0/ens4",
                 "GroupSet": [
                     {
-                        "Ref": "MgmtInstanceSecurityGroup"
+                        "Ref": "AgentSecurityGroup"
                     }
                 ],
                 "SourceDestCheck": "true",
                 "SubnetId": {
-                    "Ref": "StackPrivateSubnetA"
+                    "Ref": "AgentControlSubnet"
                 },
                 "Tags": [
                     {
@@ -1424,12 +1412,12 @@
                 "Description": "Server Agent eth1/ens5",
                 "GroupSet": [
                     {
-                        "Ref": "MgmtInstanceSecurityGroup"
+                        "Ref": "AgentSecurityGroup"
                     }
                 ],
                 "SourceDestCheck": "true",
                 "SubnetId": {
-                    "Ref": "StackPrivateSubnetC"
+                    "Ref": "AgentTestSubnet"
                 },
                 "Tags": [
                     {
@@ -1472,7 +1460,7 @@
                 ],
                 "SourceDestCheck": "true",
                 "SubnetId": {
-                    "Ref": "StackPublicSubnetA"
+                    "Ref": "ControllerManagementSubnet"
                 },
                 "Tags": [
                     {
