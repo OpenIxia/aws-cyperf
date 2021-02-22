@@ -33,7 +33,7 @@
             "us-west-2" : {
                 "AMIxAPPLICATION" : "ami-02fa258e7dd8f3259",
                 "AMIxBROKER" : "ami-07323fd37d17b2d33",
-                "AMIxAGENT" : "ami-0fc329a8ae6a6f2f8",
+                "AMIxAGENT" : "ami-0f67175422ded4dbf",
                 "AMIxLICENSE" : "ami-00000000000000000",
                 "EC2xCONNECTxCIDR" : "18.237.140.160/29",
                 "EC2xREGION" : "US West (Oregon)",
