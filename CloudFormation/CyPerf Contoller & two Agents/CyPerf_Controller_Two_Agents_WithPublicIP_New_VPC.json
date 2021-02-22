@@ -675,6 +675,15 @@
                         "FromPort": "22",
                         "IpProtocol": "tcp",
                         "ToPort": "22"
+                    },
+		    {
+                        "CidrIp": {
+                            "Ref": "AllowedSubnet"
+                        },
+                        "Description": "Custom TCP",
+                        "FromPort": "22",
+                        "IpProtocol": "tcp",
+                        "ToPort": "22"
                     }
                 ],
                 "Tags": [
