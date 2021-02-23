@@ -1288,7 +1288,6 @@
             "Type": "AWS::EC2::RouteTable"
         },
         "ControllerManagementSubnetRouteTable": {
-            "Condition" : "CreatePrivateSubnets",
             "DependsOn": "ControllerManagementSubnet",
             "Properties": {
                 "RouteTableId": {
