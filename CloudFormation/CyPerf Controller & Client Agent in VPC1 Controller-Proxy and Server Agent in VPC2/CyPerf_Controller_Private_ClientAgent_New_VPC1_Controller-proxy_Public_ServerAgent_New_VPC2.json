@@ -1290,7 +1290,7 @@
                                         ]
                                     ]
                                 },
-                                " >> /root/Appsec_init\n"
+                                " >> /var/log/Appsec_init.log\n"
                             ]
                         ]
                     }
@@ -1388,7 +1388,7 @@
                                         ]
                                     ]
                                 },
-                                " >> /root/Appsec_init\n"
+                                " >> /var/log/Appsec_init.log\n"
                             ]
                         ]
                     }

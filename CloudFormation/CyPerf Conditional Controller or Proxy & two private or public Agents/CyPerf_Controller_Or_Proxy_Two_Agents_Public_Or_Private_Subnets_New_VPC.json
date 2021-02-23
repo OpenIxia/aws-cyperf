@@ -1019,7 +1019,7 @@
                                                 ]
                                             ]
                                         },
-                                        " >> /var/log/syslog\n"
+                                        " >> /var/log/Appsec_init.log\n"
                                     ]
                                 ]
                             }
@@ -1147,7 +1147,7 @@
                                                 ]
                                             ]
                                         },
-                                        " >> /var/log/syslog\n"
+                                        " >> /var/log/Appsec_init.log\n"
                                     ]
                                 ]
                             }

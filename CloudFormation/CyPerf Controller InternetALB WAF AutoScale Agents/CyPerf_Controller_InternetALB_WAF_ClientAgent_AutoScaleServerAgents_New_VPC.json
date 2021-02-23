@@ -704,7 +704,7 @@
                                     ]
                                 },
                                 " --behind-alb",
-                                " >> /root/Appsec_init\n"
+                                " >> /var/log/Appsec_init.log\n"
                             ]
                         ]
                     }
@@ -1177,7 +1177,7 @@
                                     ]
                                 },
                                 " --behind-alb",
-                                " >> /root/Appsec_init\n"
+                                " >> /var/log/Appsec_init.log\n"
                             ]
                         ]
                     }
