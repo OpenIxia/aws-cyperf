@@ -199,8 +199,8 @@
                         "default": "CyPerf Controller Configuration"
                     },
                     "Parameters": [
-                        "ControllerNetworkCIDR",
-                        "ControllerDeploymentType"
+                        "ControllerDeploymentType",
+                        "ControllerNetworkCIDR"
                     ]
                 },
                 {
@@ -208,11 +208,14 @@
                         "default": "CyPerf Agent Configuration"
                     },
                     "Parameters": [
-                        "InstanceTypeForCyPerfAgent",
-                        "KeyNameForCyPerfAgent",
+                        "DeployClientAgent",
+                        "DeployServerAgent",
                         "AgentEnvType",
                         "AgentControlCIDR",
-                        "AgentTestCIDR"
+                        "AgentTestCIDR",
+                        "InstanceTypeForCyPerfAgent",
+                        "KeyNameForCyPerfAgent",
+                        "Controller"
                      ]
                 },
                 {
@@ -235,10 +238,16 @@
                     "default": "SSH Key"
                 },
                 "ControllerDeploymentType": {
-                    "default": "CyPerf Controller/UI or Controller-proxy"
+                    "default": "CyPerf Controller/UI, Controller-proxy or None"
                 }, 
                 "ControllerNetworkCIDR": {
                     "default": "Management Subnet for CyPerf Controller"
+                },
+                "DeployClientAgent": {
+                    "default": "Deploy Client Agent"
+                },
+                "DeployServerAgent": {
+                    "default": "Deploy Server Agent"
                 },
                 "AgentEnvType": {
                     "default": "Select CyPerf Agent's subnet type"
@@ -254,6 +263,9 @@
                 },
                 "VPCCIDR": {
                     "default": "VPC"
+                },
+                "Controller": {
+                    "Default": "Controller IP"
                 }
             }
         }
@@ -277,19 +289,24 @@
                         ]
                     ]
                     },
-                    {
-                        "Fn::Join": [
-                            "",
-                            [
-                                {
-                                    "Fn::GetAtt": [
-                                        "CyPerfControllerProxy",
-                                        "PublicDnsName"
-                                    ]
-                                }
+                    {"Fn::If" : [
+                        "CreateControllerProxy",
+                        {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Fn::GetAtt": [
+                                            "CyPerfControllerProxy",
+                                            "PublicDnsName"
+                                        ]
+                                    }
+                                ]
                             ]
-                        ]
-                        }
+                        },
+                        "No Controller deployed from this template"
+                    ]
+                    }
                 ]
             }
         }
@@ -325,11 +342,25 @@
             "Type": "String"
         },
         "ControllerDeploymentType" : {
-            "Description" : "If Contoller deployment type is 'controller', CyPerf controller will be dployed and Agents will registered to controller. If type is 'controller-proxy', CyPerf controller-proxy will be dployed and Agents will registered to controller-proxy",
+            "Description" : "If Contoller deployment type is 'controller', CyPerf controller will be dployed and Agents will registered to controller. If type is 'controller-proxy', CyPerf controller-proxy will be dployed and Agents will registered to controller-proxy. If type is 'None', No CyPerf controller/controller-proxy will be dployed.",
             "Default" : "controller",
             "Type" : "String",
-            "AllowedValues" : ["controller", "controller-proxy"],
-            "ConstraintDescription" : "must specify controller or controller-proxy."
+            "AllowedValues" : ["controller", "controller-proxy", "None"],
+            "ConstraintDescription" : "must specify controller , controller-proxy or None"
+        },
+        "DeployClientAgent" : {
+            "Description" : "Want to deploy Client Agent?",
+            "Default" : "yes",
+            "Type" : "String",
+            "AllowedValues" : ["yes", "no"],
+            "ConstraintDescription" : "must specify yes or no."
+        },
+        "DeployServerAgent" : {
+            "Description" : "Want to deploy Server Agent?",
+            "Default" : "yes",
+            "Type" : "String",
+            "AllowedValues" : ["yes", "no"],
+            "ConstraintDescription" : "must specify yes or no."
         },
         "AgentEnvType" : {
             "Description" : "If subnnet type is 'private', Agents will be placed in private subnet behind NAT-Gatway. If 'public' Agent will be public via IGW & Elastic IP will allocated",
@@ -383,13 +414,63 @@
             "MaxLength": "18",
             "MinLength": "9",
             "Type": "String"
+        },
+        "Controller": {
+            "Default": "<Specify CyPerf Controller/ Controller Proxy's IP when No Controller/ Controller Proxy is deployed using this template>",
+            "Description": "CyPerf Controller/ Contoller Proxy IP for Agent peering, if Controller not deployed from this template",
+            "Type": "String"
         }
     },
     "Conditions" : {
         "CreatePublicSubnets" : {"Fn::Equals" : [{"Ref" : "AgentEnvType"}, "public"]},
         "CreatePrivateSubnets" : {"Fn::Equals" : [{"Ref" : "AgentEnvType"}, "private"]},
         "CreateController" : {"Fn::Equals" : [{"Ref" : "ControllerDeploymentType"}, "controller"]},
-        "CreateControllerProxy" : {"Fn::Equals" : [{"Ref" : "ControllerDeploymentType"}, "controller-proxy"]}
+        "CreateControllerProxy" : {"Fn::Equals" : [{"Ref" : "ControllerDeploymentType"}, "controller-proxy"]},
+        "NoControllerOrProxy" : {"Fn::Equals" : [{"Ref" : "ControllerDeploymentType"}, "None"]},
+        "CreateClientAgent" : {"Fn::Equals" : [{"Ref" : "DeployClientAgent"}, "yes"]},
+        "CreateServerAgent" : {"Fn::Equals" : [{"Ref" : "DeployServerAgent"}, "yes"]},
+        "CreateClientOrServer": {
+            "Fn::Or": [
+               {"Condition": "CreateClientAgent"},
+               {"Condition": "CreateServerAgent"}
+            ]
+        },
+        "CreatePrivateAgentResources" : {
+            "Fn::And": [
+               {"Condition": "CreateClientOrServer"},
+               {"Condition": "CreatePrivateSubnets"}
+            ]
+        },
+        "CreatePublicAgentResources" : {
+            "Fn::And": [
+               {"Condition": "CreateClientOrServer"},
+               {"Condition": "CreatePublicSubnets"}
+            ]
+        },
+        "CreateControllerResouces": {
+            "Fn::Or": [
+               {"Condition": "CreateController"},
+               {"Condition": "CreateControllerProxy"}
+            ]
+        },
+        "CreatePublicResources" : {
+            "Fn::Or": [
+               {"Condition": "CreateControllerResouces"},
+               {"Condition": "CreatePublicAgentResources"}
+            ]
+        },
+        "CreateEIPforClientAgent" : {
+            "Fn::And": [
+               {"Condition": "CreateClientAgent"},
+               {"Condition": "CreatePublicSubnets"}
+            ]
+        },
+        "CreateEIPforServerAgent" : {
+            "Fn::And": [
+               {"Condition": "CreateServerAgent"},
+               {"Condition": "CreatePublicSubnets"}
+            ]
+        }
     },
     "Resources": {
         "DhcpOptionsAssociation": {
@@ -817,6 +898,7 @@
             "Type": "AWS::EC2::Instance"
         },
         "AgentSecurityGroup": {
+            "Condition" : "CreateClientOrServer",
             "Properties": {
                 "GroupDescription": "Allow restricted-access to launched Instances",
                 "SecurityGroupEgress": [
@@ -920,7 +1002,7 @@
         },
         "Nat": {
             "DependsOn": "ControllerManagementSubnet",
-            "Condition" : "CreatePrivateSubnets",
+            "Condition" : "CreatePrivateAgentResources",
             "Properties": {
                 "AllocationId": {
                     "Fn::GetAtt": [
@@ -935,7 +1017,7 @@
             "Type": "AWS::EC2::NatGateway"
         },
         "NatEip": {
-            "Condition" : "CreatePrivateSubnets",
+            "Condition" : "CreatePrivateAgentResources",
             "Properties": {
                 "Domain": "vpc"
             },
@@ -943,7 +1025,7 @@
         },
         "NatRoute": {
             "DependsOn": "ControllerManagementSubnet",
-            "Condition" : "CreatePrivateSubnets",
+            "Condition" : "CreatePrivateAgentResources",
             "Properties": {
                 "DestinationCidrBlock": "0.0.0.0/0",
                 "NatGatewayId": {
@@ -957,10 +1039,11 @@
         },
         "ClientAgent": {
             "DependsOn": [
-                "svreth0",
-                "svreth1",
+                "clieth0",
+                "clieth1",
                 "EC2InstanceProfile"
             ],
+            "Condition" : "CreateClientAgent",
             "Properties": {
                 "BlockDeviceMappings": [
                     {
@@ -1024,32 +1107,58 @@
                                 ]
                             }
                         },
-                        {
-                            "Fn::Base64": {
-                                "Fn::Join": [
-                                    "",
-                                    [
-                                        "#!/bin/bash -xe\n",
-                                        "cd /opt/keysight/tiger/active/bin/\n",
-                                        "sh /opt/keysight/tiger/active/bin/Appsec_init ",
-                                        {
-                                            "Fn::Join": [
-                                                "",
-                                                [
-                                                    {
-                                                        "Fn::GetAtt": [
-                                                            "CyPerfControllerProxy",
-                                                            "PrivateIp"
-                                                        ]
-                                                    }
+                        {"Fn::If" : [ 
+                            "CreateControllerProxy",
+                            {
+                                "Fn::Base64": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "#!/bin/bash -xe\n",
+                                            "cd /opt/keysight/tiger/active/bin/\n",
+                                            "sh /opt/keysight/tiger/active/bin/Appsec_init ",
+                                            {
+                                                "Fn::Join": [
+                                                    "",
+                                                    [
+                                                        {
+                                                            "Fn::GetAtt": [
+                                                                "CyPerfControllerProxy",
+                                                                "PrivateIp"
+                                                            ]
+                                                        }
+                                                    ]
                                                 ]
-                                            ]
-                                        },
-                                        " >> /var/log/syslog\n"
+                                            },
+                                            " >> /var/log/syslog\n"
+                                        ]
                                     ]
-                                ]
+                                }
+                            },
+                            {
+                                "Fn::Base64": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "#!/bin/bash -xe\n",
+                                            "cd /opt/keysight/tiger/active/bin/\n",
+                                            "sh /opt/keysight/tiger/active/bin/Appsec_init ",
+                                            {
+                                                "Fn::Join": [
+                                                    "",
+                                                    [
+                                                        {
+                                                            "Ref": "Controller"   
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            " >> /var/log/Appsec_init.log\n"
+                                        ]
+                                    ]
+                                }
                             }
-                        }
+                        ]}
                     ]
                 },
                 "Tags": [
@@ -1089,6 +1198,7 @@
                 "svreth1",
                 "EC2InstanceProfile"
             ],
+            "Condition" : "CreateServerAgent",
             "Properties": {
                 "BlockDeviceMappings": [
                     {
@@ -1152,32 +1262,58 @@
                                 ]
                             }
                         },
-                        {
-                            "Fn::Base64": {
-                                "Fn::Join": [
-                                    "",
-                                    [
-                                        "#!/bin/bash -xe\n",
-                                        "cd /opt/keysight/tiger/active/bin/\n",
-                                        "sh /opt/keysight/tiger/active/bin/Appsec_init ",
-                                        {
-                                            "Fn::Join": [
-                                                "",
-                                                [
-                                                    {
-                                                        "Fn::GetAtt": [
-                                                            "CyPerfControllerProxy",
-                                                            "PrivateIp"
-                                                        ]
-                                                    }
+                        {"Fn::If" : [ 
+                            "CreateControllerProxy",
+                            {
+                                "Fn::Base64": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "#!/bin/bash -xe\n",
+                                            "cd /opt/keysight/tiger/active/bin/\n",
+                                            "sh /opt/keysight/tiger/active/bin/Appsec_init ",
+                                            {
+                                                "Fn::Join": [
+                                                    "",
+                                                    [
+                                                        {
+                                                            "Fn::GetAtt": [
+                                                                "CyPerfControllerProxy",
+                                                                "PrivateIp"
+                                                            ]
+                                                        }
+                                                    ]
                                                 ]
-                                            ]
-                                        },
-                                        " >> /var/log/syslog\n"
+                                            },
+                                            " >> /var/log/syslog\n"
+                                        ]
                                     ]
-                                ]
+                                }
+                            },
+                            {
+                                "Fn::Base64": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "#!/bin/bash -xe\n",
+                                            "cd /opt/keysight/tiger/active/bin/\n",
+                                            "sh /opt/keysight/tiger/active/bin/Appsec_init ",
+                                            {
+                                                "Fn::Join": [
+                                                    "",
+                                                    [
+                                                        {
+                                                            "Ref": "Controller"   
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            " >> /var/log/Appsec_init.log\n"
+                                        ]
+                                    ]
+                                }
                             }
-                        }
+                        ]}
                     ]
                 },
                 "Tags": [
@@ -1212,6 +1348,7 @@
             "Type": "AWS::EC2::Instance"
         },
         "PrivateRouteTable": {
+            "Condition" : "CreatePrivateAgentResources",
             "Properties": {
                 "Tags": [
                     {
@@ -1236,7 +1373,7 @@
             "Type": "AWS::EC2::RouteTable"
         },
         "AgentControlSubnetRouteTable": {
-            "Condition" : "CreatePrivateSubnets",
+            "Condition" : "CreatePrivateAgentResources",
             "DependsOn": "AgentControlSubnet",
             "Properties": {
                 "RouteTableId": {
@@ -1249,6 +1386,7 @@
             "Type": "AWS::EC2::SubnetRouteTableAssociation"
         },
         "AgentTestSubnetRouteTable": {
+            "Condition" : "CreateClientOrServer",
             "DependsOn": "AgentTestSubnet",
             "Properties": {
                 "RouteTableId": { "Fn::If" : [
@@ -1264,6 +1402,7 @@
             "Type": "AWS::EC2::SubnetRouteTableAssociation"
         },
         "PublicRouteTable": {
+            "Condition" : "CreatePublicResources",
             "Properties": {
                 "Tags": [
                     {
@@ -1288,6 +1427,7 @@
             "Type": "AWS::EC2::RouteTable"
         },
         "ControllerManagementSubnetRouteTable": {
+            "Condition" : "CreatePublicResources", 
             "DependsOn": "ControllerManagementSubnet",
             "Properties": {
                 "RouteTableId": {
@@ -1300,6 +1440,7 @@
             "Type": "AWS::EC2::SubnetRouteTableAssociation"
         },
         "RouteToInternet": {
+            "Condition" : "CreatePublicResources",
             "DependsOn": "InternetGatewayAttachment",
             "Properties": {
                 "DestinationCidrBlock": "0.0.0.0/0",
@@ -1313,7 +1454,7 @@
             "Type": "AWS::EC2::Route"
         },
         "AgentControlSubnet": {
-            "Condition" : "CreatePrivateSubnets",
+            "Condition" : "CreatePrivateAgentResources",
             "Properties": {
                 "AvailabilityZone": {
                     "Ref": "AvailabilityZone"
@@ -1356,6 +1497,7 @@
             "Type": "AWS::EC2::Subnet"
         },
         "AgentTestSubnet": {
+            "Condition" : "CreateClientOrServer",
             "Properties": {
                 "AvailabilityZone": {
                     "Ref": "AvailabilityZone"
@@ -1398,6 +1540,7 @@
             "Type": "AWS::EC2::Subnet"
         },
         "ControllerManagementSubnet": {
+            "Condition" : "CreatePublicResources",
             "Properties": {
                 "AvailabilityZone": {
                     "Ref": "AvailabilityZone"
@@ -1533,14 +1676,14 @@
 		},
         "ClientControlAddress" : {
             "Type" : "AWS::EC2::EIP",
-            "Condition" : "CreatePublicSubnets",
+            "Condition" : "CreateEIPforClientAgent",
             "Properties" : {
                 "Domain" : "vpc"
             }
         },
         "AssociateClientControlInterface" : {
             "Type" : "AWS::EC2::EIPAssociation",
-            "Condition" : "CreatePublicSubnets",
+            "Condition" : "CreateEIPforClientAgent",
             "Properties" : {
                 "AllocationId" : { "Fn::GetAtt" : [ "ClientControlAddress", "AllocationId" ]},
                 "NetworkInterfaceId" : { "Ref" : "clieth0" }
@@ -1548,20 +1691,51 @@
         },
         "ServerControlAddress" : {
             "Type" : "AWS::EC2::EIP",
-            "Condition" : "CreatePublicSubnets",
+            "Condition" : "CreateEIPforServerAgent",
             "Properties" : {
                 "Domain" : "vpc"
             }
         },
         "AssociateServerControlInterface" : {
             "Type" : "AWS::EC2::EIPAssociation",
-            "Condition" : "CreatePublicSubnets",
+            "Condition" : "CreateEIPforServerAgent",
             "Properties" : {
                 "AllocationId" : { "Fn::GetAtt" : [ "ServerControlAddress", "AllocationId" ]},
                 "NetworkInterfaceId" : { "Ref" : "svreth0" }
             }
         },
+        "ClientTestAddress" : {
+            "Type" : "AWS::EC2::EIP",
+            "Condition" : "CreateEIPforClientAgent",
+            "Properties" : {
+                "Domain" : "vpc"
+            }
+        },
+        "AssociateClientTestInterface" : {
+            "Type" : "AWS::EC2::EIPAssociation",
+            "Condition" : "CreateEIPforClientAgent",
+            "Properties" : {
+                "AllocationId" : { "Fn::GetAtt" : [ "ClientTestAddress", "AllocationId" ]},
+                "NetworkInterfaceId" : { "Ref" : "clieth1" }
+            }
+        },
+        "ServerTestAddress" : {
+            "Type" : "AWS::EC2::EIP",
+            "Condition" : "CreateEIPforServerAgent",
+            "Properties" : {
+                "Domain" : "vpc"
+            }
+        },
+        "AssociateServerTestInterface" : {
+            "Type" : "AWS::EC2::EIPAssociation",
+            "Condition" : "CreateEIPforServerAgent",
+            "Properties" : {
+                "AllocationId" : { "Fn::GetAtt" : [ "ServerTestAddress", "AllocationId" ]},
+                "NetworkInterfaceId" : { "Ref" : "svreth1" }
+            }
+        },
         "clieth0": {
+            "Condition" : "CreateClientAgent",
             "Properties": {
                 "Description": "Client Agent eth0/ens4",
                 "GroupSet": [
@@ -1608,6 +1782,7 @@
             "Type": "AWS::EC2::NetworkInterface"
         },
         "clieth1": {
+            "Condition" : "CreateClientAgent",
             "Properties": {
                 "Description": "Client Agent eth1/ens5",
                 "GroupSet": [
@@ -1651,6 +1826,7 @@
             "Type": "AWS::EC2::NetworkInterface"
         },
         "svreth0": {
+            "Condition" : "CreateServerAgent",
             "Properties": {
                 "Description": "Server Agent eth0/ens4",
                 "GroupSet": [
@@ -1697,6 +1873,7 @@
             "Type": "AWS::EC2::NetworkInterface"
         },
         "svreth1": {
+            "Condition" : "CreateServerAgent",
             "Properties": {
                 "Description": "Server Agent eth1/ens5",
                 "GroupSet": [
