@@ -723,7 +723,7 @@
                                     {
                                         "Ref": "AWS::StackName"
                                     },
-                                    "Application"
+                                    "Controller-proxy"
                                 ]
                             ]
                         }
