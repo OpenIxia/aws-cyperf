@@ -679,7 +679,7 @@
                 },
                 "SecurityGroups": [
                     {
-                        "Ref": "AgentSecurityGroup"
+                        "Ref": "MgmtInstanceSecurityGroup"
                     }
                 ],
                 "UserData": {
@@ -871,14 +871,14 @@
             "Type": "AWS::EC2::SecurityGroup"
         },
         "LoadBalancerSecurityGroup": {
-            "DependsOn": "AgentSecurityGroup",
+            "DependsOn": "MgmtInstanceSecurityGroup",
             "Properties": {
                 "GroupDescription": "Allow restricted-access to launched Instances",
                 "SecurityGroupEgress": [
                     {
                         "SourceSecurityGroupId": {
                             "Fn::GetAtt": [
-                               "AgentSecurityGroup",
+                               "MgmtInstanceSecurityGroup",
                                "GroupId"
                             ]
                         },
@@ -890,7 +890,7 @@
                     {
                         "SourceSecurityGroupId": {
                             "Fn::GetAtt": [
-                               "AgentSecurityGroup",
+                               "MgmtInstanceSecurityGroup",
                                "GroupId"
                             ]
                         },
@@ -950,7 +950,7 @@
             },
             "Type": "AWS::EC2::SecurityGroup"
         },
-        "AgentSecurityGroup": {
+        "MgmtInstanceSecurityGroup": {
             "Properties": {
                 "GroupDescription": "Allow restricted-access to launched Instances",
                 "SecurityGroupEgress": [
@@ -1831,7 +1831,7 @@
                 "Description": "Client Agent eth0",
                 "GroupSet": [
                     {
-                        "Ref": "AgentSecurityGroup"
+                        "Ref": "MgmtInstanceSecurityGroup"
                     }
                 ],
                 "SourceDestCheck": "true",

@@ -218,7 +218,7 @@
                     "Parameters": [
                         "ControllerProxySecurityGroup",
                         "LoadBalancerSecurityGroup",
-                        "AgentSecurityGroup"
+                        "MgmtInstanceSecurityGroup"
                     ]
                 }
             ],
@@ -262,7 +262,7 @@
                 "VPC": {
                     "default": "VPC"
                 },
-                "AgentSecurityGroup": {
+                "MgmtInstanceSecurityGroup": {
                     "default": "Security group for CyPerf Agent"
                 },
                 "LoadBalancerSecurityGroup": {
@@ -368,7 +368,7 @@
             "Description": "Load Balancer Security group",
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
-        "AgentSecurityGroup": {
+        "MgmtInstanceSecurityGroup": {
             "Default": "<Select CyPerf Agent security group from drop down>",
             "Description": "CyPerf Agent Security group",
             "Type": "AWS::EC2::SecurityGroup::Id"
@@ -602,7 +602,7 @@
                 },
                 "SecurityGroups": [
                     {
-                        "Ref": "AgentSecurityGroup"
+                        "Ref": "MgmtInstanceSecurityGroup"
                     }
                 ],
                 "UserData": {
@@ -976,7 +976,7 @@
                 "Description": "Client Agent eth0",
                 "GroupSet": [
                     {
-                        "Ref": "AgentSecurityGroup"
+                        "Ref": "MgmtInstanceSecurityGroup"
                     }
                 ],
                 "SourceDestCheck": "true",

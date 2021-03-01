@@ -15,7 +15,7 @@
             "us-east-2" : {
                 "AMIxAPPLICATION" : "ami-06f169dacde1d6cd6",
                 "AMIxBROKER" : "ami-053f8a2338b06c626",
-                "AMIxAGENT" : "ami-031831c02869f25b4",
+                "AMIxAGENT" : "ami-0a361eb3a91f2daeb",
                 "AMIxLICENSE" : "ami-00000000000000000",
                 "EC2xCONNECTxCIDR" : "3.16.146.0/29",
                 "EC2xREGION" : "US East (Ohio)",
@@ -679,7 +679,7 @@
                 },
                 "SecurityGroups": [
                     {
-                        "Ref": "AgentSecurityGroup"
+                        "Ref": "MgmtInstanceSecurityGroup"
                     }
                 ],
                 "UserData": {
@@ -853,14 +853,14 @@
             "Type": "AWS::EC2::SecurityGroup"
         },
         "LoadBalancerSecurityGroup": {
-            "DependsOn": "AgentSecurityGroup",
+            "DependsOn": "MgmtInstanceSecurityGroup",
             "Properties": {
                 "GroupDescription": "Allow restricted-access to launched Instances",
                 "SecurityGroupEgress": [
                     {
                         "SourceSecurityGroupId": {
                             "Fn::GetAtt": [
-                               "AgentSecurityGroup",
+                               "MgmtInstanceSecurityGroup",
                                "GroupId"
                             ]
                         },
@@ -872,7 +872,7 @@
                     {
                         "SourceSecurityGroupId": {
                             "Fn::GetAtt": [
-                               "AgentSecurityGroup",
+                               "MgmtInstanceSecurityGroup",
                                "GroupId"
                             ]
                         },
@@ -932,7 +932,7 @@
             },
             "Type": "AWS::EC2::SecurityGroup"
         },
-        "AgentSecurityGroup": {
+        "MgmtInstanceSecurityGroup": {
             "Properties": {
                 "GroupDescription": "Allow restricted-access to launched Instances",
                 "SecurityGroupEgress": [
@@ -1813,7 +1813,7 @@
                 "Description": "Client Agent eth0",
                 "GroupSet": [
                     {
-                        "Ref": "AgentSecurityGroup"
+                        "Ref": "MgmtInstanceSecurityGroup"
                     }
                 ],
                 "SourceDestCheck": "true",
