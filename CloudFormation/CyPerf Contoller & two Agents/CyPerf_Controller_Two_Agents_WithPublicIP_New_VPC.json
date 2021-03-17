@@ -4,7 +4,7 @@
     "Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
-				"AMIxAPPLICATION" : "ami-09a4e5f2fed2ddfb6",
+				"AMIxAPPLICATION" : "ami-07371a0f55a8fadc4",
 				"AMIxBROKER" : "ami-0bc11d3fda361ad28",
 				"AMIxAGENT" : "ami-0e6c101d541ff04cf",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -13,7 +13,7 @@
 				"REGIONxTAG" : "US_EAST_1"
 			},
 			"us-east-2" : {
-				"AMIxAPPLICATION" : "ami-06f169dacde1d6cd6",
+				"AMIxAPPLICATION" : "ami-06f5a2c7ee5bea0e7",
 				"AMIxBROKER" : " ami-03dbe57ba8fd19d46",
 				"AMIxAGENT" : "ami-0538568e379542807",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -22,7 +22,7 @@
 				"REGIONxTAG" : "US_EAST_2"
 			},
 			"us-west-1" : {
-				"AMIxAPPLICATION" : "ami-032fc9afd8fab2c3a",
+				"AMIxAPPLICATION" : "ami-0b37b651f46b9653b",
 				"AMIxBROKER" : "ami-0a48f1aa57dfaa214",
 				"AMIxAGENT" : "ami-0dab36bc89e8f4615",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -31,7 +31,7 @@
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxAPPLICATION" : "ami-02fa258e7dd8f3259",
+				"AMIxAPPLICATION" : "ami-0fd2a407e3e37b530",
 				"AMIxBROKER" : "ami-0a68d15ba3a9f5194",
 				"AMIxAGENT" : "ami-05c45c544bbb03a4e",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -49,7 +49,7 @@
 				"REGIONxTAG" : "AP_EAST_1"
 			},
 			"ap-south-1" : {
-				"AMIxAPPLICATION" : "ami-0a26b6ce9bbc9a2aa",
+				"AMIxAPPLICATION" : "ami-0b1161a22acabc5f4",
 				"AMIxBROKER" : "ami-0791ba6e8f4139336",
 				"AMIxAGENT" : "ami-08ac5c9e50a538fee",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -58,7 +58,7 @@
 				"REGIONxTAG" : "AP_SOUTH_1"
 			},
 			"ap-northeast-2" : {
-				"AMIxAPPLICATION" : "ami-08731420cb466aa3c",
+				"AMIxAPPLICATION" : "ami-096f90da17ffde14c",
 				"AMIxBROKER" : "ami-0a83cbe2cb4cfc1f6",
 				"AMIxAGENT" : "ami-05b842d11e966b382",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -67,7 +67,7 @@
 				"REGIONxTAG" : "AP_NORTHEAST_2"
 			},
 			"ap-southeast-1" : {
-				"AMIxAPPLICATION" : "ami-0fb39244502c87171",
+				"AMIxAPPLICATION" : "ami-01247f0a0c707965d",
 				"AMIxBROKER" : "ami-08d524442b211adab",
 				"AMIxAGENT" : "ami-00263161ad6e38d6c",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -76,7 +76,7 @@
 				"REGIONxTAG" : "AP_SOUTHEAST_1"
 			},
 			"ap-southeast-2" : {
-				"AMIxAPPLICATION" : "ami-048bd6fd3464ae457",
+				"AMIxAPPLICATION" : "ami-05ad9e270b6f3b207",
 				"AMIxBROKER" : "ami-02be56bb04f6723d2",
 				"AMIxAGENT" : "ami-0b000cbbcfe47f0f7",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -85,7 +85,7 @@
 				"REGIONxTAG" : "AP_SOUTHEAST_2"
 			},
 			"ap-northeast-1" : {
-				"AMIxAPPLICATION" : "ami-06ff67bc14ac8b054",
+				"AMIxAPPLICATION" : "ami-0865fbd6ddab87aab",
 				"AMIxBROKER" : "ami-09a79cdf3d401d7dc",
 				"AMIxAGENT" : "ami-06740392b3bc74f95",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -94,7 +94,7 @@
 				"REGIONxTAG" : "AP_NORTHEAST_1"
 			},
 			"ca-central-1" : {
-				"AMIxAPPLICATION" : "ami-057bc8a6df4a2f43b",
+				"AMIxAPPLICATION" : "ami-0f5f47ec6fe49c362",
 				"AMIxBROKER" : "ami-0fbf2b75ed7952f87",
 				"AMIxAGENT" : "ami-0f5009ecda3d1de59",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -103,7 +103,7 @@
 				"REGIONxTAG" : "CA_CENTRAL_1"
 			},
 			"eu-central-1" : {
-				"AMIxAPPLICATION" : "ami-0391ce707dcb6f5b5",
+				"AMIxAPPLICATION" : "ami-039104685bb0f1112",
 				"AMIxBROKER" : "ami-0df49a0051b83b890",
 				"AMIxAGENT" : "ami-0a35ebea78de9d807",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -112,7 +112,7 @@
 				"REGIONxTAG" : "EU_CENTRAL_1"
 			},
 			"eu-west-1" : {
-				"AMIxAPPLICATION" : "ami-0c42a948112fc0100",
+				"AMIxAPPLICATION" : "ami-02c3fcb1401b44aab",
 				"AMIxBROKER" : "ami-054e0851a9bf2979c",
 				"AMIxAGENT" : "ami-0298ad268276a4ad8",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -121,7 +121,7 @@
 				"REGIONxTAG" : "EU_WEST_1"
 			},
 			"eu-west-2" : {
-				"AMIxAPPLICATION" : "ami-0799beead956a5bac",
+				"AMIxAPPLICATION" : "ami-00222b285945f9bde",
 				"AMIxBROKER" : "ami-0381a0ed979825748",
 				"AMIxAGENT" : "ami-05c27a3d0f8ded010",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -130,7 +130,7 @@
 				"REGIONxTAG" : "EU_WEST_2"
 			},
 			"eu-west-3" : {
-				"AMIxAPPLICATION" : "ami-0f2cfe3cc155160f5",
+				"AMIxAPPLICATION" : "ami-0785bafe0891cab59",
 				"AMIxBROKER" : "ami-03a615a455d703816",
 				"AMIxAGENT" : "ami-057760666e821f7f0",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -139,7 +139,7 @@
 				"REGIONxTAG" : "EU_WEST_3"
 			},
 			"eu-north-1" : {
-				"AMIxAPPLICATION" : "ami-0d4ee63e5d1fe8b42",
+				"AMIxAPPLICATION" : "ami-0789acf3300f76d34",
 				"AMIxBROKER" : "ami-04133d9f20ce9f4c4",
 				"AMIxAGENT" : "ami-0bd7a2f6b66f53b8f",
 				"AMIxLICENSE" : "ami-00000000000000000",
@@ -157,7 +157,7 @@
 				"REGIONxTAG" : "ME_SOUTH_1"
 			},
 			"sa-east-1" : {
-				"AMIxAPPLICATION" : "ami-014db078e9b8c0bc3",
+				"AMIxAPPLICATION" : "ami-02c5c1a094cdda4eb",
 				"AMIxBROKER" : "ami-044e6a79723ded6c7",
 				"AMIxAGENT" : "ami-04607dacbd1426e8c",
 				"AMIxLICENSE" : "ami-00000000000000000",
