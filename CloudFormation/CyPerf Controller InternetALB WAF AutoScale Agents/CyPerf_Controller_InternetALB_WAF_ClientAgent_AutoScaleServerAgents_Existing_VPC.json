@@ -6,7 +6,7 @@
 			"us-east-1" : {
 				"AMIxAPPLICATION" : "ami-07371a0f55a8fadc4",
 				"AMIxBROKER" : "ami-0bc11d3fda361ad28",
-				"AMIxAGENT" : "ami-0e6c101d541ff04cf",
+				"AMIxAGENT" : "ami-0b0f031c77310b51d",
 				"AMIxLICENSE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
 				"EC2xREGION" : "US East (N. Virginia)",
